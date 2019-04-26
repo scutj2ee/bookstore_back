@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.ClassificationMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.models.Classification">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cname" jdbcType="VARCHAR" property="cname" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from classification
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.models.Classification">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into classification (cname, parent_id, `type`
+      )
+    values (#{cname,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.models.Classification">
+    update classification
+    set cname = #{cname,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, cname, parent_id, `type`
+    from classification
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, cname, parent_id, `type`
+    from classification
+  </select>
+</mapper>

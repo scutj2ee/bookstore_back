@@ -1,0 +1,54 @@
+#端口
+server:
+  port: 8888
+  tomcat:
+    uri-encoding: UTF-8
+
+#编码
+spring:
+  http:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+  #数据库连接
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/scutmall?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone = GMT&autoReconnect=true
+    username: root
+    password: 1234
+    #druid配置
+    druid:
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 'x'
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat
+      web-stat-filter.enabled: true
+      filter.stat.log-slow-sql: true
+      filter.stat.slow-sql-millis: 2000
+      stat-view-servlet.enabled: true
+      stat-view-servlet.url-pattern: /druid/*
+      stat-view-servlet.reset-enable: true
+      stat-view-servlet.login-username: admin
+      stat-view-servlet.login-password: 123456
+      aop-patterns: com.scutj2ee.service.impl.*
+
+#日志
+#logging:
+#  com:
+#    scutj2ee: true
+#mybatis路径
+
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+
+
+

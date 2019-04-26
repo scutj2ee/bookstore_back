@@ -1,4 +1,4 @@
-package com.scutj2ee.bookstore.service.exception;
+package com.scutj2ee.bookstore.exception;
 
 /**
  * @Author kobe
