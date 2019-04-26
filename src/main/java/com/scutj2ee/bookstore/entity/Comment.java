@@ -5,12 +5,12 @@ import java.util.Date;
 
 public class Comment implements Serializable {
     private Integer commentId;
+    private String content;
+    private Date date;
     private Integer bookId;
     private Integer userId;
-    private String username;
-    private Date date;
-    private String content;
-    private Integer flag;
+    private Integer parentId;
+    private Integer replyUserId;
 
     private static final long serialVersionUID = 1L;
 
@@ -20,6 +20,22 @@ public class Comment implements Serializable {
 
     public void setCommentId(Integer commentId) {
         this.commentId = commentId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Integer getBookId() {
@@ -38,40 +54,20 @@ public class Comment implements Serializable {
         this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public Integer getParentId() {
+        return parentId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
-    public Date getDate() {
-        return date;
+    public Integer getReplyUserId() {
+        return replyUserId;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Integer getFlag() {
-        return flag;
-    }
-
-    public void setFlag(Integer flag) {
-        this.flag = flag;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public void setReplyUserId(Integer replyUserId) {
+        this.replyUserId = replyUserId;
     }
 
     @Override
@@ -81,12 +77,12 @@ public class Comment implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", commentId=").append(commentId);
+        sb.append(", content=").append(content);
+        sb.append(", date=").append(date);
         sb.append(", bookId=").append(bookId);
         sb.append(", userId=").append(userId);
-        sb.append(", username=").append(username);
-        sb.append(", date=").append(date);
-        sb.append(", content=").append(content);
-        sb.append(", flag=").append(flag);
+        sb.append(", parentId=").append(parentId);
+        sb.append(", replyUserId=").append(replyUserId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

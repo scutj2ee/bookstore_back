@@ -18,14 +18,14 @@ public class BookInfo implements Serializable {
     private String author;
     private String translator;
     private String isbn;
-    private BigDecimal price;
+    private Double price;
     private Integer pages;
     private String catalog;
-    private BigDecimal marketPrice;
-    private BigDecimal memberPrice;
+    private Double marketPrice;
+    private Double memberPrice;
     private Integer dealMount;
     private Integer lookMount;
-    private BigDecimal discount;
+    private Double discount;
     private String imageUrl;
     private Integer storeMount;
     private Date storeTime;
@@ -138,11 +138,11 @@ public class BookInfo implements Serializable {
         this.isbn = isbn;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -162,19 +162,19 @@ public class BookInfo implements Serializable {
         this.catalog = catalog;
     }
 
-    public BigDecimal getMarketPrice() {
+    public Double getMarketPrice() {
         return marketPrice;
     }
 
-    public void setMarketPrice(BigDecimal marketPrice) {
+    public void setMarketPrice(Double marketPrice) {
         this.marketPrice = marketPrice;
     }
 
-    public BigDecimal getMemberPrice() {
+    public Double getMemberPrice() {
         return memberPrice;
     }
 
-    public void setMemberPrice(BigDecimal memberPrice) {
+    public void setMemberPrice(Double memberPrice) {
         this.memberPrice = memberPrice;
     }
 
@@ -194,11 +194,11 @@ public class BookInfo implements Serializable {
         this.lookMount = lookMount;
     }
 
-    public BigDecimal getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(BigDecimal discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 
