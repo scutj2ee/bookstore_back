@@ -4,7 +4,7 @@ import com.scutj2ee.bookstore.entity.BookInfo;
 
 import java.util.List;
 
-public interface BookInfoMapper {
+public interface BookInfoDao {
     int deleteByPrimaryKey(Integer bookId);
 
     int insert(BookInfo record);

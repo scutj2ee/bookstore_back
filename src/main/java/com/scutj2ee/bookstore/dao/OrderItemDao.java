@@ -4,7 +4,7 @@ import com.scutj2ee.bookstore.entity.OrderItem;
 
 import java.util.List;
 
-public interface OrderItemMapper {
+public interface OrderItemDao {
     int deleteByPrimaryKey(Integer id);
 
     int insert(OrderItem record);

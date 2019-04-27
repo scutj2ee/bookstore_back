@@ -4,7 +4,7 @@ import com.scutj2ee.bookstore.entity.BookCategory;
 
 import java.util.List;
 
-public interface BookCategoryMapper {
+public interface BookCategoryDao {
     int deleteByPrimaryKey(Integer cateId);
 
     int insert(BookCategory record);

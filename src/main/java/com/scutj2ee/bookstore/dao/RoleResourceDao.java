@@ -4,7 +4,7 @@ import com.scutj2ee.bookstore.entity.RoleResource;
 
 import java.util.List;
 
-public interface RoleResourceMapper {
+public interface RoleResourceDao {
     int deleteByPrimaryKey(Integer id);
 
     int insert(RoleResource record);

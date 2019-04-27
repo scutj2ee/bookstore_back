@@ -4,7 +4,7 @@ import com.scutj2ee.bookstore.entity.UserRole;
 
 import java.util.List;
 
-public interface UserRoleMapper {
+public interface UserRoleDao {
     int deleteByPrimaryKey(Integer id);
 
     int insert(UserRole record);

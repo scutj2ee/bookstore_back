@@ -4,7 +4,7 @@ import com.scutj2ee.bookstore.entity.Resource;
 
 import java.util.List;
 
-public interface ResourceMapper {
+public interface ResourceDao {
     int deleteByPrimaryKey(Integer resourceId);
 
     int insert(Resource record);

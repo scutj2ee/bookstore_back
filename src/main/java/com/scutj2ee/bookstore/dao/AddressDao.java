@@ -4,7 +4,7 @@ import com.scutj2ee.bookstore.entity.Address;
 
 import java.util.List;
 
-public interface AddressMapper {
+public interface AddressDao {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Address record);

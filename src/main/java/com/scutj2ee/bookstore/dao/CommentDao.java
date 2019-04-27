@@ -4,7 +4,7 @@ import com.scutj2ee.bookstore.entity.Comment;
 
 import java.util.List;
 
-public interface CommentMapper {
+public interface CommentDao {
     int deleteByPrimaryKey(Integer commentId);
 
     int insert(Comment record);

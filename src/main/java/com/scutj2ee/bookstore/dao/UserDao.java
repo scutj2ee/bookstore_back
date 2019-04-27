@@ -4,7 +4,7 @@ import com.scutj2ee.bookstore.entity.User;
 
 import java.util.List;
 
-public interface UserMapper {
+public interface UserDao {
     int deleteByPrimaryKey(Integer id);
 
     int insert(User record);
@@ -14,4 +14,6 @@ public interface UserMapper {
     List<User> selectAll();
 
     int updateByPrimaryKey(User record);
+
+    User findByUsername(String username);
 }
