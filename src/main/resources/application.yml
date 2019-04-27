@@ -39,6 +39,16 @@ spring:
       stat-view-servlet.login-username: admin
       stat-view-servlet.login-password: 123456
       aop-patterns: com.scutj2ee.service.impl.*
+  #” º˛
+  mail:
+    host: smtp.qq.com
+    username: 1145054472@qq.com
+    password: liubin7887227
+    default-encoding: UTF-8
+
+mail:
+  fromMail:
+    addr: 1145054472@qq.com
 
 #»’÷æ
 #logging:
@@ -49,6 +59,8 @@ spring:
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   config-location: classpath:mybatis/mybatis-config.xml
+
+
 
 
 
