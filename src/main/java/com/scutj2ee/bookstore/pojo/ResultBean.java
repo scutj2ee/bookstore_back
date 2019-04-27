@@ -1,4 +1,4 @@
-package com.scutj2ee.bookstore.entity.pojo;
+package com.scutj2ee.bookstore.pojo;
 
 import java.io.Serializable;
 
