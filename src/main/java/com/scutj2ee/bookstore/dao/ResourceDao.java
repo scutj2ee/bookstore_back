@@ -14,4 +14,6 @@ public interface ResourceDao {
     List<Resource> selectAll();
 
     int updateByPrimaryKey(Resource record);
+
+    List<Resource> findByRoleId(int roleId);
 }

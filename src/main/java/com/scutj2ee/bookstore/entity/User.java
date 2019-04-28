@@ -12,13 +12,17 @@ public class User implements Serializable {
     private String password;
     private String phone;
     private String username;
+    /**加密密码的盐*/
+    private String salt;
 
-    public User(Integer id,String email,String phone,String password,String username){
+    public User(Integer id, Integer integration, String email, String password, String phone, String username, String salt) {
         this.id = id;
+        this.integration = integration;
         this.email = email;
-        this.phone = phone;
         this.password = password;
+        this.phone = phone;
         this.username = username;
+        this.salt = salt;
     }
 
     public Integer getId() {
@@ -71,6 +75,25 @@ public class User implements Serializable {
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    /**
+     * create by: Bin Liu
+     * description: 密码盐.重新对盐重新进行了定义，用户名+salt，这样就更加不容易被破解
+     * create time: 2019/4/28 10:34
+     * @Param: null
+     * @return
+     */
+    public String getCredentialsSalt(){
+        return this.username+this.salt;
     }
 
     @Override

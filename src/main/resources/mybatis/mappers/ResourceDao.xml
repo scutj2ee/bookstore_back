@@ -27,4 +27,9 @@
     select resource_id, resname
     from resource
   </select>
+  <select id="findbyUserId" resultMap="BaseResultMap">
+    select resource,resource_id, resource,resname
+    from resource,role_resource
+    where resource.resource_id=role_resource.resource_id and role_resource.role_id=#{roleId}
+  </select>
 </mapper>

@@ -27,4 +27,9 @@
     select role_id, rolename
     from role
   </select>
+  <select id="findbyUserId" resultMap="BaseResultMap">
+    select role.role_id, role.rolename
+    from role,user_role
+    where role.role_id=user_role.role_id and user_role.user_id=#{userId}
+  </select>
 </mapper>
