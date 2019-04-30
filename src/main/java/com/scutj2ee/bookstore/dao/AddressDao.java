@@ -5,13 +5,13 @@ import com.scutj2ee.bookstore.entity.Address;
 import java.util.List;
 
 public interface AddressDao {
-    int deleteByPrimaryKey(Integer id);
+    int deleteAddress(Integer id);
 
-    int insert(Address record);
+    int insertAddress(Address address);
 
-    Address selectByPrimaryKey(Integer id);
+    Address getAddressById(Integer id);
 
     List<Address> selectAll();
 
-    int updateByPrimaryKey(Address record);
+    int updateAddress(Address address);
 }

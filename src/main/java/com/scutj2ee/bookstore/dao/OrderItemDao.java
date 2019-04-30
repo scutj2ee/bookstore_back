@@ -5,13 +5,13 @@ import com.scutj2ee.bookstore.entity.OrderItem;
 import java.util.List;
 
 public interface OrderItemDao {
-    int deleteByPrimaryKey(Integer id);
+    int deleteOrderItem(Integer id);
 
-    int insert(OrderItem record);
+    int insertOrderItem(OrderItem orderItem);
 
-    OrderItem selectByPrimaryKey(Integer id);
+    OrderItem selectOrderItemById(Integer id);
 
     List<OrderItem> selectAll();
 
-    int updateByPrimaryKey(OrderItem record);
+    int updateOrderItem(OrderItem orderItem);
 }

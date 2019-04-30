@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.CommentMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.entity.Comment">
+  <resultMap id="commentMap" type="com.example.demo.entity.Comment">
     <id column="comment_id" jdbcType="INTEGER" property="commentId" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="date" jdbcType="TIMESTAMP" property="date" />
@@ -10,34 +10,39 @@
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="reply_user_id" jdbcType="INTEGER" property="replyUserId" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+  <delete id="deleteComment" parameterType="java.lang.Integer">
     delete from comment
-    where comment_id = #{commentId,jdbcType=INTEGER}
+    where comment_id = #{commentId}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Comment">
+
+  <insert id="insertComment" parameterType="com.example.demo.entity.Comment">
     insert into comment (comment_id, content, `date`, 
       book_id, user_id, parent_id, 
       reply_user_id)
-    values (#{commentId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
-      #{bookId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
-      #{replyUserId,jdbcType=INTEGER})
+    values (#{commentId}, #{content}, #{date},
+      #{bookId}, #{userId}, #{parentId},
+      #{replyUserId})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Comment">
+
+  <update id="updateComment" parameterType="com.example.demo.entity.Comment">
     update comment
-    set content = #{content,jdbcType=VARCHAR},
-      `date` = #{date,jdbcType=TIMESTAMP},
-      book_id = #{bookId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER},
-      parent_id = #{parentId,jdbcType=INTEGER},
-      reply_user_id = #{replyUserId,jdbcType=INTEGER}
-    where comment_id = #{commentId,jdbcType=INTEGER}
+    set content = #{content},
+      `date` = #{date},
+      book_id = #{bookId},
+      user_id = #{userId},
+      parent_id = #{parentId},
+      reply_user_id = #{replyUserId}
+    where comment_id = #{commentId}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <select id="selectCommentById" parameterType="java.lang.Integer" resultMap="commentMap">
     select comment_id, content, `date`, book_id, user_id, parent_id, reply_user_id
     from comment
-    where comment_id = #{commentId,jdbcType=INTEGER}
+    where comment_id = #{commentId}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+
+  <select id="selectAll" resultMap="commentMap">
     select comment_id, content, `date`, book_id, user_id, parent_id, reply_user_id
     from comment
   </select>

@@ -5,13 +5,13 @@ import com.scutj2ee.bookstore.entity.BookInfo;
 import java.util.List;
 
 public interface BookInfoDao {
-    int deleteByPrimaryKey(Integer bookId);
+    int deleteBookInfo(Integer bookId);
 
-    int insert(BookInfo record);
+    int insertBookInfo(BookInfo bookInfo);
 
-    BookInfo selectByPrimaryKey(Integer bookId);
+    BookInfo selectBookInfoById(Integer bookId);
 
     List<BookInfo> selectAll();
 
-    int updateByPrimaryKey(BookInfo record);
+    int updateBookInfo(BookInfo bookInfo);
 }

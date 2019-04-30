@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.OrderMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.entity.Order">
+  <resultMap id="orderMap" type="com.example.demo.entity.Order">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="address_id" jdbcType="INTEGER" property="addressId" />
     <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
@@ -10,80 +10,39 @@
     <result column="total_integral" jdbcType="INTEGER" property="totalIntegral" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+  <delete id="deleteOrder" parameterType="java.lang.Integer">
     delete from order
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Order">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
+
+  <insert id="insertOrder" parameterType="com.example.demo.entity.Order">
     insert into order (address_id, order_time, `state`, 
       total, total_integral, user_id
       )
-    values (#{addressId,jdbcType=INTEGER}, #{orderTime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, 
-      #{total,jdbcType=DOUBLE}, #{totalIntegral,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}
+    values (#{addressId}, #{orderTime}, #{state},
+      #{total}, #{totalIntegral}, #{userId}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Order">
+
+  <update id="updateOrder" parameterType="com.example.demo.entity.Order">
     update order
-    set address_id = #{addressId,jdbcType=INTEGER},
-      order_time = #{orderTime,jdbcType=TIMESTAMP},
-      `state` = #{state,jdbcType=INTEGER},
-      total = #{total,jdbcType=DOUBLE},
-      total_integral = #{totalIntegral,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+    set address_id = #{addressId},
+      order_time = #{orderTime},
+      `state` = #{state},
+      total = #{total},
+      total_integral = #{totalIntegral},
+      user_id = #{userId}
+    where id = #{id}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <select id="selectOrderById" parameterType="java.lang.Integer" resultMap="orderMap">
     select id, address_id, order_time, `state`, total, total_integral, user_id
     from order
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, address_id, order_time, `state`, total, total_integral, user_id
-    from order
-  </select>
-  <resultMap id="BaseResultMap" type="com.example.demo.models.Order">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="address_id" jdbcType="INTEGER" property="addressId" />
-    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="total" jdbcType="DOUBLE" property="total" />
-    <result column="total_integral" jdbcType="INTEGER" property="totalIntegral" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.example.demo.models.Order">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into order (address_id, order_time, `state`, 
-      total, total_integral, user_id
-      )
-    values (#{addressId,jdbcType=INTEGER}, #{orderTime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, 
-      #{total,jdbcType=DOUBLE}, #{totalIntegral,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}
-      )
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.models.Order">
-    update order
-    set address_id = #{addressId,jdbcType=INTEGER},
-      order_time = #{orderTime,jdbcType=TIMESTAMP},
-      `state` = #{state,jdbcType=INTEGER},
-      total = #{total,jdbcType=DOUBLE},
-      total_integral = #{totalIntegral,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, address_id, order_time, `state`, total, total_integral, user_id
-    from order
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+
+  <select id="selectAll" resultMap="orderMap">
     select id, address_id, order_time, `state`, total, total_integral, user_id
     from order
   </select>

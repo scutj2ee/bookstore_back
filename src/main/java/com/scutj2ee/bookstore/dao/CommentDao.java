@@ -5,13 +5,13 @@ import com.scutj2ee.bookstore.entity.Comment;
 import java.util.List;
 
 public interface CommentDao {
-    int deleteByPrimaryKey(Integer commentId);
+    int deleteComment(Integer commentId);
 
-    int insert(Comment record);
+    int insertComment(Comment comment);
 
-    Comment selectByPrimaryKey(Integer commentId);
+    Comment selectCommentById(Integer commentId);
 
     List<Comment> selectAll();
 
-    int updateByPrimaryKey(Comment record);
+    int updateComment(Comment comment);
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.BookInfoMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.entity.BookInfo">
+  <resultMap id="bookInfoMap" type="com.example.demo.entity.BookInfo">
     <id column="book_id" jdbcType="INTEGER" property="bookId" />
     <result column="book_category_id" jdbcType="INTEGER" property="bookCategoryId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -28,11 +28,13 @@
     <result column="pack_style" jdbcType="VARCHAR" property="packStyle" />
     <result column="is_shelf" jdbcType="INTEGER" property="isShelf" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+  <delete id="deleteBookInfo" parameterType="java.lang.Integer">
     delete from book_info
     where book_id = #{bookId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.BookInfo">
+
+  <insert id="insertBookInfo" parameterType="com.example.demo.entity.bookInfo">
     insert into book_info (book_id, book_category_id, `name`, 
       outline, detail, press, 
       publish_date, `size`, version, 
@@ -42,53 +44,52 @@
       look_mount, discount, image_url, 
       store_mount, store_time, pack_style, 
       is_shelf)
-    values (#{bookId,jdbcType=INTEGER}, #{bookCategoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{outline,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{press,jdbcType=VARCHAR}, 
-      #{publishDate,jdbcType=TIMESTAMP}, #{size,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
-      #{author,jdbcType=VARCHAR}, #{translator,jdbcType=VARCHAR}, #{isbn,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL}, #{pages,jdbcType=INTEGER}, #{catalog,jdbcType=VARCHAR}, 
-      #{marketPrice,jdbcType=DECIMAL}, #{memberPrice,jdbcType=DECIMAL}, #{dealMount,jdbcType=INTEGER}, 
-      #{lookMount,jdbcType=INTEGER}, #{discount,jdbcType=DECIMAL}, #{imageUrl,jdbcType=VARCHAR}, 
-      #{storeMount,jdbcType=INTEGER}, #{storeTime,jdbcType=TIMESTAMP}, #{packStyle,jdbcType=VARCHAR}, 
-      #{isShelf,jdbcType=INTEGER})
+    values (#{bookId}, #{bookCategoryId}, #{name}, #{outline}, #{detail}, #{press},
+      #{publishDate}, #{size}, #{version}, #{author}, #{translator}, #{isbn},
+      #{price}, #{pages}, #{catalog}, #{marketPrice}, #{memberPrice}, #{dealMount},
+      #{lookMount}, #{discount}, #{imageUrl}, #{storeMount}, #{storeTime}, #{packStyle},
+      #{isShelf})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.BookInfo">
+
+  <update id="updateBookInfo" parameterType="com.example.demo.entity.BookInfo">
     update book_info
     set book_category_id = #{bookCategoryId,jdbcType=INTEGER},
-      `name` = #{name,jdbcType=VARCHAR},
-      outline = #{outline,jdbcType=VARCHAR},
-      detail = #{detail,jdbcType=VARCHAR},
-      press = #{press,jdbcType=VARCHAR},
-      publish_date = #{publishDate,jdbcType=TIMESTAMP},
-      `size` = #{size,jdbcType=VARCHAR},
-      version = #{version,jdbcType=VARCHAR},
-      author = #{author,jdbcType=VARCHAR},
-      translator = #{translator,jdbcType=VARCHAR},
-      isbn = #{isbn,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL},
-      pages = #{pages,jdbcType=INTEGER},
-      `catalog` = #{catalog,jdbcType=VARCHAR},
-      market_price = #{marketPrice,jdbcType=DECIMAL},
-      member_price = #{memberPrice,jdbcType=DECIMAL},
-      deal_mount = #{dealMount,jdbcType=INTEGER},
-      look_mount = #{lookMount,jdbcType=INTEGER},
-      discount = #{discount,jdbcType=DECIMAL},
-      image_url = #{imageUrl,jdbcType=VARCHAR},
-      store_mount = #{storeMount,jdbcType=INTEGER},
-      store_time = #{storeTime,jdbcType=TIMESTAMP},
-      pack_style = #{packStyle,jdbcType=VARCHAR},
-      is_shelf = #{isShelf,jdbcType=INTEGER}
-    where book_id = #{bookId,jdbcType=INTEGER}
+      `name` = #{name},
+      outline = #{outline},
+      detail = #{detail},
+      press = #{press},
+      publish_date = #{publishDate},
+      `size` = #{size},
+      version = #{version},
+      author = #{author},
+      translator = #{translator},
+      isbn = #{isbn},
+      price = #{price},
+      pages = #{pages},
+      `catalog` = #{catalog},
+      market_price = #{marketPrice},
+      member_price = #{memberPrice},
+      deal_mount = #{dealMount},
+      look_mount = #{lookMount},
+      discount = #{discount},
+      image_url = #{imageUrl},
+      store_mount = #{storeMount},
+      store_time = #{storeTime},
+      pack_style = #{packStyle},
+      is_shelf = #{isShelf}
+    where book_id = #{bookId}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <select id="selectBookInfoById" parameterType="java.lang.Integer" resultMap="bookInfoMap">
     select book_id, book_category_id, `name`, outline, detail, press, publish_date, `size`, 
     version, author, translator, isbn, price, pages, `catalog`, market_price, member_price, 
     deal_mount, look_mount, discount, image_url, store_mount, store_time, pack_style, 
     is_shelf
     from book_info
-    where book_id = #{bookId,jdbcType=INTEGER}
+    where book_id = #{bookId}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+
+  <select id="selectAll" resultMap="bookInfoMap">
     select book_id, book_category_id, `name`, outline, detail, press, publish_date, `size`, 
     version, author, translator, isbn, price, pages, `catalog`, market_price, member_price, 
     deal_mount, look_mount, discount, image_url, store_mount, store_time, pack_style, 

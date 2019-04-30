@@ -5,13 +5,13 @@ import com.scutj2ee.bookstore.entity.BookCategory;
 import java.util.List;
 
 public interface BookCategoryDao {
-    int deleteByPrimaryKey(Integer cateId);
+    int deleteBookCategory(Integer cateId);
 
-    int insert(BookCategory record);
+    int insertBookCategory(BookCategory bookCategory);
 
-    BookCategory selectByPrimaryKey(Integer cateId);
+    BookCategory selectBookCategoryById(Integer cateId);
 
     List<BookCategory> selectAll();
 
-    int updateByPrimaryKey(BookCategory record);
+    int updateBookCategory(BookCategory bookCategory);
 }

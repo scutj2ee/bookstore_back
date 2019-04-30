@@ -5,15 +5,15 @@ import com.scutj2ee.bookstore.entity.User;
 import java.util.List;
 
 public interface UserDao {
-    int deleteByPrimaryKey(Integer id);
+    int deleteUser(Integer id);
 
     int insertUser(User user);
 
-    User selectByPrimaryKey(Integer id);
+    User selectUserById(Integer id);
 
     List<User> selectAll();
 
-    int updateByPrimaryKey(User record);
+    int updateUser(User record);
 
     User findByUsername(String username);
 }

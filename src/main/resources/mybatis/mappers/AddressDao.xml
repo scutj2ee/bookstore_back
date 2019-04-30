@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.AddressMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.entity.Address">
+  <resultMap id="addressMap" type="com.example.demo.entity.Address">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="city" jdbcType="VARCHAR" property="city" />
     <result column="detail" jdbcType="VARCHAR" property="detail" />
@@ -11,83 +11,38 @@
     <result column="receiver" jdbcType="VARCHAR" property="receiver" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+  <delete id="deleteAddress" parameterType="java.lang.Integer">
     delete from address
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Address">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into address (city, detail, district, 
-      phone, province, receiver, 
-      user_id)
-    values (#{city,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=INTEGER})
+
+  <insert id="insertAddress" parameterType="com.example.demo.entity.Address" keyProperty="addressId" keyColumn="address_id">
+    insert into address (city, detail, district, phone, province, receiver, user_id)
+    values (#{city}, #{detail}, #{district}, #{phone}, #{province}, #{receiver}, #{userId})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Address">
+
+  <update id="updateAddress" parameterType="com.example.demo.entity.Address">
     update address
-    set city = #{city,jdbcType=VARCHAR},
-      detail = #{detail,jdbcType=VARCHAR},
-      district = #{district,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=INTEGER},
-      province = #{province,jdbcType=VARCHAR},
-      receiver = #{receiver,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+    <set>
+      <if test="city != null and city != ''"> city = #{city},</if>
+      <if test="detail != null and detail != ''"> detail = #{detail},</if>
+      <if test="district != null and district != ''"> district = #{district},</if>
+      <if test="phone != null and phone != ''"> phone = #{phone},</if>
+      <if test="province != null and province != ''"> province = #{province},</if>
+      <if test="receiver != null and receiver != ''"> receiver = #{receiver},</if>
+      <if test="userId != null and userId != ''"> user_id = #{userId}</if>
+    </set>
+    where id = #{id}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <select id="getAddressById" parameterType="java.lang.Integer" resultMap="addressMap">
     select id, city, detail, district, phone, province, receiver, user_id
     from address
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, city, detail, district, phone, province, receiver, user_id
-    from address
-  </select>
-  <resultMap id="BaseResultMap" type="com.example.demo.models.Address">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="city" jdbcType="VARCHAR" property="city" />
-    <result column="detail" jdbcType="VARCHAR" property="detail" />
-    <result column="district" jdbcType="VARCHAR" property="district" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="province" jdbcType="VARCHAR" property="province" />
-    <result column="receiver" jdbcType="VARCHAR" property="receiver" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from address
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.example.demo.models.Address">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into address (city, detail, district, 
-      phone, province, receiver, 
-      user_id)
-    values (#{city,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=INTEGER})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.models.Address">
-    update address
-    set city = #{city,jdbcType=VARCHAR},
-      detail = #{detail,jdbcType=VARCHAR},
-      district = #{district,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      province = #{province,jdbcType=VARCHAR},
-      receiver = #{receiver,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, city, detail, district, phone, province, receiver, user_id
-    from address
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+
+  <select id="selectAll" resultMap="addressMap">
     select id, city, detail, district, phone, province, receiver, user_id
     from address
   </select>
