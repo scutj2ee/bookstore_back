@@ -31,7 +31,7 @@
 
   <delete id="deleteBookInfo" parameterType="java.lang.Integer">
     delete from book_info
-    where book_id = #{bookId,jdbcType=INTEGER}
+    where book_id = #{bookId}
   </delete>
 
   <insert id="insertBookInfo" parameterType="com.example.demo.entity.bookInfo">

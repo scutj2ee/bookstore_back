@@ -26,7 +26,7 @@
     where role_id = #{roleId}
   </update>
 
-  <select id="findRoleById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findRoleById" parameterType="java.lang.Integer" resultMap="roleMap">
     select role_id, rolename, `type`
     from role
     where role_id = #{roleId}

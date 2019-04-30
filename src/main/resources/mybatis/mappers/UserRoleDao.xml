@@ -9,7 +9,7 @@
 
   <delete id="deleteUserRole" parameterType="java.lang.Integer">
     delete from user_role
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </delete>
 
   <insert id="insertUserRole" parameterType="com.example.demo.entity.UserRole">

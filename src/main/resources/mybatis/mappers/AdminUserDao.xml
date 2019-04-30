@@ -7,19 +7,19 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
   </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from admin_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="com.example.demo.entity.AdminUser">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
     insert into admin_user (is_sale_man, `password`, user_name
       )
     values (#{isSaleMan,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}
       )
   </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.AdminUser">
     update admin_user
     set is_sale_man = #{isSaleMan,jdbcType=INTEGER},
@@ -27,50 +27,15 @@
       user_name = #{userName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, is_sale_man, `password`, user_name
     from admin_user
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <select id="selectAll" resultMap="BaseResultMap">
     select id, is_sale_man, `password`, user_name
-    from admin_user
-  </select>
-  <resultMap id="BaseResultMap" type="com.example.demo.models.AdminUser">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="is_sale_man" jdbcType="INTEGER" property="isSaleMan" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from admin_user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.example.demo.models.AdminUser">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into admin_user (is_sale_man, `password`, user_name, 
-      username)
-    values (#{isSaleMan,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{username,jdbcType=VARCHAR})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.models.AdminUser">
-    update admin_user
-    set is_sale_man = #{isSaleMan,jdbcType=INTEGER},
-      `password` = #{password,jdbcType=VARCHAR},
-      user_name = #{userName,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, is_sale_man, `password`, user_name, username
-    from admin_user
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, is_sale_man, `password`, user_name, username
     from admin_user
   </select>
 </mapper>

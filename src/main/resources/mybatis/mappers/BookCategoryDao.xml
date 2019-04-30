@@ -13,7 +13,7 @@
 
   <delete id="deleteBookCategory" parameterType="java.lang.Integer">
     delete from book_category
-    where cate_id = #{cateId,jdbcType=INTEGER}
+    where cate_id = #{cateId}
   </delete>
 
   <insert id="insertBookCategory" parameterType="com.example.demo.entity.BookCategory">

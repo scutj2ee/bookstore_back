@@ -18,11 +18,9 @@
 
   <insert id="insertOrder" parameterType="com.example.demo.entity.Order">
     insert into order (address_id, order_time, `state`, 
-      total, total_integral, user_id
-      )
+      total, total_integral, user_id)
     values (#{addressId}, #{orderTime}, #{state},
-      #{total}, #{totalIntegral}, #{userId}
-      )
+      #{total}, #{totalIntegral}, #{userId})
   </insert>
 
   <update id="updateOrder" parameterType="com.example.demo.entity.Order">
