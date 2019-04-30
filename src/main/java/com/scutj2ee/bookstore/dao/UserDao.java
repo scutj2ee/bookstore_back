@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserDao {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(User record);
+    int insertUser(User user);
 
     User selectByPrimaryKey(Integer id);
 

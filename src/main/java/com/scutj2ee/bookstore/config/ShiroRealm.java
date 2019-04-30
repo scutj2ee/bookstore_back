@@ -27,8 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @ Description：${description}
  * @ Modified By：
  */
-public class MyShiroRealm extends AuthorizingRealm {
-    private final static Logger logger=LoggerFactory.getLogger(MyShiroRealm.class);
+public class ShiroRealm extends AuthorizingRealm {
+    private final static Logger logger=LoggerFactory.getLogger(ShiroRealm.class);
 
     @Autowired
     private UserService userService;
@@ -39,7 +39,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        logger.info("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
+        logger.info("权限配置-->ShiroRealm.doGetAuthorizationInfo()");
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         User user  = (User)principals.getPrimaryPrincipal();
         for(Role role:roleService.findbyUserId(user.getId())){
@@ -53,7 +53,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        logger.info("MyShiroRealm.doGetAuthenticationInfo()");
+        logger.info("ShiroRealm.doGetAuthenticationInfo()");
         //获取用户的输入的账号.
         String username = (String)token.getPrincipal();
         logger.info((String) token.getCredentials());
@@ -73,3 +73,4 @@ public class MyShiroRealm extends AuthorizingRealm {
         return authenticationInfo;
     }
 }
+

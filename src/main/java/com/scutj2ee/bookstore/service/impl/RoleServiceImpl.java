@@ -4,6 +4,7 @@ import com.scutj2ee.bookstore.dao.RoleDao;
 import com.scutj2ee.bookstore.entity.Role;
 import com.scutj2ee.bookstore.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @ Description：${description}
  * @ Modified By：
  */
+@Service
 public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleDao roleDao;

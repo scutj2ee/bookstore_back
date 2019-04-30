@@ -1,4 +1,4 @@
-package com.scutj2ee.bookstore.util;
+package com.scutj2ee.bookstore.utils;
 
 import org.springframework.web.multipart.MultipartFile;
 

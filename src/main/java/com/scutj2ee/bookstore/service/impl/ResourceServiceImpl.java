@@ -4,6 +4,7 @@ import com.scutj2ee.bookstore.dao.ResourceDao;
 import com.scutj2ee.bookstore.entity.Resource;
 import com.scutj2ee.bookstore.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @ Description：${description}
  * @ Modified By：
  */
+@Service
 public class ResourceServiceImpl implements ResourceService {
     @Autowired
     private ResourceDao resourceDao;

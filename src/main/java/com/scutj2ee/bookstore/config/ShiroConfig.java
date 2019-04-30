@@ -27,7 +27,10 @@ public class ShiroConfig {
 
     /**
      * create by: Bin Liu
-     * description:
+     * description: * ShiroFilterFactoryBean 处理拦截资源文件问题。
+     * 注意：单独一个ShiroFilterFactoryBean配置是或报错的，以为在
+     * 初始化ShiroFilterFactoryBean的时候需要注入：SecurityManager
+     *
      * create time: 2019/4/27 22:40
      * @Param: null
      * @return
@@ -77,16 +80,16 @@ public class ShiroConfig {
     }
 
     @Bean
-    public MyShiroRealm myShiroRealm(){
-        MyShiroRealm myShiroRealm=new MyShiroRealm();
-        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
-        return myShiroRealm;
+    public ShiroRealm ShiroRealm(){
+        ShiroRealm shiroRealm=new ShiroRealm();
+        shiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return shiroRealm;
     }
 
     @Bean
     public SecurityManager securityManager(){
         DefaultWebSecurityManager securityManager=new DefaultWebSecurityManager();
-        securityManager.setRealm(myShiroRealm());
+        securityManager.setRealm(ShiroRealm());
         return securityManager;
     }
 

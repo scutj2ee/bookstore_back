@@ -15,6 +15,10 @@ public class User implements Serializable {
     /**加密密码的盐*/
     private String salt;
 
+    public User(){
+
+    }
+
     public User(Integer id, Integer integration, String email, String password, String phone, String username, String salt) {
         this.id = id;
         this.integration = integration;
