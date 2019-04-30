@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.entity.User">
+<mapper namespace="com.example.demo.dao.UserDao">
+  <resultMap id="userMap" type="com.example.demo.entity.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="integration" jdbcType="INTEGER" property="integration" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -9,76 +9,42 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+  <delete id="deleteUser" parameterType="java.lang.Integer">
     delete from user
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.User">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into user (integration, `password`, phone, 
+
+  <insert id="insertUser" parameterType="com.example.demo.entity.User">
+    insert into user (integration, `password`, phone,
       email, user_name)
-    values (#{integration,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=INTEGER}, 
-      #{email,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR})
+    values (#{integration}, #{password}, #{phone}, #{email,jdbcType}, #{userName})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.User">
+
+  <update id="updateUser" parameterType="com.example.demo.entity.User">
     update user
-    set integration = #{integration,jdbcType=INTEGER},
-      `password` = #{password,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=INTEGER},
-      email = #{email,jdbcType=VARCHAR},
-      user_name = #{userName,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    <set>
+      <if test="integration != null and integration != ''">integration = #{integration},</if>
+      <if test="password != null and password != ''"> `password` = #{password},</if>
+      <if test="phone != null and phone != ''"> phone = #{phone},</if>
+      <if test="email != null and email != ''"> email = #{email},</if>
+      <if test="userName != null and userName != ''"> user_name = #{userName}</if>
+    </set>
+    where id = #{id}
   </update>
-  <select id="findByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <select id="findUserById" parameterType="java.lang.Integer" resultMap="userMap">
     select id, integration, `password`, phone, email, user_name
     from user
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="userMap">
     select id, integration, `password`, phone, email, user_name
-    from user
-  </select>
-  <resultMap id="BaseResultMap" type="com.example.demo.models.User">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="integration" jdbcType="INTEGER" property="integration" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insertUser" parameterType="com.example.demo.models.User">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into user (integration, `password`, phone, 
-      user_name)
-    values (#{integration,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{userName,jdbcType=VARCHAR})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.models.User">
-    update user
-    set integration = #{integration,jdbcType=INTEGER},
-      `password` = #{password,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      user_name = #{userName,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, integration, `password`, phone, user_name
-    from user
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, integration, `password`, phone, user_name
     from user
   </select>
 
-  <select id="findByUsername" resultMap="BaseResultMap">
+  <select id="findByUsername" resultMap="userMap">
     select id, integration, `password`, phone, user_name
     from user where user_name=#{username}
   </select>

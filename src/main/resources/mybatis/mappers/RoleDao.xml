@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.dao.RoleMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.entity.Role">
+<mapper namespace="com.example.demo.dao.RoleDao">
+  <resultMap id="roleMap" type="com.example.demo.entity.Role">
     <id column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="rolename" jdbcType="VARCHAR" property="rolename" />
+    <result column="type" jdbcType="INTEGER" property="type" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+  <delete id="deleteRoleById" parameterType="java.lang.Integer">
     delete from role
-    where role_id = #{roleId,jdbcType=INTEGER}
+    where role_id = #{roleId}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Role">
-    insert into role (role_id, rolename)
-    values (#{roleId,jdbcType=INTEGER}, #{rolename,jdbcType=VARCHAR})
+
+  <insert id="insertRole" parameterType="com.example.demo.entity.Role">
+    insert into role (role_id, rolename, `type`)
+    values (#{roleId}, #{rolename}, #{type})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Role">
+
+  <update id="updateRole" parameterType="com.example.demo.entity.Role">
     update role
-    set rolename = #{rolename,jdbcType=VARCHAR}
-    where role_id = #{roleId,jdbcType=INTEGER}
+    <set>
+      <if test="rolename != null and rolename != ''"> rolename = #{rolename},</if>
+      <if test="type != null and type != ''"> `type` = #{type}</if>
+    </set>
+    where role_id = #{roleId}
   </update>
-  <select id="findByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select role_id, rolename
+
+  <select id="findRoleById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select role_id, rolename, `type`
     from role
-    where role_id = #{roleId,jdbcType=INTEGER}
+    where role_id = #{roleId}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select role_id, rolename
+
+  <select id="selectAll" resultMap="roleMap">
+    select role_id, rolename, `type`
     from role
   </select>
-  <select id="findbyUserId" resultMap="BaseResultMap">
+
+  <select id="findbyUserId" resultMap="roleMap">
     select role.role_id, role.rolename
     from role,user_role
     where role.role_id=user_role.role_id and user_role.user_id=#{userId}

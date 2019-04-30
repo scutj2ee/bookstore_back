@@ -2,7 +2,7 @@ package com.scutj2ee.bookstore.service.impl;
 
 import com.scutj2ee.bookstore.dao.PermissionDao;
 import com.scutj2ee.bookstore.entity.Permission;
-import com.scutj2ee.bookstore.service.ResourceService;
+import com.scutj2ee.bookstore.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +15,12 @@ import java.util.List;
  * @ Modified By：
  */
 @Service
-public class ResourceServiceImpl implements ResourceService {
+public class PermissionServiceImpl implements PermissionService {
     @Autowired
-    private PermissionDao resourceDao;
+    private PermissionDao permissionDao;
 
     @Override
     public List<Permission> findByRoleId(int roleId) {
-        return resourceDao.findByRoleId(roleId);
+        return permissionDao.findByRoleId(roleId);
     }
 }

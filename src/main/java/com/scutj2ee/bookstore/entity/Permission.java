@@ -8,7 +8,7 @@ public class Permission implements Serializable {
     private Integer permissionId;
     private String name;
     private String url;
-    private String fatherId;
+    private Integer fatherId;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -38,11 +38,11 @@ public class Permission implements Serializable {
         this.url = url;
     }
 
-    public String getFatherId() {
+    public Integer getFatherId() {
         return fatherId;
     }
 
-    public void setFatherId(String fatherId) {
+    public void setFatherId(Integer fatherId) {
         this.fatherId = fatherId;
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.dao.CommentMapper">
+<mapper namespace="com.example.demo.dao.CommentDao">
   <resultMap id="commentMap" type="com.example.demo.entity.Comment">
     <id column="comment_id" jdbcType="INTEGER" property="commentId" />
     <result column="content" jdbcType="VARCHAR" property="content" />
@@ -27,12 +27,14 @@
 
   <update id="updateComment" parameterType="com.example.demo.entity.Comment">
     update comment
-    set content = #{content},
-      `date` = #{date},
-      book_id = #{bookId},
-      user_id = #{userId},
-      parent_id = #{parentId},
-      reply_user_id = #{replyUserId}
+    <set>
+      <if test="content != null and content != ''">content = #{content},</if>
+      <if test="date != null and date != ''">`date` = #{date},</if>
+      <if test="bookId != null and bookId != ''">book_id = #{bookId},</if>
+      <if test="userId != null and userId != ''">user_id = #{userId},</if>
+      <if test="parentId != null and parentId != ''">parent_id = #{parentId},</if>
+      <if test="replyUserId != null and replyUserId != ''">reply_user_id = #{replyUserId}</if>
+    </set>
     where comment_id = #{commentId}
   </update>
 

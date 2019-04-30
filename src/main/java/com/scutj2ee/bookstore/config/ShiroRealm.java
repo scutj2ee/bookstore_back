@@ -3,7 +3,7 @@ package com.scutj2ee.bookstore.config;
 import com.scutj2ee.bookstore.entity.Permission;
 import com.scutj2ee.bookstore.entity.Role;
 import com.scutj2ee.bookstore.entity.User;
-import com.scutj2ee.bookstore.service.ResourceService;
+import com.scutj2ee.bookstore.service.PermissionService;
 import com.scutj2ee.bookstore.service.RoleService;
 import com.scutj2ee.bookstore.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
@@ -35,7 +35,7 @@ public class ShiroRealm extends AuthorizingRealm {
     @Autowired
     private RoleService roleService;
     @Autowired
-    private ResourceService resourceService;
+    private PermissionService permissionService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -44,8 +44,8 @@ public class ShiroRealm extends AuthorizingRealm {
         User user  = (User)principals.getPrimaryPrincipal();
         for(Role role:roleService.findbyUserId(user.getId())){
             authorizationInfo.addRole(role.getRolename());
-            for(Permission r:resourceService.findByRoleId(role.getRoleId())){
-                authorizationInfo.addStringPermission(r.getResname());
+            for(Permission p:permissionService.findByRoleId(role.getRoleId())){
+                authorizationInfo.addStringPermission((p.getName()));
             }
         }
         return authorizationInfo;
@@ -67,7 +67,7 @@ public class ShiroRealm extends AuthorizingRealm {
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user, //用户名
                 user.getPassword(), //密码
-                ByteSource.Util.bytes(user.getCredentialsSalt()),//salt=username+salt
+                ByteSource.Util.bytes(user.getUsername()),
                 getName()  //realm name
         );
         return authenticationInfo;

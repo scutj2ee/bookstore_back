@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.dao.BookCategoryMapper">
+<mapper namespace="com.example.demo.dao.BookCategoryDao">
   <resultMap id="bookCategoryMap" type="com.example.demo.entity.BookCategory">
     <id column="cate_id" jdbcType="INTEGER" property="cateId" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
@@ -23,13 +23,15 @@
 
   <update id="updateBookCategory" parameterType="com.example.demo.entity.BookCategory">
     update book_category
-    set parent_id = #{parentId,jdbcType=INTEGER},
-      `name` = #{name,jdbcType=VARCHAR},
-      `status` = #{status,jdbcType=INTEGER},
-      is_parent = #{isParent,jdbcType=BIT},
-      created = #{created,jdbcType=TIMESTAMP},
-      updated = #{updated,jdbcType=TIMESTAMP}
-    where cate_id = #{cateId,jdbcType=INTEGER}
+    <set>
+      <if test="parentId != null and parentId != ''"> parent_id = #{parentId},</if>
+      <if test="name != null and name != ''">`name` = #{name},</if>
+      <if test="status != null and status != ''">`status` = #{status},</if>
+      <if test="isParent != null and isParent != ''">is_parent = #{isParent},</if>
+      <if test="created != null and created != ''">created = #{created},</if>
+      <if test="updated != null and updated != ''">updated = #{updated}</if>
+    </set>
+    where cate_id = #{cateId}
   </update>
 
   <select id="findBookCategoryById" parameterType="java.lang.Integer" resultMap="bookCategoryMap">

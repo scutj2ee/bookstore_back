@@ -10,6 +10,6 @@ import java.util.List;
  * @ Description：${description}
  * @ Modified By：
  */
-public interface ResourceService {
+public interface PermissionService {
     List<Permission> findByRoleId(int roleId);
 }

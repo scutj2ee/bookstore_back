@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.dao.BookInfoMapper">
+<mapper namespace="com.example.demo.dao.BookInfoDao">
   <resultMap id="bookInfoMap" type="com.example.demo.entity.BookInfo">
     <id column="book_id" jdbcType="INTEGER" property="bookId" />
     <result column="book_category_id" jdbcType="INTEGER" property="bookCategoryId" />
@@ -53,30 +53,32 @@
 
   <update id="updateBookInfo" parameterType="com.example.demo.entity.BookInfo">
     update book_info
-    set book_category_id = #{bookCategoryId,jdbcType=INTEGER},
-      `name` = #{name},
-      outline = #{outline},
-      detail = #{detail},
-      press = #{press},
-      publish_date = #{publishDate},
-      `size` = #{size},
-      version = #{version},
-      author = #{author},
-      translator = #{translator},
-      isbn = #{isbn},
-      price = #{price},
-      pages = #{pages},
-      `catalog` = #{catalog},
-      market_price = #{marketPrice},
-      member_price = #{memberPrice},
-      deal_mount = #{dealMount},
-      look_mount = #{lookMount},
-      discount = #{discount},
-      image_url = #{imageUrl},
-      store_mount = #{storeMount},
-      store_time = #{storeTime},
-      pack_style = #{packStyle},
-      is_shelf = #{isShelf}
+    <set>
+      <if test="bookCategoryId != null and bookCategoryId != ''">book_category_id = #{bookCategoryId},</if>
+      <if test="name != null and name != ''">`name` = #{name},</if>
+      <if test="outline != null and outline != ''">outline = #{outline},</if>
+      <if test="detail != null and detail != ''">detail = #{detail},</if>
+      <if test="press != null and press != ''">press = #{press},</if>
+      <if test="publishDate != null and publishDate != ''">publish_date = #{publishDate},</if>
+      <if test="size != null and size != ''">`size` = #{size},</if>
+      <if test="version != null and version != ''">version = #{version},</if>
+      <if test="author != null and author != ''">author = #{author},</if>
+      <if test="translator != null and translator != ''">translator = #{translator},</if>
+      <if test="isbn != null and isbn != ''">isbn = #{isbn},</if>
+      <if test="price != null and price != ''">price = #{price},</if>
+      <if test="pages != null and pages != ''">pages = #{pages},</if>
+      <if test="catalog != null and catalog != ''">`catalog` = #{catalog},</if>
+      <if test="marketPrice != null and marketPrice != ''">market_price = #{marketPrice},</if>
+      <if test="memberPrice != null and memberPrice != ''">member_price = #{memberPrice},</if>
+      <if test="dealMount != null and dealMount != ''">deal_mount = #{dealMount},</if>
+      <if test="lookMount != null and lookMount != ''">look_mount = #{lookMount},</if>
+      <if test="discount != null and discount != ''">discount = #{discount},</if>
+      <if test="imageUrl != null and imageUrl != ''">image_url = #{imageUrl},</if>
+      <if test="storeMount != null and storeMount != ''">store_mount = #{storeMount},</if>
+      <if test="storeTime != null and storeTime != ''">store_time = #{storeTime},</if>
+      <if test="packStyle != null and packStyle != ''">pack_style = #{packStyle},</if>
+      <if test="isShelf != null and isShelf != ''">is_shelf = #{isShelf}</if>
+    </set>
     where book_id = #{bookId}
   </update>
 
