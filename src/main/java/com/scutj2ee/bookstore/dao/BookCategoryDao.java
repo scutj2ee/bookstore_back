@@ -9,7 +9,7 @@ public interface BookCategoryDao {
 
     int insertBookCategory(BookCategory bookCategory);
 
-    BookCategory selectBookCategoryById(Integer cateId);
+    BookCategory findBookCategoryById(Integer cateId);
 
     List<BookCategory> selectAll();
 

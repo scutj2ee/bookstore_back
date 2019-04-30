@@ -36,7 +36,7 @@
     where comment_id = #{commentId}
   </update>
 
-  <select id="selectCommentById" parameterType="java.lang.Integer" resultMap="commentMap">
+  <select id="findCommentById" parameterType="java.lang.Integer" resultMap="commentMap">
     select comment_id, content, `date`, book_id, user_id, parent_id, reply_user_id
     from comment
     where comment_id = #{commentId}

@@ -9,7 +9,7 @@ public interface RoleDao {
 
     int insert(Role record);
 
-    Role selectByPrimaryKey(Integer roleId);
+    Role findByPrimaryKey(Integer roleId);
 
     List<Role> selectAll();
 

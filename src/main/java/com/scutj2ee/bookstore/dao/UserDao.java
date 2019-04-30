@@ -9,7 +9,7 @@ public interface UserDao {
 
     int insertUser(User user);
 
-    User selectUserById(Integer id);
+    User findUserById(Integer id);
 
     List<User> selectAll();
 

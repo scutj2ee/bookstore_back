@@ -1,6 +1,6 @@
 package com.scutj2ee.bookstore.service;
 
-import com.scutj2ee.bookstore.entity.Resource;
+import com.scutj2ee.bookstore.entity.Permission;
 
 import java.util.List;
 
@@ -11,5 +11,5 @@ import java.util.List;
  * @ Modified By：
  */
 public interface ResourceService {
-    List<Resource> findByRoleId(int roleId);
+    List<Permission> findByRoleId(int roleId);
 }

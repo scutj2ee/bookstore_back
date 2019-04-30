@@ -3,9 +3,15 @@ package com.scutj2ee.bookstore.entity;
 import java.io.Serializable;
 
 public class Role implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Integer roleId;
     private String rolename;
-    private static final long serialVersionUID = 1L;
+    /**
+     * 角色类型
+     */
+    private Integer type;
+
 
     public Integer getRoleId() {
         return roleId;
@@ -23,16 +29,24 @@ public class Role implements Serializable {
         this.rolename = rolename == null ? null : rolename.trim();
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", roleId=").append(roleId);
-        sb.append(", rolename=").append(rolename);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "Role{" +
+                "roleId=" + roleId +
+                ", rolename='" + rolename + '\'' +
+                ", type=" + type +
+                '}';
     }
 }

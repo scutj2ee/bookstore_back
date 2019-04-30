@@ -9,7 +9,7 @@ public interface CommentDao {
 
     int insertComment(Comment comment);
 
-    Comment selectCommentById(Integer commentId);
+    Comment findCommentById(Integer commentId);
 
     List<Comment> selectAll();
 

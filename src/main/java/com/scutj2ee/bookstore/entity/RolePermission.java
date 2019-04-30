@@ -2,10 +2,10 @@ package com.scutj2ee.bookstore.entity;
 
 import java.io.Serializable;
 
-public class RoleResource implements Serializable {
+public class RolePermission implements Serializable {
     private Integer id;
     private Integer roleId;
-    private Integer resourceId;
+    private Integer permissionId;
 
     private static final long serialVersionUID = 1L;
 
@@ -25,12 +25,16 @@ public class RoleResource implements Serializable {
         this.roleId = roleId;
     }
 
-    public Integer getResourceId() {
-        return resourceId;
+    public Integer getPermissionId() {
+        return permissionId;
     }
 
-    public void setResourceId(Integer resourceId) {
-        this.resourceId = resourceId;
+    public void setPermissionId(Integer permissionId) {
+        this.permissionId = permissionId;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     @Override
@@ -41,7 +45,7 @@ public class RoleResource implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", roleId=").append(roleId);
-        sb.append(", resourceId=").append(resourceId);
+        sb.append(", permissionId=").append(permissionId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

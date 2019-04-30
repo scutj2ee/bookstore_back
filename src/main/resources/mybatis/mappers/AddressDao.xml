@@ -36,7 +36,7 @@
     where id = #{id}
   </update>
 
-  <select id="getAddressById" parameterType="java.lang.Integer" resultMap="addressMap">
+  <select id="findAddressById" parameterType="java.lang.Integer" resultMap="addressMap">
     select id, city, detail, district, phone, province, receiver, user_id
     from address
     where id = #{id}

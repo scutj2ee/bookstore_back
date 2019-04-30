@@ -80,7 +80,7 @@
     where book_id = #{bookId}
   </update>
 
-  <select id="selectBookInfoById" parameterType="java.lang.Integer" resultMap="bookInfoMap">
+  <select id="findBookInfoById" parameterType="java.lang.Integer" resultMap="bookInfoMap">
     select book_id, book_category_id, `name`, outline, detail, press, publish_date, `size`, 
     version, author, translator, isbn, price, pages, `catalog`, market_price, member_price, 
     deal_mount, look_mount, discount, image_url, store_mount, store_time, pack_style, 

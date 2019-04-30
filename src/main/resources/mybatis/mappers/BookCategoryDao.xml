@@ -32,7 +32,7 @@
     where cate_id = #{cateId,jdbcType=INTEGER}
   </update>
 
-  <select id="selectBookCategoryById" parameterType="java.lang.Integer" resultMap="bookCategoryMap">
+  <select id="findBookCategoryById" parameterType="java.lang.Integer" resultMap="bookCategoryMap">
     select cate_id, parent_id, `name`, `status`, is_parent, created, updated
     from book_category
     where cate_id = #{cateId}

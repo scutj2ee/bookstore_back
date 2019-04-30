@@ -9,7 +9,7 @@ public interface OrderItemDao {
 
     int insertOrderItem(OrderItem orderItem);
 
-    OrderItem selectOrderItemById(Integer id);
+    OrderItem findOrderItemById(Integer id);
 
     List<OrderItem> selectAll();
 

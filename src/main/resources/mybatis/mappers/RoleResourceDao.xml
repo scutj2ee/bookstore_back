@@ -23,7 +23,7 @@
       resource_id = #{resourceId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, role_id, resource_id
     from role_resource
     where id = #{id,jdbcType=INTEGER}

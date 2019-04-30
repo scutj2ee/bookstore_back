@@ -36,7 +36,7 @@
     where id = #{id}
   </update>
 
-  <select id="selectOrderById" parameterType="java.lang.Integer" resultMap="orderMap">
+  <select id="findOrderById" parameterType="java.lang.Integer" resultMap="orderMap">
     select id, address_id, order_time, `state`, total, total_integral, user_id
     from order
     where id = #{id}

@@ -9,7 +9,7 @@ public interface AddressDao {
 
     int insertAddress(Address address);
 
-    Address getAddressById(Integer id);
+    Address findAddressById(Integer id);
 
     List<Address> selectAll();
 

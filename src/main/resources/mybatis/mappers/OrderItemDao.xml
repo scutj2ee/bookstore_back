@@ -31,7 +31,7 @@
       sub_total = #{subTotal,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, `count`, order_id, product_id, sub_integral, sub_total
     from order_item
     where id = #{id,jdbcType=INTEGER}

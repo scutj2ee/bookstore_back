@@ -9,7 +9,7 @@ public interface BookInfoDao {
 
     int insertBookInfo(BookInfo bookInfo);
 
-    BookInfo selectBookInfoById(Integer bookId);
+    BookInfo findBookInfoById(Integer bookId);
 
     List<BookInfo> selectAll();
 

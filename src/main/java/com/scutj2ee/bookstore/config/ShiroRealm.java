@@ -1,6 +1,6 @@
 package com.scutj2ee.bookstore.config;
 
-import com.scutj2ee.bookstore.entity.Resource;
+import com.scutj2ee.bookstore.entity.Permission;
 import com.scutj2ee.bookstore.entity.Role;
 import com.scutj2ee.bookstore.entity.User;
 import com.scutj2ee.bookstore.service.ResourceService;
@@ -44,7 +44,7 @@ public class ShiroRealm extends AuthorizingRealm {
         User user  = (User)principals.getPrimaryPrincipal();
         for(Role role:roleService.findbyUserId(user.getId())){
             authorizationInfo.addRole(role.getRolename());
-            for(Resource r:resourceService.findByRoleId(role.getRoleId())){
+            for(Permission r:resourceService.findByRoleId(role.getRoleId())){
                 authorizationInfo.addStringPermission(r.getResname());
             }
         }

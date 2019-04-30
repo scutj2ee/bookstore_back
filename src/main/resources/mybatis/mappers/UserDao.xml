@@ -31,7 +31,7 @@
       user_name = #{userName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, integration, `password`, phone, email, user_name
     from user
     where id = #{id,jdbcType=INTEGER}

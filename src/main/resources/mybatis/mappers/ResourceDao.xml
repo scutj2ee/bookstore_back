@@ -18,7 +18,7 @@
     set resname = #{resname,jdbcType=VARCHAR}
     where resource_id = #{resourceId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select resource_id, resname
     from resource
     where resource_id = #{resourceId,jdbcType=INTEGER}
