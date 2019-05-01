@@ -2,50 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.CommentDao">
   <resultMap id="commentMap" type="com.example.demo.entity.Comment">
-    <id column="comment_id" jdbcType="INTEGER" property="commentId" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="book_id" jdbcType="INTEGER" property="bookId" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="date" jdbcType="TIMESTAMP" property="date" />
-    <result column="book_id" jdbcType="INTEGER" property="bookId" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
-    <result column="reply_user_id" jdbcType="INTEGER" property="replyUserId" />
+    <result column="from_uid" jdbcType="INTEGER" property="fromUid" />
   </resultMap>
 
   <delete id="deleteComment" parameterType="java.lang.Integer">
     delete from comment
-    where comment_id = #{commentId}
+    where id = #{id}
   </delete>
 
   <insert id="insertComment" parameterType="com.example.demo.entity.Comment">
-    insert into comment (comment_id, content, `date`, 
-      book_id, user_id, parent_id, 
-      reply_user_id)
-    values (#{commentId}, #{content}, #{date},
-      #{bookId}, #{userId}, #{parentId},
-      #{replyUserId})
+    insert into comment (id, content, `date`,
+      book_id,from_uid)
+    values (#{d}, #{contient}, #{date},
+      #{bookId},#{fromUid})
   </insert>
 
   <update id="updateComment" parameterType="com.example.demo.entity.Comment">
     update comment
     <set>
-      <if test="content != null and content != ''">content = #{content},</if>
-      <if test="date != null and date != ''">`date` = #{date},</if>
-      <if test="bookId != null and bookId != ''">book_id = #{bookId},</if>
-      <if test="userId != null and userId != ''">user_id = #{userId},</if>
-      <if test="parentId != null and parentId != ''">parent_id = #{parentId},</if>
-      <if test="replyUserId != null and replyUserId != ''">reply_user_id = #{replyUserId}</if>
+      <if test="content != null and content != ''"> content = #{content},</if>
+      <if test="date != null and date != ''"> `date` = #{date},</if>
+      <if test="bookId != null and bookId != ''"> book_id = #{bookId},</if>
+      <if test="fromUid != null and fromUid!= ''"> from_uid = #{fromUid}</if>
     </set>
-    where comment_id = #{commentId}
+    where id = #{id}
   </update>
 
   <select id="findCommentById" parameterType="java.lang.Integer" resultMap="commentMap">
-    select comment_id, content, `date`, book_id, user_id, parent_id, reply_user_id
+    select comment_id, content, `date`, book_id, from_uid
     from comment
-    where comment_id = #{commentId}
+    where id = #{id}
   </select>
 
   <select id="selectAll" resultMap="commentMap">
-    select comment_id, content, `date`, book_id, user_id, parent_id, reply_user_id
+    select comment_id, content, `date`, book_id, from_uid
     from comment
   </select>
 </mapper>

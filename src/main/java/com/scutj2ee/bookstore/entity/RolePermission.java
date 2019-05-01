@@ -2,9 +2,22 @@ package com.scutj2ee.bookstore.entity;
 
 import java.io.Serializable;
 
+/**
+ * @ Author     ：Bin Liu
+ * @ Date       ：2019/5/1 15:36
+ * @ Description：用户权限实体类
+ * @ Modified By：
+ */
+
 public class RolePermission implements Serializable {
     private Integer id;
+    /**
+     * 角色id
+     */
     private Integer roleId;
+    /**
+     * 权限id
+     */
     private Integer permissionId;
 
     private static final long serialVersionUID = 1L;

@@ -4,9 +4,10 @@
   <resultMap id="orderMap" type="com.example.demo.entity.Order">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="address_id" jdbcType="INTEGER" property="addressId" />
-    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="total" jdbcType="DOUBLE" property="total" />
+    <result column="payment" jdbcType="DOUBLE" property="payment" />
     <result column="total_integral" jdbcType="INTEGER" property="totalIntegral" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
   </resultMap>
@@ -17,19 +18,20 @@
   </delete>
 
   <insert id="insertOrder" parameterType="com.example.demo.entity.Order">
-    insert into order (address_id, order_time, `state`, 
-      total, total_integral, user_id)
-    values (#{addressId}, #{orderTime}, #{state},
-      #{total}, #{totalIntegral}, #{userId})
+    insert into order (address_id, create_time, end_time, `state`,
+      payment, total_integral, user_id)
+    values (#{addressId}, #{createTime}, #{endTime}, #{state},
+      #{payment}, #{totalIntegral}, #{userId})
   </insert>
 
   <update id="updateOrder" parameterType="com.example.demo.entity.Order">
     update order
     <set>
       <if test="addressId != null and addressId != ''">address_id = #{addressId},</if>
-      <if test="orderTime != null and orderTime != ''">order_time = #{orderTime},</if>
+      <if test="createTime != null and createTime != ''">create_time = #{createTime},</if>
+      <if test="endTime != null and endTime != ''">end_time = #{endTime},</if>
       <if test="state != null and state != ''">`state` = #{state},</if>
-      <if test="total != null and total != ''">total = #{total},</if>
+      <if test="payment != null and payment != ''">payment = #{payment},</if>
       <if test="totalIntegral != null and totalIntegral != ''">total_integral = #{totalIntegral},</if>
       <if test="userId != null and userId != ''">user_id = #{userId}</if>
     </set>
@@ -37,13 +39,13 @@
   </update>
 
   <select id="findOrderById" parameterType="java.lang.Integer" resultMap="orderMap">
-    select id, address_id, order_time, `state`, total, total_integral, user_id
+    select id, address_id, create_time, end_time, `state`, payment, total_integral, user_id
     from order
     where id = #{id}
   </select>
 
   <select id="selectAll" resultMap="orderMap">
-    select id, address_id, order_time, `state`, total, total_integral, user_id
+    select id, address_id, create_time, end_time, `state`, payment, total_integral, user_id
     from order
   </select>
 </mapper>

@@ -2,15 +2,38 @@ package com.scutj2ee.bookstore.entity;
 
 import java.io.Serializable;
 
-public class OrderItem implements Serializable {
-    private Integer id;
-    private Integer count;
-    private Integer orderId;
-    private Integer productId;
-    private Integer subIntegral;
-    private Double subTotal;
+/**
+ * @ Author     ：Bin Liu
+ * @ Date       ：2019/5/1 15:36
+ * @ Description：订单详情实体类
+ * @ Modified By：
+ */
 
+
+public class OrderItem implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    private Integer id;
+    /**
+     * 订单id
+     */
+    private Integer orderId;
+    /**
+     * 售货数量
+     */
+    private Integer count;
+    /**
+     * 书本id
+     */
+    private Integer bookId;
+    /**
+     * 积分
+     */
+    private Integer subIntegral;
+    /**
+     * 价格
+     */
+    private Double subPayment;
 
     public Integer getId() {
         return id;
@@ -36,12 +59,12 @@ public class OrderItem implements Serializable {
         this.orderId = orderId;
     }
 
-    public Integer getProductId() {
-        return productId;
+    public Integer getBookId() {
+        return bookId;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
     public Integer getSubIntegral() {
@@ -52,12 +75,12 @@ public class OrderItem implements Serializable {
         this.subIntegral = subIntegral;
     }
 
-    public Double getSubTotal() {
-        return subTotal;
+    public Double getSubPayment() {
+        return subPayment;
     }
 
-    public void setSubTotal(Double subTotal) {
-        this.subTotal = subTotal;
+    public void setSubPayment(Double subPayment) {
+        this.subPayment = subPayment;
     }
 
     public static long getSerialVersionUID() {
@@ -66,18 +89,13 @@ public class OrderItem implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", count=").append(count);
-        sb.append(", orderId=").append(orderId);
-        sb.append(", productId=").append(productId);
-        sb.append(", subIntegral=").append(subIntegral);
-        sb.append(", subTotal=").append(subTotal);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "OrderItem{" +
+                "id=" + id +
+                ", orderId=" + orderId +
+                ", count=" + count +
+                ", bookId=" + bookId +
+                ", subIntegral=" + subIntegral +
+                ", subPayment=" + subPayment +
+                '}';
     }
 }

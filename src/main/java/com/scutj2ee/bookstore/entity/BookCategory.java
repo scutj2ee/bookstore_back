@@ -3,15 +3,32 @@ package com.scutj2ee.bookstore.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @ Author     ：Bin Liu
+ * @ Date       ：2019/5/1 10:42
+ * @ Description：书本分类实体类
+ * @ Modified By：
+ */
+
 public class BookCategory implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Integer cateId;
+    /**
+     * 父级id
+     */
     private Integer parentId;
     private String name;
+    /**
+     * 状态 1上架 0下架
+     */
     private Integer status;
-    private Boolean isParent;
+    /**
+     * 类型 1一级分类 2二级分类
+     */
+    private Integer type;
     private Date created;
     private Date updated;
-    private static final long serialVersionUID = 1L;
 
     public Integer getCateId() {
         return cateId;
@@ -45,12 +62,12 @@ public class BookCategory implements Serializable {
         this.status = status;
     }
 
-    public Boolean getParent() {
-        return isParent;
+    public Integer getType() {
+        return type;
     }
 
-    public void setParent(Boolean parent) {
-        isParent = parent;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public Date getCreated() {
@@ -75,19 +92,14 @@ public class BookCategory implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", cateId=").append(cateId);
-        sb.append(", parentId=").append(parentId);
-        sb.append(", name=").append(name);
-        sb.append(", status=").append(status);
-        sb.append(", isParent=").append(isParent);
-        sb.append(", created=").append(created);
-        sb.append(", updated=").append(updated);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "BookCategory{" +
+                "cateId=" + cateId +
+                ", parentId=" + parentId +
+                ", name='" + name + '\'' +
+                ", status=" + status +
+                ", type=" + type +
+                ", created=" + created +
+                ", updated=" + updated +
+                '}';
     }
 }

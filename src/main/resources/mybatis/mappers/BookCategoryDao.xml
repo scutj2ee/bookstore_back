@@ -6,7 +6,7 @@
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="is_parent" jdbcType="BIT" property="isParent" />
+    <result column="type" jdbcType="INTEGER" property="type" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="updated" jdbcType="TIMESTAMP" property="updated" />
   </resultMap>
@@ -17,8 +17,8 @@
   </delete>
 
   <insert id="insertBookCategory" parameterType="com.example.demo.entity.BookCategory">
-    insert into book_category (cate_id, parent_id, `name`, `status`, is_parent, created, updated)
-    values (#{cateId}, #{parentId}, #{name}, #{status}, #{isParent}, #{created}, #{updated})
+    insert into book_category (cate_id, parent_id, `name`, `status`, `type`, created, updated)
+    values (#{cateId}, #{parentId}, #{name}, #{status}, #{type}, #{created}, #{updated})
   </insert>
 
   <update id="updateBookCategory" parameterType="com.example.demo.entity.BookCategory">
@@ -27,7 +27,7 @@
       <if test="parentId != null and parentId != ''"> parent_id = #{parentId},</if>
       <if test="name != null and name != ''">`name` = #{name},</if>
       <if test="status != null and status != ''">`status` = #{status},</if>
-      <if test="isParent != null and isParent != ''">is_parent = #{isParent},</if>
+      <if test="type != null and type != ''"> `type` = #{type},</if>
       <if test="created != null and created != ''">created = #{created},</if>
       <if test="updated != null and updated != ''">updated = #{updated}</if>
     </set>
@@ -35,13 +35,13 @@
   </update>
 
   <select id="findBookCategoryById" parameterType="java.lang.Integer" resultMap="bookCategoryMap">
-    select cate_id, parent_id, `name`, `status`, is_parent, created, updated
+    select cate_id, parent_id, `name`, `status`, `type`, created, updated
     from book_category
     where cate_id = #{cateId}
   </select>
 
   <select id="selectAll" resultMap="bookCategoryMap">
-    select cate_id, parent_id, `name`, `status`, is_parent, created, updated
+    select cate_id, parent_id, `name`, `status`, `type`, created, updated
     from book_category
   </select>
 </mapper>

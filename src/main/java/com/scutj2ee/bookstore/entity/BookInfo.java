@@ -4,35 +4,86 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * @ Author     ：Bin Liu
+ * @ Date       ：2019/5/1 10:42
+ * @ Description：书本详情实体类
+ * @ Modified By：
+ */
+
 public class BookInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Integer bookId;
     private Integer bookCategoryId;
-    private Integer storeId;
     private String name;
+    /**
+     * 简介
+     */
     private String outline;
+    /**
+     * 商品详情
+     */
     private String detail;
+    /**
+     * 出版社
+     */
     private String press;
     private Date publishDate;
     private String size;
     private String version;
     private String author;
+    /**
+     * 翻译者
+     */
     private String translator;
     private String isbn;
     private Double price;
+    /**
+     * 总页数
+     */
     private Integer pages;
+    /**
+     * 目录
+     */
     private String catalog;
+    /**
+     * 市场价\定价
+     */
     private Double marketPrice;
+    /**
+     * 会员价格
+     */
     private Double memberPrice;
+    /**
+     * 成交量
+     */
     private Integer dealMount;
+    /**
+     * 浏览量
+     */
     private Integer lookMount;
     private Double discount;
+    /**
+     * 版面图片
+     */
     private String imageUrl;
+    /**
+     * 库存数量
+     */
     private Integer storeMount;
+    /**
+     * 入库时间
+     */
     private Date storeTime;
+    /**
+     * 封装方式
+     */
     private String packStyle;
+    /**
+     * 是否上架
+     */
     private Integer isShelf;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getBookId() {
         return bookId;
@@ -48,14 +99,6 @@ public class BookInfo implements Serializable {
 
     public void setBookCategoryId(Integer bookCategoryId) {
         this.bookCategoryId = bookCategoryId;
-    }
-
-    public Integer getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
     }
 
     public String getName() {
@@ -248,38 +291,32 @@ public class BookInfo implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", bookId=").append(bookId);
-        sb.append(", bookCategoryId=").append(bookCategoryId);
-        sb.append(", storeId=").append(storeId);
-        sb.append(", name=").append(name);
-        sb.append(", outline=").append(outline);
-        sb.append(", detail=").append(detail);
-        sb.append(", press=").append(press);
-        sb.append(", publishDate=").append(publishDate);
-        sb.append(", size=").append(size);
-        sb.append(", version=").append(version);
-        sb.append(", author=").append(author);
-        sb.append(", translator=").append(translator);
-        sb.append(", isbn=").append(isbn);
-        sb.append(", price=").append(price);
-        sb.append(", pages=").append(pages);
-        sb.append(", catalog=").append(catalog);
-        sb.append(", marketPrice=").append(marketPrice);
-        sb.append(", memberPrice=").append(memberPrice);
-        sb.append(", dealMount=").append(dealMount);
-        sb.append(", lookMount=").append(lookMount);
-        sb.append(", discount=").append(discount);
-        sb.append(", imageUrl=").append(imageUrl);
-        sb.append(", storeMount=").append(storeMount);
-        sb.append(", storeTime=").append(storeTime);
-        sb.append(", packStyle=").append(packStyle);
-        sb.append(", isShelf=").append(isShelf);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "BookInfo{" +
+                "bookId=" + bookId +
+                ", bookCategoryId=" + bookCategoryId +
+                ", name='" + name + '\'' +
+                ", outline='" + outline + '\'' +
+                ", detail='" + detail + '\'' +
+                ", press='" + press + '\'' +
+                ", publishDate=" + publishDate +
+                ", size='" + size + '\'' +
+                ", version='" + version + '\'' +
+                ", author='" + author + '\'' +
+                ", translator='" + translator + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", price=" + price +
+                ", pages=" + pages +
+                ", catalog='" + catalog + '\'' +
+                ", marketPrice=" + marketPrice +
+                ", memberPrice=" + memberPrice +
+                ", dealMount=" + dealMount +
+                ", lookMount=" + lookMount +
+                ", discount=" + discount +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", storeMount=" + storeMount +
+                ", storeTime=" + storeTime +
+                ", packStyle='" + packStyle + '\'' +
+                ", isShelf=" + isShelf +
+                '}';
     }
 }

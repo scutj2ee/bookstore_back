@@ -2,15 +2,37 @@ package com.scutj2ee.bookstore.entity;
 
 import java.io.Serializable;
 
+/**
+ * @ Author     ：Bin Liu
+ * @ Date       ：2019/5/1 15:36
+ * @ Description：用户实体类
+ * @ Modified By：
+ */
+
+
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
-    /**用户积分*/
+    /**
+     * 用户积分
+     */
     private Integer integration;
+    /**
+     * 用户邮箱
+     */
     private String email;
+    /**
+     * 用户密码
+     */
     private String password;
+    /**
+     * 用户电话
+     */
     private String phone;
+    /**
+     * 用户名
+     */
     private String username;
 
     public User(){

@@ -2,10 +2,20 @@ package com.scutj2ee.bookstore.entity;
 
 import java.io.Serializable;
 
+/**
+ * @ Author     ：Bin Liu
+ * @ Date       ：2019/5/1 15:36
+ * @ Description：角色实体类
+ * @ Modified By：
+ */
+
 public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer roleId;
+    /**
+     * 角色名称
+     */
     private String rolename;
     /**
      * 角色类型

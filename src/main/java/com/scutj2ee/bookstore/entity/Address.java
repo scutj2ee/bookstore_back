@@ -2,16 +2,41 @@ package com.scutj2ee.bookstore.entity;
 
 import java.io.Serializable;
 
+/**
+ * @ Author     ：Bin Liu
+ * @ Date       ：2019/5/1 10:42
+ * @ Description：地址实体类
+ * @ Modified By：
+ */
 public class Address implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Integer id;
-    private String city;
-    private String detail;
-    private String district;
-    private Integer phone;
+    /**
+     * 省份
+     */
     private String province;
+    /**
+     * 城市
+     */
+    private String city;
+    /**
+     * 区
+     */
+    private String district;
+    /**
+     * 详细地址
+     */
+    private String detail;
+    /**
+     * 电话
+     */
+    private Integer phone;
+    /**
+     * 收货人
+     */
     private String receiver;
     private Integer userId;
-    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

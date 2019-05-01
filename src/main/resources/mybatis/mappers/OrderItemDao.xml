@@ -5,9 +5,9 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="count" jdbcType="INTEGER" property="count" />
     <result column="order_id" jdbcType="INTEGER" property="orderId" />
-    <result column="product_id" jdbcType="INTEGER" property="productId" />
-    <result column="sub_integral" jdbcType="INTEGER" property="subIntegral" />
-    <result column="sub_total" jdbcType="DOUBLE" property="subTotal" />
+    <result column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="sub_payment" jdbcType="INTEGER" property="subPayment" />
+    <result column="sub_payment" jdbcType="DOUBLE" property="subPayment" />
   </resultMap>
 
   <delete id="deleteOrderItemById" parameterType="java.lang.Integer">
@@ -16,10 +16,10 @@
   </delete>
 
   <insert id="insertOrderItem" parameterType="com.example.demo.entity.OrderItem">
-    insert into order_item (`count`, order_id, product_id,
-      sub_integral, sub_total)
+    insert into order_item (`count`, order_id, book_id,
+      sub_integral, sub_payment)
     values (#{count}, #{orderId}, #{productId},
-      #{subIntegral}, #{subTotal})
+      #{subIntegral}, #{subPayment})
   </insert>
 
   <update id="updateOrderItem" parameterType="com.example.demo.entity.OrderItem">
@@ -27,21 +27,21 @@
     <set>
       <if test="count != null and count != ''">`count` = #{count},</if>
       <if test="orderId != null and orderId != ''">order_id = #{orderId},</if>
-      <if test="productId != null and productId != ''">product_id = #{productId},</if>
+      <if test="bookId != null and bookId != ''">book_id = #{bookId},</if>
       <if test="subIntegral != null and subIntegral != ''">sub_integral = #{subIntegral},</if>
-      <if test="subTotal != null and subTotal != ''">sub_total = #{subTotal}</if>
+      <if test="subPayment != null and subPayment != ''">sub_payment = #{subPayment}</if>
     </set>
     where id = #{id}
   </update>
 
   <select id="findOrderItemById" parameterType="java.lang.Integer" resultMap="orderItemMap">
-    select id, `count`, order_id, product_id, sub_integral, sub_total
+    select id, `count`, order_id, book_id, sub_integral, sub_payment
     from order_item
     where id = #{id}
   </select>
 
   <select id="selectAll" resultMap="orderItemMap">
-    select id, `count`, order_id, product_id, sub_integral, sub_total
+    select id, `count`, order_id, book_id, sub_integral, sub_payment
     from order_item
   </select>
 </mapper>

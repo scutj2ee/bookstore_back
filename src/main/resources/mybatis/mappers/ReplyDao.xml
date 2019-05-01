@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.ReplyDao">
+    <resultMap id="replyMap" type="com.example.demo.entity.Reply">
+        <id column="reply_id" jdbcType="INTEGER" property="replyId" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="date" jdbcType="TIMESTAMP" property="date" />
+        <result column="book_id" jdbcType="INTEGER" property="bookId" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+        <result column="reply_user_id" jdbcType="INTEGER" property="replyUserId" />
+    </resultMap>
+
+    <delete id="deleteReply" parameterType="java.lang.Integer">
+    delete from comment
+    where comment_id = #{commentId}
+  </delete>
+
+    <insert id="insertReply" parameterType="com.example.demo.entity.Reply">
+    insert into reply (comment_id, content, `date`,
+      book_id, user_id, parent_id,
+      reply_user_id)
+    values (#{commentId}, #{content}, #{date},
+      #{bookId}, #{userId}, #{parentId},
+      #{replyUserId})
+  </insert>
+
+    <update id="updateReply" parameterType="com.example.demo.entity.Reply">
+        update reply
+        <set>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="date != null and date != ''">`date` = #{date},</if>
+            <if test="bookId != null and bookId != ''">book_id = #{bookId},</if>
+            <if test="userId != null and userId != ''">user_id = #{userId},</if>
+            <if test="parentId != null and parentId != ''">parent_id = #{parentId},</if>
+            <if test="replyUserId != null and replyUserId != ''">reply_user_id = #{replyUserId}</if>
+        </set>
+        where comment_id = #{commentId}
+    </update>
+
+    <select id="findReplyById" parameterType="java.lang.Integer" resultMap="replyMap">
+    select comment_id, content, `date`, book_id, user_id, parent_id, reply_user_id
+    from reply
+    where comment_id = #{commentId}
+  </select>
+
+    <select id="selectAll" resultMap="replyMap">
+    select comment_id, content, `date`, book_id, user_id, parent_id, reply_user_id
+    from reply
+  </select>
+</mapper>

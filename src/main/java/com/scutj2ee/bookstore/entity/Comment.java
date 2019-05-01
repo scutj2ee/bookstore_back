@@ -2,40 +2,44 @@ package com.scutj2ee.bookstore.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+/**
+ * @ Author     ：Bin Liu
+ * @ Date       ：2019/5/1 15:36
+ * @ Description：评论实体类
+ * @ Modified By：
+ */
 
 public class Comment implements Serializable {
-    private Integer commentId;
-    private String content;
-    private Date date;
-    private Integer bookId;
-    private Integer userId;
-    private Integer parentId;
-    private Integer replyUserId;
-
     private static final long serialVersionUID = 1L;
 
-    public Integer getCommentId() {
-        return commentId;
+    private Integer id;
+    /**
+     * 书本id
+     */
+    private Integer bookId;
+    /**
+     * 评论用户id
+     */
+    private Integer fromUid;
+    /**
+     * 评论内容
+     */
+    private String content;
+    /**
+     * 评论时间
+     */
+    private Date date;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
+    public Integer getId() {
+        return id;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getBookId() {
@@ -46,45 +50,38 @@ public class Comment implements Serializable {
         this.bookId = bookId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getFromUid() {
+        return fromUid;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setFromUid(Integer fromUid) {
+        this.fromUid = fromUid;
     }
 
-    public Integer getParentId() {
-        return parentId;
+    public String getContent() {
+        return content;
     }
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public Integer getReplyUserId() {
-        return replyUserId;
+    public Date getDate() {
+        return date;
     }
 
-    public void setReplyUserId(Integer replyUserId) {
-        this.replyUserId = replyUserId;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", commentId=").append(commentId);
-        sb.append(", content=").append(content);
-        sb.append(", date=").append(date);
-        sb.append(", bookId=").append(bookId);
-        sb.append(", userId=").append(userId);
-        sb.append(", parentId=").append(parentId);
-        sb.append(", replyUserId=").append(replyUserId);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "Comment{" +
+                "id=" + id +
+                ", bookId=" + bookId +
+                ", fromUid=" + fromUid +
+                ", content='" + content + '\'' +
+                ", date=" + date +
+                '}';
     }
 }
