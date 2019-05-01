@@ -15,5 +15,5 @@ public interface RoleDao {
 
     int updateByPrimaryKey(Role record);
 
-    List<Role> findbyUserId(int userId);
+    List<Role> findRolebyUserId(int userId);
 }

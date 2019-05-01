@@ -20,7 +20,7 @@ public class RoleServiceImpl implements RoleService {
     private RoleDao roleDao;
 
     @Override
-    public List<Role> findbyUserId(int userId) {
-        return roleDao.findbyUserId(userId);
+    public List<Role> findRolebyUserId(int userId) {
+        return roleDao.findRolebyUserId(userId);
     }
 }

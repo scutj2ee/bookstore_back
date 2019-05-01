@@ -40,17 +40,26 @@ public class ShiroConfig {
         logger.info("ShiroConfiguration.shirFilter()");
         ShiroFilterFactoryBean shiroFilterFactoryBean=new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
+        // 如果不设置默认会自动寻找Web工程根目录下的"/login.html"页面
+        shiroFilterFactoryBean.setLoginUrl("/user/login");
+        //设置无访问权限时跳转的url
+        shiroFilterFactoryBean.setUnauthorizedUrl("/user/login");
         //拦截器.
         Map<String,String> filterChainDefinitionMap=new LinkedHashMap<>();
-        // 配置不会被拦截的链接 顺序判断
-        filterChainDefinitionMap.put("/static/**","anon");
+        //游客权限
+        filterChainDefinitionMap.put("/guest/**","anon");
+        //管理员权限
+        filterChainDefinitionMap.put("/admin/**","roles[admin]");
+        //开放登录接口
+        filterChainDefinitionMap.put("/user/login","anon");
+        //开放注册接口
+        filterChainDefinitionMap.put("/user/register","anon");
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
         //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterChainDefinitionMap.put("/**", "authc");
-        // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/login");
+
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/index");
 

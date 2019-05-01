@@ -11,5 +11,5 @@ import java.util.List;
  * @ Modified By：
  */
 public interface RoleService {
-    List<Role> findbyUserId(int userId);
+    List<Role> findRolebyUserId(int userId);
 }
