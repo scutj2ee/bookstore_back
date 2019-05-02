@@ -45,7 +45,11 @@ spring:
     username: 1145054472@qq.com
     password: liubin7887227
     default-encoding: UTF-8
-
+  #文件上传
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 mail:
   fromMail:
     addr: 1145054472@qq.com
@@ -59,6 +63,8 @@ mail:
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   config-location: classpath:mybatis/mybatis-config.xml
+
+
 
 
 
