@@ -1,10 +1,23 @@
 package com.scutj2ee.bookstore.web;
 
+import com.scutj2ee.bookstore.entity.User;
+import com.scutj2ee.bookstore.enums.LoginResultEnum;
+import com.scutj2ee.bookstore.exception.LoginException;
+import com.scutj2ee.bookstore.pojo.LoginResult;
 import com.scutj2ee.bookstore.service.LoginService;
 import com.scutj2ee.bookstore.service.UserService;
+import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @ Author     ：Bin Liu
@@ -21,22 +34,15 @@ public class LoginController {
     private UserService userService;
 
     //用户登录
-    @PostMapping("/users/login")
+    @PostMapping("/user/login")
     private HashMap<String, Object> loginByUser(HttpServletRequest request) {
         HashMap<String, Object> resultMap = new HashMap<>();
-        /*TODO 暂时不判断验证码*///1.判断验证码
-//        if (!KaptchaUtil.checkVerifyCode(request)) {
-//            resultMap.put("success", false);
-//            resultMap.put("msg", SystemErrorEnum.KAPTCHA_INPUT_ERROR.getMsg());
-//            resultMap.put("code", SystemErrorEnum.KAPTCHA_INPUT_ERROR.getCode());
-//            return resultMap;
-//        }
-        //2.根据前端传递的参数发起登录请求
+        //1.根据前端传递的参数发起登录请求
         String departmentName = HttpServletRequestUtil.getString(request, "departmentName");
         String name = HttpServletRequestUtil.getString(request, "name");
         String password = HttpServletRequestUtil.getString(request, "password");
         try {
-            LoginResult result = loginService.loginByUser(departmentName, name, password);
+            LoginResult result = loginService.loginByUser(name, password);
             if (result.getCode() == LoginResultEnum.SUCCESS.getCode()) {
                 resultMap.put("success", true);
                 //将user返回给前端之后需要使用
@@ -64,26 +70,19 @@ public class LoginController {
     }
 
     //管理员登录
-    @PostMapping("/managers/login")
-    private HashMap<String, Object> loginByManager(HttpServletRequest request) {
+    @PostMapping("/admin/login")
+    private HashMap<String, Object> loginByAdmin(HttpServletRequest request) {
         HashMap<String, Object> resultMap = new HashMap<>();
-        //TODO 暂时不判断验证码  1.判断验证码
-//        if (!KaptchaUtil.checkVerifyCode(request)) {
-//            resultMap.put("success", false);
-//            resultMap.put("msg", SystemErrorEnum.KAPTCHA_INPUT_ERROR.getMsg());
-//            resultMap.put("code", SystemErrorEnum.KAPTCHA_INPUT_ERROR.getCode());
-//            return resultMap;
-//        }
-        //2.根据前端传递的参数发起登录请求,默认字符串是进行了去空处理
+        //1.根据前端传递的参数发起登录请求,默认字符串是进行了去空处理
         String departmentName = HttpServletRequestUtil.getString(request, "departmentName");
         String name = HttpServletRequestUtil.getString(request, "name");
         String password = HttpServletRequestUtil.getString(request, "password");
         try {
-            LoginResult result = loginService.loginByManager(departmentName, name, password);
+            LoginResult result = loginService.loginByAdmin(name, password);
             if (result.getCode() == LoginResultEnum.SUCCESS.getCode()) {
                 resultMap.put("success", true);
                 //将管理员信息返回给前端之后需要使用
-                resultMap.put("manager", result.getManager());
+                resultMap.put("admin", result.getManager());
             } else {
                 resultMap.put("success", false);
             }
@@ -91,12 +90,12 @@ public class LoginController {
             resultMap.put("msg", result.getMsg());
             //将管理员信息存入session中
             if (result.getManager() != null) {
-                List<Manager> managerList = new ArrayList<>();
+                List<User> managerList = new ArrayList<>();
                 if (null != request.getSession().getAttribute("managerList")) {//如果managerList已经存在
-                    managerList = (List<Manager>) request.getSession().getAttribute("managerList");
+                    managerList = (List<User>) request.getSession().getAttribute("managerList");
                 }
                 managerList.add(result.getManager());//添加user到 userList
-                request.getSession().setAttribute("managerList", managerList);
+                request.getSession().setAttribute("adminList", managerList);
             }
         } catch (LoginException ex) {
             resultMap.put("success", false);
@@ -107,7 +106,7 @@ public class LoginController {
     }
 
     //用户登出
-    @GetMapping("/users/logout")
+    @GetMapping("/user/logout")
     private HashMap<String, Object> logout(HttpServletRequest request) {
         HashMap<String, Object> resultMap = new HashMap<>();
         //获取要logout的用户id
@@ -129,9 +128,8 @@ public class LoginController {
             if (userList != null) {
                 for (User oneUser : userList) {//在userList中找到那个要登出的用户
                     if (//id、姓名、部门都相同
-                            oneUser.getUserId().equals(user.getUserId()) &&
-                                    oneUser.getName().equals(user.getName()) &&
-                                    oneUser.getDepartment().getDepartmentName().equals(user.getDepartment().getDepartmentName())) {
+                            oneUser.getId().equals(user.getId()) &&
+                                    oneUser.getUsername().equals(user.getUsername())) {
                         loginYes =true;//确实已经登录
                         userToRemove = oneUser;
                     }
@@ -157,8 +155,8 @@ public class LoginController {
     }
 
     //管理员登出
-    @GetMapping("/managers/logout")
-    private HashMap<String, Object> managerslogout(HttpServletRequest request) {
+    @GetMapping("/admin/logout")
+    private HashMap<String, Object> adminlogout(HttpServletRequest request) {
         HashMap<String, Object> resultMap = new HashMap<>();
         //获取要logout的 manager用户id
         int managerId;

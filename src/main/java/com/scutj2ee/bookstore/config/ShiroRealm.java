@@ -34,6 +34,13 @@ public class ShiroRealm extends AuthorizingRealm {
     @Autowired
     private PermissionService permissionService;
 
+    /**
+     * create by: Bin Liu
+     * description: 授权
+     * create time: 2019/5/3 22:52
+     * @Param: null
+     * @return 
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         logger.info("权限配置-->ShiroRealm.doGetAuthorizationInfo()");
@@ -42,12 +49,19 @@ public class ShiroRealm extends AuthorizingRealm {
         for(Role role:roleService.findRolebyUserId(user.getId())){
             authorizationInfo.addRole(role.getRolename());
             for(Permission p:permissionService.findByRoleId(role.getRoleId())){
-                authorizationInfo.addStringPermission((p.getName()));
+                authorizationInfo.addStringPermission((p.getUrl()));
             }
         }
         return authorizationInfo;
     }
 
+    /**
+     * create by: Bin Liu
+     * description: 认证
+     * create time: 2019/5/3 22:52
+     * @Param: null
+     * @return 
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         logger.info("ShiroRealm.doGetAuthenticationInfo()");

@@ -109,20 +109,12 @@ public class RegisterController {
     @PostMapping("/admin/apply")
     private HashMap<String,Object> applyByManager(HttpServletRequest request){
         HashMap<String,Object> resultMap = new HashMap<>();
-        //1.判断验证码
-//        if (!KaptchaUtil.checkVerifyCode(request)){
-//            resultMap.put("success",false);
-//            resultMap.put("msg", SystemErrorEnum.KAPTCHA_INPUT_ERROR.getMsg());
-//            resultMap.put("code", SystemErrorEnum.KAPTCHA_INPUT_ERROR.getCode());
-//            return resultMap;
-//        }
         //2.将前台获取的参数转换成Manager对象
-        String managerStr = HttpServletRequestUtil.getString(request,"manager");
+        String adminStr = HttpServletRequestUtil.getString(request,"admin");
         ObjectMapper mapper = new ObjectMapper();
-        Manager manager = null;
+        User admin = null;
         try {
-            manager = mapper.readValue(managerStr,Manager.class);
-            manager.setState(0);
+            admin = mapper.readValue(adminStr,User.class);
         } catch (IOException e) {
             resultMap.put("success",false);
             resultMap.put("msg", SystemErrorEnum.SYSTEM_INNER_ERROR.getMsg());
@@ -130,7 +122,7 @@ public class RegisterController {
         }
         //3.进行注册,manager为前端传递过来的json字符串
         try{
-            RegisterResult result = registerService.applyByManager(manager);
+            RegisterResult result = registerService.applyByAdmin(admin);
             if (result.getCode() == RegisterResultEnum.APPLY_SUCCESS.getCode()){
                 resultMap.put("success",true);
             }else{
