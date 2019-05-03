@@ -5,13 +5,13 @@ import com.scutj2ee.bookstore.entity.UserRole;
 import java.util.List;
 
 public interface UserRoleDao {
-    int deleteByPrimaryKey(Integer id);
+    int insertUserRole(UserRole userRole);
 
-    int insert(UserRole record);
-
-    UserRole findByPrimaryKey(Integer id);
+    UserRole findUserRoleById(Integer id);
 
     List<UserRole> selectAll();
 
-    int updateByPrimaryKey(UserRole record);
+    int updateUserRole(UserRole userRole);
+
+    int deleteUserRole(Integer id);
 }

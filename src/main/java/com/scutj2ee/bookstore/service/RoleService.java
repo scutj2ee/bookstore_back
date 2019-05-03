@@ -12,4 +12,12 @@ import java.util.List;
  */
 public interface RoleService {
     List<Role> findRolebyUserId(int userId);
+
+    Role findByRoleId(int roleId);
+
+    int deleteByRoleId(int roleId);
+
+    int insertRole(Role role);
+
+    int updateRole(Role role);
 }

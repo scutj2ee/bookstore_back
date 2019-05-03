@@ -104,4 +104,46 @@ public class RegisterController {
             return resultMap;
         }
     }
+
+    //管理员申请
+    @PostMapping("/admin/apply")
+    private HashMap<String,Object> applyByManager(HttpServletRequest request){
+        HashMap<String,Object> resultMap = new HashMap<>();
+        //1.判断验证码
+//        if (!KaptchaUtil.checkVerifyCode(request)){
+//            resultMap.put("success",false);
+//            resultMap.put("msg", SystemErrorEnum.KAPTCHA_INPUT_ERROR.getMsg());
+//            resultMap.put("code", SystemErrorEnum.KAPTCHA_INPUT_ERROR.getCode());
+//            return resultMap;
+//        }
+        //2.将前台获取的参数转换成Manager对象
+        String managerStr = HttpServletRequestUtil.getString(request,"manager");
+        ObjectMapper mapper = new ObjectMapper();
+        Manager manager = null;
+        try {
+            manager = mapper.readValue(managerStr,Manager.class);
+            manager.setState(0);
+        } catch (IOException e) {
+            resultMap.put("success",false);
+            resultMap.put("msg", SystemErrorEnum.SYSTEM_INNER_ERROR.getMsg());
+            return resultMap;
+        }
+        //3.进行注册,manager为前端传递过来的json字符串
+        try{
+            RegisterResult result = registerService.applyByManager(manager);
+            if (result.getCode() == RegisterResultEnum.APPLY_SUCCESS.getCode()){
+                resultMap.put("success",true);
+            }else{
+                resultMap.put("success",false);
+            }
+            resultMap.put("code",result.getCode());
+            resultMap.put("msg",result.getMsg());
+            return resultMap;
+        }catch (RegisterException e){
+            resultMap.put("success",false);
+            resultMap.put("code",e.getCode());
+            resultMap.put("msg",e.getMessage());
+            return resultMap;
+        }
+    }
 }

@@ -5,13 +5,13 @@ import com.scutj2ee.bookstore.entity.RolePermission;
 import java.util.List;
 
 public interface RolePermissionDao {
-    int deleteByPrimaryKey(Integer id);
+    int insertRolePermission(RolePermission record);
 
-    int insert(RolePermission record);
-
-    RolePermission findByPrimaryKey(Integer id);
+    RolePermission findRolePermissionById(Integer id);
 
     List<RolePermission> selectAll();
 
-    int updateByPrimaryKey(RolePermission record);
+    int deleteRolePermission(Integer id);
+
+    int updateRolePermission(RolePermission rolePermission);
 }

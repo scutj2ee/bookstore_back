@@ -10,7 +10,6 @@ public enum  LoginResultEnum {
     INPUT_NULL(-101,"输入信息为空"),
     USER_NOT_EXIT(-102,"用户未注册"),
     NOT_MATCH(-103,"用户名和密码不匹配"),
-    USER_IS_LOCK(-104,"用户已被锁定，无法登录"),
     SUCCESS(1,"登录成功");
 
     LoginResultEnum(Integer code, String msg) {

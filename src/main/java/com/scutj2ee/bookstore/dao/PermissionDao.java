@@ -5,15 +5,15 @@ import com.scutj2ee.bookstore.entity.Permission;
 import java.util.List;
 
 public interface PermissionDao {
-    int deleteByPrimaryKey(Integer resourceId);
+    int insertPermisssion(Permission permission);
 
-    int insert(Permission record);
-
-    Permission findPermisssionById(Integer resourceId);
+    Permission findPermisssionById(Integer permissionId);
 
     List<Permission> selectAll();
 
-    int updateByPrimaryKey(Permission record);
+    int updatePermission(Permission permission);
+
+    int deletePermission(Integer permissionId);
 
     List<Permission> findByRoleId(int roleId);
 }

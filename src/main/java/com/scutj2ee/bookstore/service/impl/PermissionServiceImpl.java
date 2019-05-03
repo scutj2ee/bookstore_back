@@ -23,4 +23,24 @@ public class PermissionServiceImpl implements PermissionService {
     public List<Permission> findByRoleId(int roleId) {
         return permissionDao.findByRoleId(roleId);
     }
+
+    @Override
+    public Permission findByPermissionId(int permissionId) {
+        return permissionDao.findPermisssionById(permissionId);
+    }
+
+    @Override
+    public int updatePermission(Permission permission) {
+        return permissionDao.updatePermission(permission);
+    }
+
+    @Override
+    public int insertPrivilege(Permission permission) {
+        return permissionDao.insertPermisssion(permission);
+    }
+
+    @Override
+    public int deleteByPermissionId(int permissionId) {
+        return permissionDao.deletePermission(permissionId);
+    }
 }

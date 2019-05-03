@@ -23,4 +23,24 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> findRolebyUserId(int userId) {
         return roleDao.findRolebyUserId(userId);
     }
+
+    @Override
+    public Role findByRoleId(int roleId) {
+        return roleDao.findRoleById(roleId);
+    }
+
+    @Override
+    public int deleteByRoleId(int roleId) {
+        return roleDao.deleteRole(roleId);
+    }
+
+    @Override
+    public int insertRole(Role role) {
+        return roleDao.insertRole(role);
+    }
+
+    @Override
+    public int updateRole(Role role) {
+        return roleDao.updateRole(role);
+    }
 }

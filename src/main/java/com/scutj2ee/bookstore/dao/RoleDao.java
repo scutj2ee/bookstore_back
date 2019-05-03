@@ -5,15 +5,15 @@ import com.scutj2ee.bookstore.entity.Role;
 import java.util.List;
 
 public interface RoleDao {
-    int deleteByPrimaryKey(Integer roleId);
+    int insertRole(Role role);
 
-    int insert(Role record);
-
-    Role findByPrimaryKey(Integer roleId);
+    Role findRoleById(Integer roleId);
 
     List<Role> selectAll();
 
-    int updateByPrimaryKey(Role record);
+    int updateRole(Role role);
+
+    int deleteRole(Integer roleId);
 
     List<Role> findRolebyUserId(int userId);
 }

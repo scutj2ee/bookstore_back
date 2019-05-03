@@ -45,4 +45,9 @@ public class RegisterServiceImpl implements RegisterService {
             throw new RegisterException(RegisterResultEnum.USER_EXIST.getCode(), RegisterResultEnum.USER_EXIST.getMsg());
         }
     }
+
+    @Override
+    public RegisterResult applyByAdmin(User user) {
+        return null;
+    }
 }
