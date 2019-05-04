@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * @ Author     ：Bin Liu
  * @ Date       ：2019/5/3 9:45
- * @ Description：${description}
+ * @ Description：登陆控制器类
  * @ Modified By：
  */
 @RestController
@@ -33,17 +33,22 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    //用户登录
+    /**
+     * create by: Bin Liu
+     * description: 用户登录
+     * create time: 2019/5/4 10:05
+     * @Param: null
+     * @return
+     */
     @PostMapping("/user/login")
     private HashMap<String, Object> loginByUser(HttpServletRequest request) {
         HashMap<String, Object> resultMap = new HashMap<>();
         //1.根据前端传递的参数发起登录请求
-        String departmentName = HttpServletRequestUtil.getString(request, "departmentName");
-        String name = HttpServletRequestUtil.getString(request, "name");
+        String username = HttpServletRequestUtil.getString(request, "name");
         String password = HttpServletRequestUtil.getString(request, "password");
         try {
-            LoginResult result = loginService.loginByUser(name, password);
-            if (result.getCode() == LoginResultEnum.SUCCESS.getCode()) {
+            LoginResult result = loginService.loginByUser(username, password);
+            if (result.getCode().equals(LoginResultEnum.SUCCESS.getCode())) {
                 resultMap.put("success", true);
                 //将user返回给前端之后需要使用
                 resultMap.put("user", result.getUser());
@@ -55,10 +60,12 @@ public class LoginController {
             //将用户信息存入session中
             if (result.getUser() != null) {
                 List<User> userList = new ArrayList<>();
-                if (null != request.getSession().getAttribute("userList")) {//如果userList已经存在
+                //如果userList已经存在
+                if (null != request.getSession().getAttribute("userList")) {
                     userList = (List<User>) request.getSession().getAttribute("userList");
                 }
-                userList.add(result.getUser());//添加user到 userList
+                //添加user到 userList
+                userList.add(result.getUser());
                 request.getSession().setAttribute("userList", userList);
             }
         } catch (LoginException ex) {
@@ -69,33 +76,40 @@ public class LoginController {
         return resultMap;
     }
 
-    //管理员登录
+    /**
+     * create by: Bin Liu
+     * description: 管理员登录
+     * create time: 2019/5/4 10:05
+     * @Param: null
+     * @return
+     */
     @PostMapping("/admin/login")
     private HashMap<String, Object> loginByAdmin(HttpServletRequest request) {
         HashMap<String, Object> resultMap = new HashMap<>();
         //1.根据前端传递的参数发起登录请求,默认字符串是进行了去空处理
-        String departmentName = HttpServletRequestUtil.getString(request, "departmentName");
-        String name = HttpServletRequestUtil.getString(request, "name");
+        String username = HttpServletRequestUtil.getString(request, "name");
         String password = HttpServletRequestUtil.getString(request, "password");
         try {
-            LoginResult result = loginService.loginByAdmin(name, password);
-            if (result.getCode() == LoginResultEnum.SUCCESS.getCode()) {
+            LoginResult result = loginService.loginByAdmin(username, password);
+            if (result.getCode().equals(LoginResultEnum.SUCCESS.getCode())) {
                 resultMap.put("success", true);
                 //将管理员信息返回给前端之后需要使用
-                resultMap.put("admin", result.getManager());
+                resultMap.put("admin", result.getUser());
             } else {
                 resultMap.put("success", false);
             }
             resultMap.put("code", result.getCode());
             resultMap.put("msg", result.getMsg());
             //将管理员信息存入session中
-            if (result.getManager() != null) {
-                List<User> managerList = new ArrayList<>();
-                if (null != request.getSession().getAttribute("managerList")) {//如果managerList已经存在
-                    managerList = (List<User>) request.getSession().getAttribute("managerList");
+            if (result.getUser() != null) {
+                List<User> adminList = new ArrayList<>();
+                //如果adminList已经存在
+                if (null != request.getSession().getAttribute("adminList")) {
+                    adminList = (List<User>) request.getSession().getAttribute("adminrList");
                 }
-                managerList.add(result.getManager());//添加user到 userList
-                request.getSession().setAttribute("adminList", managerList);
+                //添加user到 userList
+                adminList.add(result.getUser());
+                request.getSession().setAttribute("adminList", adminList);
             }
         } catch (LoginException ex) {
             resultMap.put("success", false);
@@ -105,7 +119,13 @@ public class LoginController {
         return resultMap;
     }
 
-    //用户登出
+    /**
+     * create by: Bin Liu
+     * description: 用户登出
+     * create time: 2019/5/4 10:06
+     * @Param: null
+     * @return
+     */
     @GetMapping("/user/logout")
     private HashMap<String, Object> logout(HttpServletRequest request) {
         HashMap<String, Object> resultMap = new HashMap<>();
@@ -126,22 +146,27 @@ public class LoginController {
             List<User> userList = (List<User>) session.getAttribute("userList");
             boolean loginYes=false;
             if (userList != null) {
-                for (User oneUser : userList) {//在userList中找到那个要登出的用户
+                //在userList中找到那个要登出的用户
+                for (User oneUser : userList) {
                     if (//id、姓名、部门都相同
                             oneUser.getId().equals(user.getId()) &&
                                     oneUser.getUsername().equals(user.getUsername())) {
-                        loginYes =true;//确实已经登录
+                        //确实已经登录
+                        loginYes =true;
                         userToRemove = oneUser;
                     }
                 }
-                if(loginYes ==false) {//服务器未检测到该用户已登录
+                //服务器未检测到该用户已登录
+                if(loginYes ==false) {
                     resultMap.put("success", false);
                     resultMap.put("msg", "服务器未检测到该用户已登录！");
                     return resultMap;
                 }
-                userList.remove(userToRemove);//注销
+                //注销
+                userList.remove(userToRemove);
             }
-            session.setAttribute("userList", userList);//更新已登录用户列表
+            //更新已登录用户列表
+            session.setAttribute("userList", userList);
             resultMap.put("success", true);
             resultMap.put("msg", "注销成功！");
             return resultMap;
@@ -154,14 +179,20 @@ public class LoginController {
         }
     }
 
-    //管理员登出
+    /**
+     * create by: Bin Liu
+     * description: 管理员登出
+     * create time: 2019/5/4 10:07
+     * @Param: null
+     * @return
+     */
     @GetMapping("/admin/logout")
     private HashMap<String, Object> adminlogout(HttpServletRequest request) {
         HashMap<String, Object> resultMap = new HashMap<>();
-        //获取要logout的 manager用户id
-        int managerId;
+        //获取要logout的 admin用户id
+        int adminId;
         try {
-            managerId = Integer.parseInt(HttpServletRequestUtil.getString(request, "managerId"));
+            adminId = Integer.parseInt(HttpServletRequestUtil.getString(request, "adminId"));
         } catch (NumberFormatException e) {
             resultMap.put("success", false);
             resultMap.put("msg", "获取管理员对象ID信息异常，无法完成注销。");
@@ -169,30 +200,35 @@ public class LoginController {
         }
         //开始尝试注销
         HttpSession session = request.getSession();
-        List<Manager> managerList= (List<Manager>) session.getAttribute("managerList");
+        List<User> adminList= (List<User>) session.getAttribute("adminList");
         boolean loginYes=false;
         try {
-            Manager manager = managerService.getManagerById(managerId);
-            Manager managerToRemove=null;
-            if (managerList != null) {
-                for (Manager oneManager : managerList) {//在老列表里面比对，得到新的已登录列表
-                    if (//id、姓名、部门都相同
-                            oneManager.getManagerId().equals(manager.getManagerId()) &&
-                                    oneManager.getName().equals(manager.getName()) &&
-                                    oneManager.getDepartment().getDepartmentName().equals(manager.getDepartment().getDepartmentName())
+            User admin = userService.getUserById(adminId);
+            User adminToRemove=null;
+            if (adminList != null) {
+                //在老列表里面比对，得到新的已登录列表
+                for (User oneAdmin : adminList) {
+                    //id、姓名都相同
+                    if (
+                            oneAdmin.getId().equals(admin.getId()) &&
+                                    oneAdmin.getUsername().equals(admin.getUsername())
                             ) {
-                        loginYes=true;//确实已经登录
-                        managerToRemove=oneManager;
+                        //确实已经登录
+                        loginYes=true;
+                        adminToRemove=oneAdmin;
                     }
                 }
-                if(loginYes ==false) {//服务器未检测到该用户已登录
+                //服务器未检测到该用户已登录
+                if(loginYes ==false) {
                     resultMap.put("success", false);
                     resultMap.put("msg", "服务器未检测到该用户已登录！");
                     return resultMap;
                 }
-                managerList.remove(managerToRemove);//注销
+                //注销
+                adminList.remove(adminToRemove);
             }
-            session.setAttribute("managerList", managerList);//更新已登录用户列表
+            //更新已登录用户列表
+            session.setAttribute("adminList", adminList);
             resultMap.put("success", true);
             resultMap.put("msg", "注销成功！");
             return resultMap;
@@ -205,5 +241,5 @@ public class LoginController {
         }
 
     }
-}
+
 }

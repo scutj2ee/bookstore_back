@@ -23,7 +23,7 @@ import java.util.Random;
 /**
  * @ Author     ：Bin Liu
  * @ Date       ：2019/4/29 22:49
- * @ Description：${description}
+ * @ Description：注册控制器类
  * @ Modified By：
  */
 @RestController
@@ -34,7 +34,6 @@ public class RegisterController {
 
     @Autowired
     private RegisterService registerService;
-
 
     /**
      * create by: Bin Liu
@@ -67,7 +66,7 @@ public class RegisterController {
 
     /**
      * create by: Bin Liu
-     * description: 注册
+     * description: 用户注册
      * create time: 2019/4/30 10:46
      * @Param: request
      * @return
@@ -89,41 +88,7 @@ public class RegisterController {
         //2.进行注册,user是由是由前端传递过来的json字符串
         try{
             RegisterResult result = registerService.registerByUser(user);
-            if (result.getCode() == RegisterResultEnum.SUCCESS.getCode()){
-                resultMap.put("success",true);
-            }else{
-                resultMap.put("success",false);
-            }
-            resultMap.put("code",result.getCode());
-            resultMap.put("msg",result.getMsg());
-            return resultMap;
-        }catch (RegisterException e){
-            resultMap.put("success",false);
-            resultMap.put("code",e.getCode());
-            resultMap.put("msg",e.getMessage());
-            return resultMap;
-        }
-    }
-
-    //管理员申请
-    @PostMapping("/admin/apply")
-    private HashMap<String,Object> applyByManager(HttpServletRequest request){
-        HashMap<String,Object> resultMap = new HashMap<>();
-        //2.将前台获取的参数转换成Manager对象
-        String adminStr = HttpServletRequestUtil.getString(request,"admin");
-        ObjectMapper mapper = new ObjectMapper();
-        User admin = null;
-        try {
-            admin = mapper.readValue(adminStr,User.class);
-        } catch (IOException e) {
-            resultMap.put("success",false);
-            resultMap.put("msg", SystemErrorEnum.SYSTEM_INNER_ERROR.getMsg());
-            return resultMap;
-        }
-        //3.进行注册,manager为前端传递过来的json字符串
-        try{
-            RegisterResult result = registerService.applyByAdmin(admin);
-            if (result.getCode() == RegisterResultEnum.APPLY_SUCCESS.getCode()){
+            if (result.getCode().equals(RegisterResultEnum.SUCCESS.getCode())){
                 resultMap.put("success",true);
             }else{
                 resultMap.put("success",false);
