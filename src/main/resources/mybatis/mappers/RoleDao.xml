@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.dao.RoleDao">
-  <resultMap id="roleMap" type="com.example.demo.entity.Role">
+<mapper namespace="com.scutj2ee.bookstore.dao.RoleDao">
+  <resultMap id="roleMap" type="com.scutj2ee.bookstore.entity.Role">
     <id column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="rolename" jdbcType="VARCHAR" property="rolename" />
     <result column="type" jdbcType="INTEGER" property="type" />

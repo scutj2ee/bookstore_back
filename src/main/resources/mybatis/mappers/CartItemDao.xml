@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scutj2ee.bookstore.dao.CartItemDao">
+  <resultMap id="cartItemMap" type="com.scutj2ee.bookstore.entity.CartItem">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="subTotal" jdbcType="DOUBLE" property="subtotal" />
+    <result column="buyNum" jdbcType="INTEGER" property="buynum" />
+  </resultMap>
+
+  <delete id="deleteCartItem" parameterType="java.lang.Integer">
+    delete from cart_item
+    where id = #{id}
+  </delete>
+
+  <insert id="insertCartItem" parameterType="com.example.demo.entity.CartItem">
+    insert into cart_item (book_id, subTotal, buyNum)
+    values (#{bookId}, #{subtotal}, #{buynum})
+  </insert>
+
+  <update id="updateCartItem" parameterType="com.example.demo.entity.CartItem">
+    update cart_item
+    <set>
+      <if test="bookId != null and bookId != ''">book_id = #{bookId},</if>
+      <if test="subtotal != null and subtotal != ''">subTotal = #{subtotal},</if>
+      <if test="buynum != null and buynum != ''">buyNum = #{buynum}</if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <select id="findCartItemById" parameterType="java.lang.Integer" resultMap="cartItemMap">
+    select id, book_id, subTotal, buyNum
+    from cart_item
+    where id = #{id}
+  </select>
+
+  <select id="selectAll" resultMap="cartItemMap">
+    select id, book_id, subTotal, buyNum
+    from cart_item
+  </select>
+</mapper>

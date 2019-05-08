@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80011
 File Encoding         : 65001
 
-Date: 2019-05-01 16:45:32
+Date: 2019-05-08 23:13:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -89,6 +89,36 @@ CREATE TABLE `book_info` (
 
 -- ----------------------------
 -- Records of book_info
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `cart`
+-- ----------------------------
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `total` double NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of cart
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `cart_item`
+-- ----------------------------
+DROP TABLE IF EXISTS `cart_item`;
+CREATE TABLE `cart_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `book_id` int(11) NOT NULL,
+  `subTotal` double NOT NULL,
+  `buyNum` int(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of cart_item
 -- ----------------------------
 
 -- ----------------------------
