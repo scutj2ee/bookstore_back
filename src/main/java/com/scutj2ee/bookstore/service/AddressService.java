@@ -4,7 +4,6 @@ import com.scutj2ee.bookstore.entity.Address;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.awt.print.Pageable;
 import java.util.List;
 
 /**
@@ -31,8 +30,6 @@ public interface AddressService {
     /**
      * 查询用户所有相关的地址
      */
-//    Page<Address> findByUserId(HttpServletRequest request, Pageable pageable);
-
     List<Address> findByUserId(HttpServletRequest request);
 
     /**

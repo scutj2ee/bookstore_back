@@ -6,6 +6,8 @@ import com.scutj2ee.bookstore.entity.User;
 import com.scutj2ee.bookstore.exception.LoginException;
 import com.scutj2ee.bookstore.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -26,7 +28,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Address findByIdAndUserId(Integer id, Integer userId) {
-        return null;
+        return addressDao.findByIdAndUserId(id, userId);
     }
 
     @Override
@@ -34,16 +36,16 @@ public class AddressServiceImpl implements AddressService {
         return addressDao.findAddressById(id);
     }
 
+
     @Override
     public List<Address> findByUserId(HttpServletRequest request) {
-//        Object user = request.getSession().getAttribute("user");
-//        if(user == null){
-//            throw new LoginException("请登录！");
-//        }
-//        User loginUser = (User) user;
-//        List<Address> addresses = addressDao.findByUserId(loginUser.getId());//有问题
-//        return addresses;
-        return null;
+        Object user = request.getSession().getAttribute("user");
+        if(user == null){
+            throw new LoginException("请登录！");
+        }
+        User loginUser = (User) user;
+        List<Address> addresses = addressDao.findByUserId(loginUser.getId());
+        return addresses;
     }
 
     @Override
