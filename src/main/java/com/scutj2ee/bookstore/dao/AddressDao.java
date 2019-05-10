@@ -14,4 +14,8 @@ public interface AddressDao {
     List<Address> selectAll();
 
     int updateAddress(Address address);
+
+    Address findByIdAndUserId(Integer id, Integer userId);
+
+    List<Address> findByUserId(Integer userId);
 }

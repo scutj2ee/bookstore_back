@@ -46,4 +46,16 @@
     select id, city, detail, district, phone, province, receiver, user_id
     from address
   </select>
+
+  <select id="findByIdAndUserId" resultMap="addressMap">
+    select id, city, detail, district, phone, province, receiver, user_id
+    from address
+    where id=#{id} and user_id=#{userId}
+  </select>
+
+  <select id="findByUserId" resultMap="addressMap">
+    select id, city, detail, district, phone, province, receiver, user_id
+    from address
+    where user_id=#{userId}
+  </select>
 </mapper>
