@@ -53,7 +53,11 @@ public class AddressController {
     /**
      * 展现用户的地址
      */
-
+    @RequestMapping("/list")
+    public List<Address> list(HttpServletRequest request)throws LoginException{
+        List<Address> addresses = addressService.findByUserId(request);
+        return addresses;
+    }
 
     /**
      * 增加用户地址
@@ -75,7 +79,7 @@ public class AddressController {
         address.setDetail(detail);
         address.setPhone(phone);
         address.setReceiver(receiver);
-        int id = addressService.create(address);//有问题
+        int id = addressService.create(address);
         if(id <= 0){
             request.getSession().setAttribute("message", "添加失败！");
             request.getRequestDispatcher("toAdd").forward(request, response);
