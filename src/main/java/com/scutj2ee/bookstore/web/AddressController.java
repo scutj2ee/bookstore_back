@@ -54,7 +54,7 @@ public class AddressController {
      * 展现用户的地址
      */
     @RequestMapping("/list")
-    public ResultBean<List<Address>> list(HttpServletRequest request)throws LoginException{
+    public ResultBean<List<Address>> list(HttpServletRequest request){
         List<Address> addresses = addressService.findByUserId(request);
         return new ResultBean<>(addresses);
     }
