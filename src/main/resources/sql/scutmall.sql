@@ -111,6 +111,7 @@ CREATE TABLE `cart` (
 DROP TABLE IF EXISTS `cart_item`;
 CREATE TABLE `cart_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cart_id` int(11) NOT NULL,
   `book_id` int(11) NOT NULL,
   `subTotal` double NOT NULL,
   `buyNum` int(5) NOT NULL,

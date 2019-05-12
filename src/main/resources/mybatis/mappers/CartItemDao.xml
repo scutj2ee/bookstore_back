@@ -3,6 +3,7 @@
 <mapper namespace="com.scutj2ee.bookstore.dao.CartItemDao">
   <resultMap id="cartItemMap" type="com.scutj2ee.bookstore.entity.CartItem">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cart_id" jdbcType="INTEGER" property="cartId" />
     <result column="book_id" jdbcType="INTEGER" property="bookId" />
     <result column="subTotal" jdbcType="DOUBLE" property="subtotal" />
     <result column="buyNum" jdbcType="INTEGER" property="buynum" />
@@ -14,13 +15,14 @@
   </delete>
 
   <insert id="insertCartItem" parameterType="com.example.demo.entity.CartItem">
-    insert into cart_item (book_id, subTotal, buyNum)
-    values (#{bookId}, #{subtotal}, #{buynum})
+    insert into cart_item (cart_id, book_id, subTotal, buyNum)
+    values (#{cartId}, #{bookId}, #{subtotal}, #{buynum})
   </insert>
 
   <update id="updateCartItem" parameterType="com.example.demo.entity.CartItem">
     update cart_item
     <set>
+      <if test="cartId != null and cartId != ''">cart_id = #{cartId},</if>
       <if test="bookId != null and bookId != ''">book_id = #{bookId},</if>
       <if test="subtotal != null and subtotal != ''">subTotal = #{subtotal},</if>
       <if test="buynum != null and buynum != ''">buyNum = #{buynum}</if>
@@ -29,13 +31,13 @@
   </update>
 
   <select id="findCartItemById" parameterType="java.lang.Integer" resultMap="cartItemMap">
-    select id, book_id, subTotal, buyNum
+    select id, cart_id, book_id, subTotal, buyNum
     from cart_item
     where id = #{id}
   </select>
 
   <select id="selectAll" resultMap="cartItemMap">
-    select id, book_id, subTotal, buyNum
+    select id, cart_id, book_id, subTotal, buyNum
     from cart_item
   </select>
 </mapper>

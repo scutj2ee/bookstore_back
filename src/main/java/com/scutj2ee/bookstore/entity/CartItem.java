@@ -13,6 +13,8 @@ public class CartItem implements Serializable {
 
     private Integer id;
 
+    private Integer cartId;
+
     private Integer bookId;
 
     private BookInfo bookInfo;
@@ -25,8 +27,9 @@ public class CartItem implements Serializable {
         return serialVersionUID;
     }
 
-    public CartItem(Integer id, Integer bookId, BookInfo bookInfo, double subTotal, Integer buyNum) {
+    public CartItem(Integer id, Integer cartId, Integer bookId, BookInfo bookInfo, double subTotal, Integer buyNum) {
         this.id = id;
+        this.cartId = cartId;
         this.bookId = bookId;
         this.bookInfo = bookInfo;
         this.subTotal = subTotal;
@@ -75,5 +78,13 @@ public class CartItem implements Serializable {
 
     public void setBuyNum(int buyNum) {
         this.buyNum = buyNum;
+    }
+
+    public Integer getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Integer cartId) {
+        this.cartId = cartId;
     }
 }

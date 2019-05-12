@@ -17,7 +17,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost/mall?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone = GMT&autoReconnect=true
     username: root
-    password: kevin2019
+    password: 7887227
     #druid≈‰÷√
     druid:
       max-wait: 60000
