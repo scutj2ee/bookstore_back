@@ -23,6 +23,11 @@ public interface BookCategoryService {
     List<BookCategory> findByType(Integer type);
 
     /**
+     * 查找所有分类
+     */
+    List<BookCategory> findAll();
+
+    /**
      *  按条件查询
      *  dao还没写
      */

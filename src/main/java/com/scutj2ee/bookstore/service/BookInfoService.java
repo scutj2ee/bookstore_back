@@ -16,9 +16,20 @@ public interface BookInfoService {
     BookInfo findById(Integer id);
 
     /**
+     * 查询所有书
+     */
+    List<BookInfo> findAll();
+
+    /**
      * 根据书的类别查找商品
      */
     List<BookInfo> findByBookCategoryId(Integer bookCategoryId);
+
+    /**
+     * 查找最新产品
+     *
+     */
+    List<BookInfo> findNewBook();
 
     /**
      * 更新
