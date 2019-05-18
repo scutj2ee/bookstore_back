@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface OrderService {
     /**
-     * 订单状态 1：未付款 2：等待发货 3：等待收货 4：订单完成
+     * 订单状态 1：未付款 2：等待发货 4：订单完成
      */
     int STATE_NO_PAY = 1;
     int STATE_WAITE_SEND = 2;
@@ -24,7 +24,7 @@ public interface OrderService {
     /**
      * 根据id查询
      */
-    Order findById();
+    Order findById(Integer orderId);
 
     /**
      * 查询所有订单
@@ -32,17 +32,9 @@ public interface OrderService {
     List<Order> findAll();
 
     /**
-     * 查询历史订单
-     */
-    double getMoneySum();
-
-    /**
-     * 获取用户总数
-     */
-    int getUserSum();
-
-    /**
      * 查询订单的订单项
+     * @param orderId
+     * @return
      */
     List<OrderItem> findItems(Integer orderId);
 
@@ -60,7 +52,7 @@ public interface OrderService {
     /**
      * 创建订单
      */
-    void create(Order order);
+    int create(Order order);
 
     /**
      * 根据id查询
