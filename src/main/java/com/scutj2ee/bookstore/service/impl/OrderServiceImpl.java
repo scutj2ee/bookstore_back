@@ -41,16 +41,6 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.selectAll();
     }
 
-    @Override
-    public double getMoneySum() {
-        return 0;
-    }
-
-    @Override
-    public int getUserSum() {
-        return 0;
-    }
-
     /**
      * 暂时未实现Dao
      * @param orderId
