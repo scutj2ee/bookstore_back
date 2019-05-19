@@ -48,4 +48,10 @@
     select id, address_id, create_time, end_time, `state`, payment, total_integral, user_id
     from order
   </select>
+
+  <select id="findByUserId" parameterType="java.lang.Integer" resultMap="orderMap">
+    select id, address_id, create_time, end_time, `state`, payment, total_integral, user_id
+    from order
+    where user_id = #{userId}
+  </select>
 </mapper>

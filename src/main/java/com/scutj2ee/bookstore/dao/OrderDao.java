@@ -14,4 +14,6 @@ public interface OrderDao {
     List<Order> selectAll();
 
     int updateOrder(Order order);
+
+    List<Order> findByUserId(Integer userId);
 }

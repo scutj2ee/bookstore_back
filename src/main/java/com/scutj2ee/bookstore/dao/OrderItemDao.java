@@ -14,4 +14,6 @@ public interface OrderItemDao {
     List<OrderItem> selectAll();
 
     int updateOrderItem(OrderItem orderItem);
+
+    List<OrderItem> findByOrderId(Integer orderId);
 }

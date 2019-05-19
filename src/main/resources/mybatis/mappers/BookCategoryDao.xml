@@ -44,4 +44,16 @@
     select cate_id, parent_id, `name`, `status`, `type`, created, updated
     from book_category
   </select>
+
+  <select id="findByType" parameterType="java.lang.Integer" resultMap="bookCategoryMap">
+    select cate_id, fparent_id, `name`, `status`, `type`, created, updated
+    from book_category
+    where `type` = #{type}
+  </select>
+
+  <select id="findByParentId" parameterType="java.lang.Integer" resultMap="bookCategoryMap">
+    select cate_id, parent_id, `name`, `status`, `type`, created, updated
+    from book_category
+    where parent_id = #{parentId}
+  </select>
 </mapper>

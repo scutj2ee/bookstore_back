@@ -98,4 +98,17 @@
     is_shelf
     from book_info
   </select>
+
+  <select id="findByBookCategoryId" parameterType="java.lang.Integer" resultMap="bookInfoMap">
+    select book_id, book_category_id, `name`, outline, detail, press, publish_date, `size`,
+    version, author, translator, isbn, price, pages, `catalog`, market_price, member_price,
+    deal_mount, look_mount, discount, image_url, store_mount, store_time, pack_style,
+    is_shelf
+    from book_info
+    where book_category_id = #{bookCategoryId}
+  </select>
+
+  <select id="findNew" parameterType="java.lang.Integer" resultMap="bookInfoMap">
+    SELECT * FROM book_info where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= publish_date
+  </select>
 </mapper>

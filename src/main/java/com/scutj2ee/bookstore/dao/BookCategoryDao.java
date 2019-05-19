@@ -14,4 +14,8 @@ public interface BookCategoryDao {
     List<BookCategory> selectAll();
 
     int updateBookCategory(BookCategory bookCategory);
+
+    List<BookCategory> findByType(Integer type);
+
+    List<BookCategory> findByParentId(Integer parentId);
 }

@@ -44,4 +44,10 @@
     select id, `count`, order_id, book_id, sub_integral, sub_payment
     from order_item
   </select>
+
+  <select id="findByOrderId" parameterType="java.lang.Integer" resultMap="orderItemMap">
+    select id, `count`, order_id, book_id, sub_integral, sub_payment
+    from order_item
+    where order_id = #{orderId}
+  </select>
 </mapper>
