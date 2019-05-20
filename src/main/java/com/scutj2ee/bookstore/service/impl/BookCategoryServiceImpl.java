@@ -24,7 +24,7 @@ public class BookCategoryServiceImpl implements BookCategoryService {
 
     @Override
     public List<BookCategory> findByType(Integer type) {
-        return null;
+        return bookCategoryDao.findByType(type);
     }
 
     @Override
@@ -54,6 +54,6 @@ public class BookCategoryServiceImpl implements BookCategoryService {
 
     @Override
     public List<BookCategory> findByParentId(int pid) {
-        return null;
+        return bookCategoryDao.findByParentId(pid);
     }
 }

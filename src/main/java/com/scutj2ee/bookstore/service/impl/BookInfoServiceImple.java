@@ -27,12 +27,12 @@ public class BookInfoServiceImple implements BookInfoService {
 
     @Override
     public List<BookInfo> findByBookCategoryId(Integer bookCategoryId) {
-        return null;
+        return bookInfoDao.findByBookCategoryId(bookCategoryId);
     }
 
     @Override
     public List<BookInfo> findNewBook() {
-        return null;
+        return bookInfoDao.findNew();
     }
 
     @Override

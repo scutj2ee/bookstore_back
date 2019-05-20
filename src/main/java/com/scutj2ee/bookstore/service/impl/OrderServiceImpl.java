@@ -42,13 +42,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 暂时未实现Dao
+     *  查询订单中的每一个订单项
      * @param orderId
      * @return
      */
     @Override
     public List<OrderItem> findItems(Integer orderId) {
-        return null;
+        return orderItemDao.findByOrderId(orderId);
     }
 
     @Override
@@ -75,7 +75,6 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 查询用户订单
-     * Dao未完暂时不开法
      * @param request
      * @return
      */
@@ -86,8 +85,9 @@ public class OrderServiceImpl implements OrderService {
             throw new LoginException("请登录！");
         }
         User loginUser = (User) user;
+        List<Order> orders = orderDao.findByUserId(loginUser.getId());
 
-        return null;
+        return orders;
     }
 
     @Override
