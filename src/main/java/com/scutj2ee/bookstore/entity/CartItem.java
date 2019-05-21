@@ -27,6 +27,8 @@ public class CartItem implements Serializable {
         return serialVersionUID;
     }
 
+    public  CartItem(){}
+
     public CartItem(Integer id, Integer cartId, Integer bookId, BookInfo bookInfo, double subTotal, Integer buyNum) {
         this.id = id;
         this.cartId = cartId;

@@ -1,5 +1,6 @@
 package com.scutj2ee.bookstore.service;
 
+import com.scutj2ee.bookstore.entity.Cart;
 import com.scutj2ee.bookstore.entity.CartItem;
 
 import java.util.List;
@@ -11,7 +12,14 @@ import java.util.List;
  * @Modified By:
  */
 public interface CartService {
-    String NAME_PREFIX = "shop_cart_";
+    /**
+     * create by: Kobe
+     * description:根据Id查询具体购物车
+     * create time: 21:17 2019/5/21
+     *
+     * @return
+     */
+    Cart findCartById(int id);
 
     /**
      * create by: Kobe
@@ -20,7 +28,7 @@ public interface CartService {
      * @param cartItem
      * @return
      */
-    void addCartItem(CartItem cartItem) throws Exception;
+    void addCartItem(CartItem cartItem);
 
     /**
      * create by: Kobe
@@ -29,7 +37,7 @@ public interface CartService {
      * @param cartItemId
      * @return
      */
-    int removeCartItem(int cartItemId) throws Exception;
+    int removeCartItem(int cartItemId);
 
     /**
      * create by: Kobe
@@ -38,5 +46,14 @@ public interface CartService {
      * @param userId
      * @return
      */
-    List<CartItem> listCart(int userId) throws Exception;
+    List<CartItem> listCart(int userId);
+
+    /**
+     * create by: Kobe
+     * description:清空购物车
+     * create time: 21:01 2019/5/21
+     * @param cartId
+     * @return int
+     */
+    void clearAll(int cartId);
 }

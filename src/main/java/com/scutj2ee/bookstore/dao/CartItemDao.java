@@ -14,4 +14,12 @@ public interface CartItemDao {
     List<CartItem> selectAll(int cartId);
 
     int updateCartItem(CartItem cartItem);
+
+    /**
+     * create by: Kobe
+     * description:清空购物车
+     * create time: 20:59 2019/5/21
+     * @return int
+     */
+    int clearAll(int cartId);
 }
