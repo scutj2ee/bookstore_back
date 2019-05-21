@@ -41,4 +41,9 @@
     from cart_item
     where cart_id = #{cartId}
   </select>
+
+  <select id="clearAll" parameterType="java.lang.Integer" resultMap="cartItemMap">
+    delete from cart_item
+    where cart_id = #{cartId}
+  </select>
 </mapper>
