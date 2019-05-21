@@ -35,4 +35,10 @@
     select id, total, user_id
     from cart
   </select>
+
+  <select id="findByUserId" parameterType="java.lang.Integer" resultMap="cartMap">
+    select id
+    from cart
+    where user_id = #{userId}
+  </select>
 </mapper>

@@ -11,7 +11,7 @@ public interface CartItemDao {
 
     CartItem findCartItemById(Integer id);
 
-    List<CartItem> selectAll();
+    List<CartItem> selectAll(int cartId);
 
     int updateCartItem(CartItem cartItem);
 }

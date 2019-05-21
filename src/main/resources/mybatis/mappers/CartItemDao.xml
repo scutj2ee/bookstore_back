@@ -36,8 +36,9 @@
     where id = #{id}
   </select>
 
-  <select id="selectAll" resultMap="cartItemMap">
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="cartItemMap">
     select id, cart_id, book_id, subTotal, buyNum
     from cart_item
+    where cart_id = #{cartId}
   </select>
 </mapper>

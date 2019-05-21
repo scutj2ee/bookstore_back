@@ -22,17 +22,17 @@ public class CartServiceImpl implements CartService {
     private CartItemDao cartItemDao;
 
     @Override
-    public int addCartItem(CartItem cartItem) throws Exception {
-        return 0;
+    public void addCartItem(CartItem cartItem) throws Exception {
+        cartItemDao.insertCartItem(cartItem);
     }
 
     @Override
     public int removeCartItem(int cartItemId) throws Exception {
-        return 0;
+        return cartItemDao.deleteCartItem(cartItemId);
     }
 
     @Override
     public List<CartItem> listCart(int userId) throws Exception {
-        return null;
+        return cartItemDao.selectAll(cartDao.findByUserId(userId));
     }
 }

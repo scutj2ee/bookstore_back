@@ -20,7 +20,7 @@ public interface CartService {
      * @param cartItem
      * @return
      */
-    int addCartItem(CartItem cartItem) throws Exception;
+    void addCartItem(CartItem cartItem) throws Exception;
 
     /**
      * create by: Kobe
