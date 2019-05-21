@@ -1,5 +1,7 @@
 package com.scutj2ee.bookstore.entity;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,10 +21,13 @@ public class Cart implements Serializable {
 
     private double total;
 
-    public Cart(Integer id, Map<Integer, CartItem> cartItems, double total) {
+    private int userId;
+
+    public Cart(Integer id, Map<Integer, CartItem> cartItems, double total, int userId) {
         this.id = id;
         this.cartItems = cartItems;
         this.total = total;
+        this.userId = userId;
     }
 
     public static long getSerialVersionUID() {
@@ -51,5 +56,13 @@ public class Cart implements Serializable {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

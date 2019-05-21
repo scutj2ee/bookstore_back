@@ -4,6 +4,7 @@
   <resultMap id="cartMap" type="com.scutj2ee.bookstore.entity.Cart">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="total" jdbcType="DOUBLE" property="total" />
+    <result column="user_id" jdbcType="DOUBLE" property="userId" />
   </resultMap>
 
   <delete id="deleteCart" parameterType="java.lang.Integer">
@@ -25,13 +26,13 @@
   </update>
 
   <select id="findCartById" parameterType="java.lang.Integer" resultMap="cartMap">
-    select id, total
+    select id, total, user_id
     from cart
     where id = #{id}
   </select>
 
   <select id="selectAll" resultMap="cartMap">
-    select id, total
+    select id, total, user_id
     from cart
   </select>
 </mapper>
