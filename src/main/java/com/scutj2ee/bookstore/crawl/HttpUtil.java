@@ -3,9 +3,9 @@ package com.scutj2ee.bookstore.crawl;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.HttpVersion;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.message.BasicHttpResponse;
+import org.apache.http.client.HttpClient;
 
 import java.io.IOException;
 

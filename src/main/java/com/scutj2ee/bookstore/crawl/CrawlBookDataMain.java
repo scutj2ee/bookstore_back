@@ -1,4 +1,3 @@
-/*
 package com.scutj2ee.bookstore.crawl;
 
 import com.scutj2ee.bookstore.entity.BookInfo;
@@ -22,4 +21,4 @@ public class CrawlBookDataMain {
         new WriteToMysql().executeInsert(books);
     }
 }
-*/
+

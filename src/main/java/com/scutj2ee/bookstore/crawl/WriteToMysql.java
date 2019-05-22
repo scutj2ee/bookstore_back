@@ -1,4 +1,3 @@
-/*
 package com.scutj2ee.bookstore.crawl;
 
 import com.scutj2ee.bookstore.dao.BookInfoDao;
@@ -21,7 +20,7 @@ public class WriteToMysql {
         long start = System.currentTimeMillis() / 1000;
         System.out.println(start);
         for (BookInfo bookdata : bookdatas) {
-            bookInfoMapper.insert(bookdata);
+            bookInfoMapper.insertBookInfo(bookdata);
         }
 
         System.out.println("成功插入" + bookdatas.size() + "条");
@@ -30,4 +29,4 @@ public class WriteToMysql {
     }
 
 }
-*/
+

@@ -1,4 +1,4 @@
-/*
+
 package com.scutj2ee.bookstore.crawl;
 
 import com.scutj2ee.bookstore.entity.BookInfo;
@@ -51,10 +51,6 @@ public class BookParse {
             String bookPackage = "";
             String ISBN = "";
             String catalog = "";
-            */
-/**
-             * 爬取商品详情页的信息
-             *//*
 
 
             String bookInfoUrl = element.select("a[class=pic]").attr("href");
@@ -88,14 +84,10 @@ public class BookParse {
             book.setBookCategoryId(Integer.parseInt(category));
             String substring = discount.substring(
                     (discount.indexOf("(") + 1) < 0 ? 0 : discount.indexOf("(") + 1, discount.indexOf(")") - 1 < 0 ? 0 : discount.indexOf(")") - 1);
-            book.setDiscount(BigDecimal.valueOf(
-                    Double.valueOf(
-                            StringUtils.isEmpty(substring) ? "0" : substring
-                    )
-                    )
+            book.setDiscount(Double.valueOf(StringUtils.isEmpty(substring) ? "0" : substring)
             );
-            book.setPrice(BigDecimal.valueOf(Double.valueOf(bookRobPrice)));
-            book.setMarketPrice(BigDecimal.valueOf(Double.valueOf(bookMarketPrice)));
+            book.setPrice(Double.valueOf(bookRobPrice));
+            book.setMarketPrice(Double.valueOf(bookMarketPrice));
             book.setPress(press);
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(publishDate);
             book.setPublishDate(date);
@@ -117,4 +109,3 @@ public class BookParse {
         return datas;
     }
 }
-*/

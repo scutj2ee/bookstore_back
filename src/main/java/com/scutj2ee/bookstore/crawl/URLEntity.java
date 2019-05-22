@@ -1,11 +1,9 @@
-/*
 package com.scutj2ee.bookstore.crawl;
 
 import com.scutj2ee.bookstore.entity.BookInfo;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.util.EntityUtils;
-import org.zdd.bookstore.model.entity.BookInfo;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -34,4 +32,4 @@ public class URLEntity {
         return getbooks;
     }
 }
-*/
+
