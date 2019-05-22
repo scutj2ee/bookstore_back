@@ -16,7 +16,7 @@ public interface CartService {
      * create by: Kobe
      * description:根据Id查询具体购物车
      * create time: 21:17 2019/5/21
-     *
+     * @param id
      * @return
      */
     Cart findCartById(int id);
@@ -56,4 +56,22 @@ public interface CartService {
      * @return int
      */
     void clearAll(int cartId);
+
+    /**
+     * create by: Kobe
+     * description:更新购物项
+     * create time: 11:14 2019/5/22
+     * @param cartItem
+     * @return
+     */
+    int updateCartItem(CartItem cartItem);
+
+    /**
+     * create by: Kobe
+     * description:查找具体的购物项
+     * create time: 11:20 2019/5/22
+     * @param cartItemId
+     * @return
+     */
+    CartItem findCartItemById(int cartItemId);
 }

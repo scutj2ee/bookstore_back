@@ -47,5 +47,13 @@ public class CartServiceImpl implements CartService {
         cartItemDao.clearAll(cartId);
     }
 
+    @Override
+    public int updateCartItem(CartItem cartItem) {
+        return cartItemDao.updateCartItem(cartItem);
+    }
 
+    @Override
+    public CartItem findCartItemById(int cartItemId) {
+        return cartItemDao.findCartItemById(cartItemId);
+    }
 }
