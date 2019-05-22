@@ -11,7 +11,7 @@ public interface CommentDao {
 
     Comment findCommentById(Integer commentId);
 
-    List<Comment> selectAll();
+    List<Comment> selectAll(int bookId);
 
     int updateComment(Comment comment);
 }
