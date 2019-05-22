@@ -36,4 +36,9 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> selectAll(int bookId) {
         return commentDao.selectAll(bookId);
     }
+
+    @Override
+    public Comment findCommentById(int commentId) {
+        return commentDao.findCommentById(commentId);
+    }
 }

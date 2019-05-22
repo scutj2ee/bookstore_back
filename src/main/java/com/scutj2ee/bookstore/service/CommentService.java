@@ -46,4 +46,13 @@ public interface CommentService {
      * @return
      */
     List<Comment> selectAll(int bookId);
+
+    /**
+     * create by: Kobe
+     * description:根据id找评论接口
+     * create time: 14:59 2019/5/22
+     * @param commentId
+     * @return
+     */
+    Comment findCommentById(int commentId);
 }
