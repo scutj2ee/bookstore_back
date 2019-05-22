@@ -1,6 +1,9 @@
 package com.scutj2ee.bookstore.utils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Stack;
 
 /**
  * @ Author     ：Bin Liu
@@ -51,12 +54,31 @@ public class HttpServletRequestUtil {
             if (result != null) {
                 result = result.trim();
             }
-            if ("".equals(result))
+            if ("".equals(result)) {
                 result = null;
+            }
             return result;
         } catch (Exception e) {
             return null;
         }
-
+    }
+    
+    /**
+     * create by: Kobe
+     * description:解析JSON获得时间Date
+     * create time: 12:52 2019/5/22
+     * 
+     No such property: code for class: Script1
+     * @return 
+     */
+    public static Date getDate(HttpServletRequest request,String name){
+        String timePattern = "yyyy-MM-dd HH:mm:ss";
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(timePattern);
+            Date date = sdf.parse(name);
+            return date;
+        } catch (Exception e){
+            return null;
+        }
     }
 }

@@ -41,5 +41,6 @@
   <select id="selectAll" resultMap="commentMap">
     select comment_id, content, `date`, book_id, from_uid
     from comment
+    where book_id = #{bookId}
   </select>
 </mapper>
