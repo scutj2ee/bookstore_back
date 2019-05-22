@@ -30,16 +30,16 @@ public class CartController {
      * @return
      */
     public void addToCart(HttpServletRequest request){
-        Cart cart = cartService.findCartById(Integer.parseInt(HttpServletRequestUtil.getString(request,"cartId")));
-        BookInfo bookInfo = bookInfoService.findById(Integer.parseInt(HttpServletRequestUtil.getString(request,"bookId")));
+        Cart cart = cartService.findCartById(HttpServletRequestUtil.getInt(request,"cartId"));
+        BookInfo bookInfo = bookInfoService.findById(HttpServletRequestUtil.getInt(request,"bookId"));
 
         if(bookInfo != null){
             CartItem cartItem = new CartItem();
             cartItem.setCartId(cart.getId());
             cartItem.setBookId(bookInfo.getBookId());
-            cartItem.setBuyNum(Integer.parseInt(HttpServletRequestUtil.getString(request,"buyNum")));
+            cartItem.setBuyNum(HttpServletRequestUtil.getInt(request,"buyNum"));
             cartItem.setBookInfo(bookInfo);
-            cartItem.setSubTotal(Integer.parseInt(HttpServletRequestUtil.getString(request,"buyNum")));
+            cartItem.setSubTotal(HttpServletRequestUtil.getDouble(request,"buyNum"));
             cartService.addCartItem(cartItem);
         } else {
             //如果商品库存不足怎么返回信息给前端
@@ -55,7 +55,7 @@ public class CartController {
      * @return
      */
     public void clearAll(HttpServletRequest request){
-        cartService.clearAll(Integer.parseInt(HttpServletRequestUtil.getString(request,"cartId")));
+        cartService.clearAll(HttpServletRequestUtil.getInt(request,"cartId"));
     }
 
     /**
@@ -66,7 +66,7 @@ public class CartController {
      * @return
      */
     public void delCartItem(HttpServletRequest request){
-        cartService.removeCartItem(Integer.parseInt(HttpServletRequestUtil.getString(request,"cartItemId")));
+        cartService.removeCartItem(HttpServletRequestUtil.getInt(request,"cartItemId"));
     }
 
     /**
@@ -77,8 +77,8 @@ public class CartController {
      * @return
      */
     public void updateCartItem(HttpServletRequest request){
-        CartItem cartItem = cartService.findCartItemById(Integer.parseInt(HttpServletRequestUtil.getString(request,"cartItemId")));
-        cartItem.setBuyNum(Integer.parseInt(HttpServletRequestUtil.getString(request,"buyNum")));
+        CartItem cartItem = cartService.findCartItemById(HttpServletRequestUtil.getInt(request,"cartItemId"));
+        cartItem.setBuyNum(HttpServletRequestUtil.getInt(request,"buyNum"));
         cartService.updateCartItem(cartItem);
     }
 }
