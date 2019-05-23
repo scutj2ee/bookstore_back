@@ -15,7 +15,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/mall?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone = GMT&autoReconnect=true
+    url: jdbc:mysql://localhost/scutmall?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone = GMT&autoReconnect=true
     username: root
     password: 7887227
     #druid≈‰÷√

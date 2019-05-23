@@ -16,7 +16,7 @@
     where comment_id = #{commentId}
   </delete>
 
-    <insert id="insertReply" parameterType="com.example.demo.entity.Reply">
+    <insert id="insertReply" parameterType="com.scutj2ee.bookstore.entity.Reply">
     insert into reply (comment_id, content, `date`,
       book_id, user_id, parent_id,
       reply_user_id)
@@ -25,7 +25,7 @@
       #{replyUserId})
   </insert>
 
-    <update id="updateReply" parameterType="com.example.demo.entity.Reply">
+    <update id="updateReply" parameterType="com.scutj2ee.bookstore.entity.Reply">
         update reply
         <set>
             <if test="content != null and content != ''">content = #{content},</if>

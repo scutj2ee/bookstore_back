@@ -12,12 +12,12 @@
     where id = #{id}
   </delete>
 
-  <insert id="insertUserRole" parameterType="com.example.demo.entity.UserRole">
+  <insert id="insertUserRole" parameterType="com.scutj2ee.bookstore.entity.UserRole">
     insert into user_role (user_id, role_id)
     values (#{userId}, #{roleId})
   </insert>
 
-  <update id="updateUserRole" parameterType="com.example.demo.entity.UserRole">
+  <update id="updateUserRole" parameterType="com.scutj2ee.bookstore.entity.UserRole">
     update user_role
     <set>
       <if test="userId != null and userId != ''">user_id = #{userId},</if>

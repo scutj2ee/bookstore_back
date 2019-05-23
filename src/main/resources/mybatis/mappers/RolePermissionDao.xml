@@ -12,12 +12,12 @@
     where id = #{id}
   </delete>
 
-  <insert id="insertRolePermission" parameterType="com.example.demo.entity.RolePermission">
+  <insert id="insertRolePermission" parameterType="com.scutj2ee.bookstore.entity.RolePermission">
     insert into role_permission (role_id, permission_id)
     values (#{roleId}, #{permissionId})
   </insert>
 
-  <update id="updateRolePermission" parameterType="com.example.demo.entity.RolePermission">
+  <update id="updateRolePermission" parameterType="com.scutj2ee.bookstore.entity.RolePermission">
     update role_permission
     <set>
       <if test="roleId != null and roleId != ''">role_id = #{roleId},</if>

@@ -14,7 +14,7 @@
     where id = #{id}
   </delete>
 
-  <insert id="insertComment" parameterType="com.example.demo.entity.Comment">
+  <insert id="insertComment" parameterType="com.scutj2ee.bookstore.entity.Comment">
     insert into comment (id, content, `date`,
       book_id,from_uid)
     values (#{d}, #{contient}, #{date},

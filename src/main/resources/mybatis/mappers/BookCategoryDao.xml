@@ -16,12 +16,12 @@
     where cate_id = #{cateId}
   </delete>
 
-  <insert id="insertBookCategory" parameterType="com.example.demo.entity.BookCategory">
+  <insert id="insertBookCategory" parameterType="com.scutj2ee.bookstore.entity.BookCategory">
     insert into book_category (cate_id, parent_id, `name`, `status`, `type`, created, updated)
     values (#{cateId}, #{parentId}, #{name}, #{status}, #{type}, #{created}, #{updated})
   </insert>
 
-  <update id="updateBookCategory" parameterType="com.example.demo.entity.BookCategory">
+  <update id="updateBookCategory" parameterType="com.scutj2ee.bookstore.entity.BookCategory">
     update book_category
     <set>
       <if test="parentId != null and parentId != ''"> parent_id = #{parentId},</if>

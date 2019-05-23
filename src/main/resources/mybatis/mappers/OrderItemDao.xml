@@ -15,14 +15,14 @@
     where id = #{id}
   </delete>
 
-  <insert id="insertOrderItem" parameterType="com.example.demo.entity.OrderItem">
+  <insert id="insertOrderItem" parameterType="com.scutj2ee.bookstore.entity.OrderItem">
     insert into order_item (`count`, order_id, book_id,
       sub_integral, sub_payment)
     values (#{count}, #{orderId}, #{productId},
       #{subIntegral}, #{subPayment})
   </insert>
 
-  <update id="updateOrderItem" parameterType="com.example.demo.entity.OrderItem">
+  <update id="updateOrderItem" parameterType="com.scutj2ee.bookstore.entity.OrderItem">
     update order_item
     <set>
       <if test="count != null and count != ''">`count` = #{count},</if>

@@ -12,12 +12,12 @@
     where role_id = #{roleId}
   </delete>
 
-  <insert id="insertRole" parameterType="com.example.demo.entity.Role">
+  <insert id="insertRole" parameterType="com.scutj2ee.bookstore.entity.Role">
     insert into role (role_id, rolename, `type`)
     values (#{roleId}, #{rolename}, #{type})
   </insert>
 
-  <update id="updateRole" parameterType="com.example.demo.entity.Role">
+  <update id="updateRole" parameterType="com.scutj2ee.bookstore.entity.Role">
     update role
     <set>
       <if test="rolename != null and rolename != ''"> rolename = #{rolename},</if>

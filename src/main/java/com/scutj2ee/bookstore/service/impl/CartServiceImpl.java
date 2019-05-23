@@ -6,6 +6,7 @@ import com.scutj2ee.bookstore.entity.Cart;
 import com.scutj2ee.bookstore.entity.CartItem;
 import com.scutj2ee.bookstore.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @Description:
  * @Modified By:
  */
+@Service
 public class CartServiceImpl implements CartService {
     @Autowired
     private CartDao cartDao;

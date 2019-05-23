@@ -25,27 +25,5 @@ public class BookInfoController {
     private AddressService addressService;
 
 
-    /**
-     * 商品详情页面
-     * 等到具体的接口定好，再修改
-     */
-    @RequestMapping("/getinformation")
-    public String toBookInfoPage(Integer id, Map<String, Object> map){
-        BookInfo bookInfo = bookInfoService.findById(id);
-        map.put("bookInfo", bookInfo);
-        return "/Book/info";
-    }
 
-    /**
-     * 获取书的信息
-     */
-    @RequestMapping("/get")
-    public ResultBean<BookInfo> getProduct(Integer id){
-        BookInfo bookInfo = bookInfoService.findById(id);
-        return new ResultBean<>(bookInfo);
-    }
-
-    /**
-     *
-     */
 }

@@ -34,7 +34,7 @@
     where book_id = #{bookId}
   </delete>
 
-  <insert id="insertBookInfo" parameterType="com.example.demo.entity.bookInfo">
+  <insert id="insertBookInfo" parameterType="com.scutj2ee.bookstore.entity.bookInfo">
     insert into book_info (book_id, book_category_id, `name`, 
       outline, detail, press, 
       publish_date, `size`, version, 
@@ -51,7 +51,7 @@
       #{isShelf})
   </insert>
 
-  <update id="updateBookInfo" parameterType="com.example.demo.entity.BookInfo">
+  <update id="updateBookInfo" parameterType="com.scutj2ee.bookstore.entity.BookInfo">
     update book_info
     <set>
       <if test="bookCategoryId != null and bookCategoryId != ''">book_category_id = #{bookCategoryId},</if>

@@ -8,6 +8,7 @@ import com.scutj2ee.bookstore.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -17,9 +18,12 @@ import java.util.List;
  * @data: 2019/5/9 23:16
  * @description:
  */
+@Service
 public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressDao addressDao;
+
+
 
     @Override
     public int create(Address address) {
@@ -38,14 +42,15 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public List<Address> findByUserId(HttpServletRequest request) {
-        Object user = request.getSession().getAttribute("user");
-        if(user == null){
-            throw new LoginException("请登录！");
-        }
-        User loginUser = (User) user;
-        List<Address> addresses = addressDao.findByUserId(loginUser.getId());
-        return addresses;
+    public List<Address> findByUserId() {
+//        Object user = request.getSession().getAttribute("user");
+//        if(user == null){
+//            throw new LoginException("请登录！");
+//        }
+//        User loginUser = (User) user;
+//        List<Address> addresses = addressDao.findByUserId(loginUser.getId());
+//        return addresses;
+        return null;
     }
 
     @Override

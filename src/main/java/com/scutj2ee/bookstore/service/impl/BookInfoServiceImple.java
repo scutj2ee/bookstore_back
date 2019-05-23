@@ -4,6 +4,7 @@ import com.scutj2ee.bookstore.dao.BookInfoDao;
 import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.service.BookInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @data: 2019/5/16 22:41
  * @description:
  */
+@Service
 public class BookInfoServiceImple implements BookInfoService {
     @Autowired
     private BookInfoDao bookInfoDao;

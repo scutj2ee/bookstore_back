@@ -13,12 +13,12 @@
     where permission_id = #{permissionId}
   </delete>
 
-  <insert id="insertPermission" parameterType="com.example.demo.entity.Permission">
+  <insert id="insertPermission" parameterType="com.scutj2ee.bookstore.entity.Permission">
     insert into permission (permission_id, `name`, url, father_id)
     values (#{permissionId}, #{name}, #{url}, #{fatherId})
   </insert>
 
-  <update id="updatePermission" parameterType="com.example.demo.entity.Permission">
+  <update id="updatePermission" parameterType="com.scutj2ee.bookstore.entity.Permission">
     update permission
     <set>
       <if test="name != null and name != ''">`name` = #{name},</if>

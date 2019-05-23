@@ -17,14 +17,14 @@
     where id = #{id}
   </delete>
 
-  <insert id="insertOrder" parameterType="com.example.demo.entity.Order">
+  <insert id="insertOrder" parameterType="com.scutj2ee.bookstore.entity.Order">
     insert into order (address_id, create_time, end_time, `state`,
       payment, total_integral, user_id)
     values (#{addressId}, #{createTime}, #{endTime}, #{state},
       #{payment}, #{totalIntegral}, #{userId})
   </insert>
 
-  <update id="updateOrder" parameterType="com.example.demo.entity.Order">
+  <update id="updateOrder" parameterType="com.scutj2ee.bookstore.entity.Order">
     update order
     <set>
       <if test="addressId != null and addressId != ''">address_id = #{addressId},</if>

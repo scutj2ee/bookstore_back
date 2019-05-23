@@ -17,12 +17,12 @@
     where id = #{id}
   </delete>
 
-  <insert id="insertAddress" parameterType="com.example.demo.entity.Address" keyProperty="addressId" keyColumn="address_id">
+  <insert id="insertAddress" parameterType="com.scutj2ee.bookstore.entity.Address" keyProperty="addressId" keyColumn="address_id">
     insert into address (city, detail, district, phone, province, receiver, user_id)
     values (#{city}, #{detail}, #{district}, #{phone}, #{province}, #{receiver}, #{userId})
   </insert>
 
-  <update id="updateAddress" parameterType="com.example.demo.entity.Address">
+  <update id="updateAddress" parameterType="com.scutj2ee.bookstore.entity.Address">
     update address
     <set>
       <if test="city != null and city != ''"> city = #{city},</if>

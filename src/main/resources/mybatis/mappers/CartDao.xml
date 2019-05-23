@@ -12,12 +12,12 @@
     where id = #{id}
   </delete>
 
-  <insert id="insertCart" parameterType="com.example.demo.entity.Cart">
+  <insert id="insertCart" parameterType="com.scutj2ee.bookstore.entity.Cart">
     insert into cart (total)
     values (#{total})
   </insert>
 
-  <update id="updateCart" parameterType="com.example.demo.entity.Cart">
+  <update id="updateCart" parameterType="com.scutj2ee.bookstore.entity.Cart">
     update cart
     <set>
       <if test="total != null and total != ''">total = #{total}</if>

@@ -30,7 +30,7 @@ public interface AddressService {
     /**
      * 查询用户所有相关的地址
      */
-    List<Address> findByUserId(HttpServletRequest request);
+    List<Address> findByUserId();
 
     /**
      * 更新一个地址

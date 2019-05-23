@@ -5,6 +5,7 @@ import com.scutj2ee.bookstore.entity.BookCategory;
 import com.scutj2ee.bookstore.service.BookCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @data: 2019/5/16 20:14
  * @description:
  */
+@Service
 public class BookCategoryServiceImpl implements BookCategoryService {
     @Autowired
     private BookCategoryDao bookCategoryDao;

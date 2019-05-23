@@ -8,6 +8,7 @@ import com.scutj2ee.bookstore.entity.User;
 import com.scutj2ee.bookstore.exception.LoginException;
 import com.scutj2ee.bookstore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import java.util.List;
  * @data: 2019/5/18 0:20
  * @description:
  */
+@Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;

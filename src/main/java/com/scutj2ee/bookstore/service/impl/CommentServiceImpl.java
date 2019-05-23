@@ -4,6 +4,7 @@ import com.scutj2ee.bookstore.dao.CommentDao;
 import com.scutj2ee.bookstore.entity.Comment;
 import com.scutj2ee.bookstore.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @Description:
  * @Modified By:
  */
+@Service
 public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentDao commentDao;

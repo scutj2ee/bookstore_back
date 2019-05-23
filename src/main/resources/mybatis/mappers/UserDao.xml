@@ -15,13 +15,13 @@
     where id = #{id}
   </delete>
 
-  <insert id="insertUser" parameterType="com.example.demo.entity.User">
+  <insert id="insertUser" parameterType="com.scutj2ee.bookstore.entity.User">
     insert into user (integration, `password`, phone,
       email, user_name)
     values (#{integration}, #{password}, #{phone}, #{email,jdbcType}, #{userName})
   </insert>
 
-  <update id="updateUser" parameterType="com.example.demo.entity.User">
+  <update id="updateUser" parameterType="com.scutj2ee.bookstore.entity.User">
     update user
     <set>
       <if test="integration != null and integration != ''">integration = #{integration},</if>
