@@ -13,30 +13,26 @@ import java.io.Serializable;
 public class Permission implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Integer permissionId;
+    private Integer id;
     /**
      * 权限名称
      */
     private String name;
     /**
-     * 权限url
+     * 权限代码字符串
      */
-    private String url;
-    /**
-     * 权限上级id
-     */
-    private Integer fatherId;
+    private String perCode;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public Integer getPermissionId() {
-        return permissionId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPermissionId(Integer permissionId) {
-        this.permissionId = permissionId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -47,29 +43,20 @@ public class Permission implements Serializable {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
+    public String getPerCode() {
+        return perCode;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public Integer getFatherId() {
-        return fatherId;
-    }
-
-    public void setFatherId(Integer fatherId) {
-        this.fatherId = fatherId;
+    public void setPerCode(String perCode) {
+        this.perCode = perCode;
     }
 
     @Override
     public String toString() {
         return "Permission{" +
-                "permissionId=" + permissionId +
+                "id=" + id +
                 ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                ", fatherId='" + fatherId + '\'' +
+                ", perCode='" + perCode + '\'' +
                 '}';
     }
 }

@@ -2,18 +2,20 @@ package com.scutj2ee.bookstore.config.shiro.jwt;
 
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.wang.exception.CustomException;
-import com.wang.model.common.Constant;
-import com.wang.model.common.ResponseBean;
-import com.wang.util.JedisUtil;
-import com.wang.util.JwtUtil;
-import com.wang.util.common.JsonConvertUtil;
-import com.wang.util.common.PropertiesUtil;
+
+import com.scutj2ee.bookstore.exception.CustomException;
+import com.scutj2ee.bookstore.model.common.Constant;
+import com.scutj2ee.bookstore.model.common.ResponseBean;
+import com.scutj2ee.bookstore.utils.JedisUtil;
+import com.scutj2ee.bookstore.utils.JwtUtil;
+import com.scutj2ee.bookstore.utils.common.JsonConvertUtil;
+import com.scutj2ee.bookstore.utils.common.PropertiesUtil;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletRequest;
@@ -29,7 +31,7 @@ import java.io.PrintWriter;
  * @ Description：JWT过滤
  * @ Modified By：
  */
-public class JwtFilter {
+public class JwtFilter extends BasicHttpAuthenticationFilter {
     /**
      * LOGGER
      */
@@ -160,11 +162,11 @@ public class JwtFilter {
         // 拿到当前Header中Authorization的AccessToken(Shiro中getAuthzHeader方法已经实现)
         String token = this.getAuthzHeader(request);
         // 获取当前Token的帐号信息
-        String account = JwtUtil.getClaim(token, Constant.ACCOUNT);
+        String username = JwtUtil.getClaim(token, Constant.USERNAME);
         // 判断Redis中RefreshToken是否存在
-        if (JedisUtil.exists(Constant.PREFIX_SHIRO_REFRESH_TOKEN + account)) {
+        if (JedisUtil.exists(Constant.PREFIX_SHIRO_REFRESH_TOKEN + username)) {
             // Redis中RefreshToken还存在，获取RefreshToken的时间戳
-            String currentTimeMillisRedis = JedisUtil.getObject(Constant.PREFIX_SHIRO_REFRESH_TOKEN + account).toString();
+            String currentTimeMillisRedis = JedisUtil.getObject(Constant.PREFIX_SHIRO_REFRESH_TOKEN + username).toString();
             // 获取当前AccessToken中的时间戳，与RefreshToken的时间戳对比，如果当前时间戳一致，进行AccessToken刷新
             if (JwtUtil.getClaim(token, Constant.CURRENT_TIME_MILLIS).equals(currentTimeMillisRedis)) {
                 // 获取当前最新时间戳
@@ -173,9 +175,9 @@ public class JwtFilter {
                 PropertiesUtil.readProperties("config.properties");
                 String refreshTokenExpireTime = PropertiesUtil.getProperty("refreshTokenExpireTime");
                 // 设置RefreshToken中的时间戳为当前最新时间戳，且刷新过期时间重新为30分钟过期(配置文件可配置refreshTokenExpireTime属性)
-                JedisUtil.setObject(Constant.PREFIX_SHIRO_REFRESH_TOKEN + account, currentTimeMillis, Integer.parseInt(refreshTokenExpireTime));
+                JedisUtil.setObject(Constant.PREFIX_SHIRO_REFRESH_TOKEN + username, currentTimeMillis, Integer.parseInt(refreshTokenExpireTime));
                 // 刷新AccessToken，设置时间戳为当前最新时间戳
-                token = JwtUtil.sign(account, currentTimeMillis);
+                token = JwtUtil.sign(username, currentTimeMillis);
                 // 将新刷新的AccessToken再次进行Shiro的登录
                 JwtToken jwtToken = new JwtToken(token);
                 // 提交给UserRealm进行认证，如果错误他会抛出异常并被捕获，如果没有抛出异常则代表登入成功，返回true
@@ -199,7 +201,7 @@ public class JwtFilter {
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json; charset=utf-8");
         try (PrintWriter out = httpServletResponse.getWriter()) {
-            String data = JsonConvertUtil.objectToJson(new ResponseBean(HttpStatus.UNAUTHORIZED.value(), "无权访问(Unauthorized):" + msg, null));
+            String data = JsonConvertUtil.objectToJson(new ResponseEntity<>( "无权访问(Unauthorized):" + msg, HttpStatus.UNAUTHORIZED));
             out.append(data);
         } catch (IOException e) {
             LOGGER.error("直接返回Response信息出现IOException异常:" + e.getMessage());

@@ -42,4 +42,23 @@
     from role,user_role
     where role.role_id=user_role.role_id and user_role.user_id=#{userId}
   </select>
+
+  <select id="findRoleByUser" resultType="com.scutj2ee.bookstore.entity.Role" parameterType="com.scutj2ee.bookstore.entity.User">
+    SELECT
+    r.id as id,
+    r.name as name
+    FROM
+    user u
+    LEFT JOIN user_role ur ON u.id = ur.user_id
+    LEFT JOIN role r ON r.id = ur.role_id
+    <where>
+      1 = 1
+      <if test="account != null and account != '' ">
+        AND u.account = #{account}
+      </if>
+      <if test="username != null and username != '' ">
+        AND u.username LIKE CONCAT('%',#{username},'%')
+      </if>
+    </where>
+  </select>
 </mapper>

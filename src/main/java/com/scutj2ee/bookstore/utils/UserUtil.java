@@ -32,13 +32,13 @@ public class UserUtil {
      */
     public User getUser() {
         String token = SecurityUtils.getSubject().getPrincipal().toString();
-        // 解密获得Account
-        String username = JwtUtil.getClaim(token, Constant.ACCOUNT);
+        // 解密获得username
+        String username = JwtUtil.getClaim(token, Constant.USERNAME);
         User user =new User();
         user = userDao.findByUsername(username);
         // 用户是否存在
         if (user == null) {
-            throw new CustomException("该帐号不存在(The account does not exist.)");
+            throw new CustomException("该帐号不存在(The username does not exist.)");
         }
         return user;
     }
@@ -74,7 +74,7 @@ public class UserUtil {
      */
     public String getUsername() {
         String token = SecurityUtils.getSubject().getPrincipal().toString();
-        // 解密获得Account
-        return JwtUtil.getClaim(token, Constant.ACCOUNT);
+        // 解密获得username
+        return JwtUtil.getClaim(token, Constant.USERNAME);
     }
 }

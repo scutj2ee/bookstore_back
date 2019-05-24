@@ -1,19 +1,23 @@
 package com.scutj2ee.bookstore.config.shiro;
 
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.mgt.SecurityManager;
+
+import com.scutj2ee.bookstore.config.shiro.cache.CustomCacheManager;
+import com.scutj2ee.bookstore.config.shiro.jwt.JwtFilter;
+import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
+import org.apache.shiro.mgt.DefaultSubjectDAO;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+import org.springframework.context.annotation.DependsOn;
 
+import javax.servlet.Filter;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * @ Author     ：Bin Liu
@@ -23,113 +27,94 @@ import java.util.Properties;
  */
 @Configuration
 public class ShiroConfig {
-    private final static Logger logger=LoggerFactory.getLogger(ShiroConfig.class);
-
     /**
-     * create by: Bin Liu
-     * description: * ShiroFilterFactoryBean 处理拦截资源文件问题。
-     * 注意：单独一个ShiroFilterFactoryBean配置是或报错的，以为在
-     * 初始化ShiroFilterFactoryBean的时候需要注入：SecurityManager
-     *
-     * create time: 2019/4/27 22:40
-     * @Param: null
-     * @return
-     */
-    @Bean
-    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
-        logger.info("ShiroConfiguration.shirFilter()");
-        ShiroFilterFactoryBean shiroFilterFactoryBean=new ShiroFilterFactoryBean();
-        shiroFilterFactoryBean.setSecurityManager(securityManager);
-        // 如果不设置默认会自动寻找Web工程根目录下的"/login.html"页面
-        shiroFilterFactoryBean.setLoginUrl("/user/login");
-        //设置无访问权限时跳转的url
-        shiroFilterFactoryBean.setUnauthorizedUrl("/user/login");
-        //拦截器.
-        Map<String,String> filterChainDefinitionMap=new LinkedHashMap<>();
-        //游客权限
-        filterChainDefinitionMap.put("/guest/**","anon");
-        //管理员权限
-        filterChainDefinitionMap.put("/admin/**","roles[admin]");
-        //开放登录接口
-        filterChainDefinitionMap.put("/user/login","anon");
-        //开放注册接口
-        filterChainDefinitionMap.put("/user/register","anon");
-        //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
-        filterChainDefinitionMap.put("/logout", "logout");
-        //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
-        //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
-        filterChainDefinitionMap.put("/**", "authc");
-
-        // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/index");
-
-        //未授权界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-
-        return shiroFilterFactoryBean;
+    * create by: Bin Liu
+    * description: 配置使用自定义Realm，关闭Shiro自带的session
+    * 详情见文档 http://shiro.apache.org/session-management.html#SessionManagement-StatelessApplications%28Sessionless%29
+    * create time: 2019/5/24 11:12
+    * @Param: null
+    * @return
+    */
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Bean("securityManager")
+    public DefaultWebSecurityManager defaultWebSecurityManager(UserRealm userRealm) {
+        DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
+        // 使用自定义Realm
+        defaultWebSecurityManager.setRealm(userRealm);
+        // 关闭Shiro自带的session
+        DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
+        DefaultSessionStorageEvaluator defaultSessionStorageEvaluator = new DefaultSessionStorageEvaluator();
+        defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
+        subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
+        defaultWebSecurityManager.setSubjectDAO(subjectDAO);
+        // 设置自定义Cache缓存
+        defaultWebSecurityManager.setCacheManager(new CustomCacheManager());
+        return defaultWebSecurityManager;
     }
 
     /**
-     * create by: Bin Liu
-     * description: 凭证匹配器
-     * （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了
-     * create time: 2019/4/27 23:16
-     * @Param: null
-     * @return 
+     * 添加自己的过滤器，自定义url规则
+     * Shiro自带拦截器配置规则
+     * rest：比如/admins/user/**=rest[user],根据请求的方法，相当于/admins/user/**=perms[user：method] ,其中method为post，get，delete等
+     * port：比如/admins/user/**=port[8081],当请求的url的端口不是8081是跳转到schemal：//serverName：8081?queryString,其中schmal是协议http或https等，serverName是你访问的host,8081是url配置里port的端口，queryString是你访问的url里的？后面的参数
+     * perms：比如/admins/user/**=perms[user：add：*],perms参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，比如/admins/user/**=perms["user：add：*,user：modify：*"]，当有多个参数时必须每个参数都通过才通过，想当于isPermitedAll()方法
+     * roles：比如/admins/user/**=roles[admin],参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，当有多个参数时，比如/admins/user/**=roles["admin,guest"],每个参数通过才算通过，相当于hasAllRoles()方法。//要实现or的效果看http://zgzty.blog.163.com/blog/static/83831226201302983358670/
+     * anon：比如/admins/**=anon 没有参数，表示可以匿名使用
+     * authc：比如/admins/user/**=authc表示需要认证才能使用，没有参数
+     * authcBasic：比如/admins/user/**=authcBasic没有参数表示httpBasic认证
+     * ssl：比如/admins/user/**=ssl没有参数，表示安全的url请求，协议为https
+     * user：比如/admins/user/**=user没有参数表示必须存在用户，当登入操作时不做检查
+     * 详情见文档 http://shiro.apache.org/web.html#urls-
+     * @param securityManager
+     * @return org.apache.shiro.spring.web.ShiroFilterFactoryBean
+     * @author Wang926454
+     * @date 2018/8/31 10:57
      */
-    @Bean
-    public HashedCredentialsMatcher hashedCredentialsMatcher() {
-        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        //散列算法:这里使用MD5算法;
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");
-        //散列的次数，比如散列两次，相当于 md5(md5(""));
-        hashedCredentialsMatcher.setHashIterations(2);
-        return hashedCredentialsMatcher;
-    }
-
-    @Bean
-    public ShiroRealm ShiroRealm(){
-        ShiroRealm shiroRealm=new ShiroRealm();
-        shiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
-        return shiroRealm;
-    }
-
-    @Bean
-    public SecurityManager securityManager(){
-        DefaultWebSecurityManager securityManager=new DefaultWebSecurityManager();
-        securityManager.setRealm(ShiroRealm());
-        return securityManager;
+    @Bean("shiroFilter")
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
+        ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
+        // 添加自己的过滤器取名为jwt
+        Map<String, Filter> filterMap = new HashMap<>(16);
+        filterMap.put("jwt", new JwtFilter());
+        factoryBean.setFilters(filterMap);
+        factoryBean.setSecurityManager(securityManager);
+        // 自定义url规则使用LinkedHashMap有序Map
+        LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>(16);
+        // Swagger接口文档
+        // filterChainDefinitionMap.put("/v2/api-docs", "anon");
+        // filterChainDefinitionMap.put("/webjars/**", "anon");
+        // filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+        // filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        // filterChainDefinitionMap.put("/doc.html", "anon");
+        // 公开接口
+        // filterChainDefinitionMap.put("/api/**", "anon");
+        // 所有请求通过我们自己的JWTFilter
+        filterChainDefinitionMap.put("/**", "jwt");
+        factoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        return factoryBean;
     }
 
     /**
-     * create by: Bin Liu
-     * description: 开启shiro aop注解支持.使用代理方式;所以需要开启代码支持;
-     * create time: 2019/4/27 23:22
-     * @Param: null
-     * @return 
+     * 下面的代码是添加注解支持
      */
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
-        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor=new AuthorizationAttributeSourceAdvisor();
-        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
-        return authorizationAttributeSourceAdvisor;
+    @DependsOn("lifecycleBeanPostProcessor")
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        // 强制使用cglib，防止重复代理和可能引起代理出错的问题，https://zhuanlan.zhihu.com/p/29161098
+        defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
+        return defaultAdvisorAutoProxyCreator;
     }
 
-    @Bean(name="simpleMappingExceptionResolver")
-    public SimpleMappingExceptionResolver createSimpleMappingExceptionResolver(){
-        SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();
-        Properties mappings=new Properties();
-        //数据库异常处理
-        mappings.setProperty("DatabaseException", "databaseError");
-        mappings.setProperty("UnauthorizedException","403");
-        // None by default
-        r.setExceptionMappings(mappings);
-        // No default
-        r.setDefaultErrorView("error");
-        // Default is "exception"
-        r.setExceptionAttribute("ex");
-        //r.setWarnLogCategory("example.MvcLogger");     // No default
-        return r;
+    @Bean
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+        return new LifecycleBeanPostProcessor();
+    }
+
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+        advisor.setSecurityManager(securityManager);
+        return advisor;
     }
 }

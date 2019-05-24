@@ -183,11 +183,10 @@ CREATE TABLE `order_item` (
 -- ----------------------------
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE `permission` (
-  `permission_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) DEFAULT NULL,
-  `url` varchar(30) DEFAULT NULL,
-  `father_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`permission_id`)
+  `per_code` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
