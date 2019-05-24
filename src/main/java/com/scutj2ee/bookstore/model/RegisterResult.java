@@ -1,17 +1,14 @@
-package com.scutj2ee.bookstore.pojo;
-
-import com.scutj2ee.bookstore.entity.User;
+package com.scutj2ee.bookstore.model;
 
 /**
  * @ Author     ：Bin Liu
- * @ Date       ：2019/4/30 10:09
- * @ Description：登录传输层实体类
+ * @ Date       ：2019/4/30 10:13
+ * @ Description：注册传输层实体类
  * @ Modified By：
  */
-public class LoginResult {
+public class RegisterResult {
     private Integer code;
     private String msg;
-    private User user;
 
     public Integer getCode() {
         return code;
@@ -27,13 +24,5 @@ public class LoginResult {
 
     public void setMsg(String msg) {
         this.msg = msg;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

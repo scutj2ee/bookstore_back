@@ -4,7 +4,7 @@ import com.scutj2ee.bookstore.dao.UserDao;
 import com.scutj2ee.bookstore.entity.User;
 import com.scutj2ee.bookstore.enums.RegisterResultEnum;
 import com.scutj2ee.bookstore.exception.RegisterException;
-import com.scutj2ee.bookstore.pojo.RegisterResult;
+import com.scutj2ee.bookstore.model.RegisterResult;
 import com.scutj2ee.bookstore.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

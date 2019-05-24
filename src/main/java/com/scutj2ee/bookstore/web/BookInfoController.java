@@ -1,14 +1,10 @@
 package com.scutj2ee.bookstore.web;
 
-import com.scutj2ee.bookstore.entity.BookInfo;
-import com.scutj2ee.bookstore.pojo.ResultBean;
 import com.scutj2ee.bookstore.service.AddressService;
 import com.scutj2ee.bookstore.service.BookCategoryService;
 import com.scutj2ee.bookstore.service.BookInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Map;
 
 /**
  * @author: kevin

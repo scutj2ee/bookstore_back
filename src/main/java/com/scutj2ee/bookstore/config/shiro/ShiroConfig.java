@@ -1,4 +1,4 @@
-package com.scutj2ee.bookstore.config;
+package com.scutj2ee.bookstore.config.shiro;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;

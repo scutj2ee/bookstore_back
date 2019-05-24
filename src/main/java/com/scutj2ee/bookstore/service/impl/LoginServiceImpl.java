@@ -5,7 +5,7 @@ import com.scutj2ee.bookstore.entity.User;
 import com.scutj2ee.bookstore.enums.LoginResultEnum;
 import com.scutj2ee.bookstore.enums.SystemErrorEnum;
 import com.scutj2ee.bookstore.exception.LoginException;
-import com.scutj2ee.bookstore.pojo.LoginResult;
+import com.scutj2ee.bookstore.model.LoginResult;
 import com.scutj2ee.bookstore.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

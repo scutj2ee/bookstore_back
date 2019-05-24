@@ -1,6 +1,6 @@
 package com.scutj2ee.bookstore.service;
 
-import com.scutj2ee.bookstore.pojo.LoginResult;
+import com.scutj2ee.bookstore.model.LoginResult;
 
 /**
  * @ Author     ：Bin Liu

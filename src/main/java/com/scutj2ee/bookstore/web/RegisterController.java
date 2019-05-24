@@ -5,11 +5,9 @@ import com.scutj2ee.bookstore.entity.User;
 import com.scutj2ee.bookstore.enums.RegisterResultEnum;
 import com.scutj2ee.bookstore.enums.SystemErrorEnum;
 import com.scutj2ee.bookstore.exception.RegisterException;
-import com.scutj2ee.bookstore.pojo.RegisterResult;
-import com.scutj2ee.bookstore.pojo.ResultBean;
+import com.scutj2ee.bookstore.model.RegisterResult;
 import com.scutj2ee.bookstore.service.MailService;
 import com.scutj2ee.bookstore.service.RegisterService;
-import com.scutj2ee.bookstore.service.UserService;
 import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
 import com.scutj2ee.bookstore.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Random;
 
 /**
  * @ Author     ：Bin Liu

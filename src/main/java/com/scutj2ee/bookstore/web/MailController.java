@@ -1,7 +1,7 @@
 package com.scutj2ee.bookstore.web;
 
 import com.scutj2ee.bookstore.entity.User;
-import com.scutj2ee.bookstore.pojo.ResultBean;
+import com.scutj2ee.bookstore.model.ResultBean;
 import com.scutj2ee.bookstore.service.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

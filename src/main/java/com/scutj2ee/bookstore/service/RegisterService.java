@@ -1,7 +1,7 @@
 package com.scutj2ee.bookstore.service;
 
 import com.scutj2ee.bookstore.entity.User;
-import com.scutj2ee.bookstore.pojo.RegisterResult;
+import com.scutj2ee.bookstore.model.RegisterResult;
 
 /**
  * @ Author     ：Bin Liu
