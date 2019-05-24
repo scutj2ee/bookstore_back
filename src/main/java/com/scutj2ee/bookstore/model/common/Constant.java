@@ -55,5 +55,5 @@ public class Constant {
     /**
      * PASSWORD_MAX_LEN
      */
-    public static final Integer PASSWORD_MAX_LEN = 8;
+    public static final Integer PASSWORD_MAX_LEN = 15;
 }
