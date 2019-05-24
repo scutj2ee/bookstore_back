@@ -48,4 +48,11 @@
     select id, integration, `password`, phone, user_name
     from user where user_name=#{username}
   </select>
+
+  <select id="findByUsernameAndPassword" resultMap="userMap">
+    select id, integration, `password`, phone, user_name
+    from user where user_name=#{username}
+    and `password`=#{password}
+  </select>
 </mapper>
+

@@ -1,6 +1,5 @@
-package com.scutj2ee.bookstore.service.impl;
+package com.scutj2ee.bookstore.utils;
 
-import com.scutj2ee.bookstore.service.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +14,14 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
 
-
 /**
  * @ Author     ：Bin Liu
- * @ Date       ：2019/4/27 16:26
- * @ Description：邮件服务实现类
+ * @ Date       ：2019/5/24 15:20
+ * @ Description：邮件工具类
  * @ Modified By：
  */
 @Component
-public class MailServiceImpl implements MailService {
+public class MailUtil {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
@@ -39,9 +37,8 @@ public class MailServiceImpl implements MailService {
      * @param to
      * @param subject
      * @param content
-     * @return 
+     * @return
      */
-    @Override
     public void sendSimpleMail(String to, String subject, String content) {
         SimpleMailMessage message=new SimpleMailMessage();
         message.setFrom(from);
@@ -64,7 +61,6 @@ public class MailServiceImpl implements MailService {
      * @Param: null
      * @return
      */
-    @Override
     public void sendHtmlMail(String to, String subject, String content) {
         MimeMessage message=mailSender.createMimeMessage();
         try {
@@ -89,7 +85,6 @@ public class MailServiceImpl implements MailService {
      * @Param: null
      * @return
      */
-    @Override
     public void sendAttachmentsMail(String to, String subject, String content, String filePath) {
         MimeMessage message=mailSender.createMimeMessage();
         try {
@@ -112,12 +107,11 @@ public class MailServiceImpl implements MailService {
 
     /**
      * create by: Bin Liu
-     * description: 
+     * description:
      * create time: 2019/4/27 16:47
      * @Param: 发送带静态资源的邮件
-     * @return 
+     * @return
      */
-    @Override
     public void sendInlineResourceMail(String to, String subject, String content, String rscPath, String rscId) {
         MimeMessage message = mailSender.createMimeMessage();
         try {

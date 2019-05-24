@@ -18,4 +18,6 @@ public interface UserDao {
     int updateUser(User record);
 
     User findByUsername(String username);
+
+    User findByUsernameAndPassword(String username, String password);
 }

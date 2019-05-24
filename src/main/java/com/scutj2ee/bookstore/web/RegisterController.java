@@ -1,7 +1,6 @@
 package com.scutj2ee.bookstore.web;
 
 import com.scutj2ee.bookstore.entity.User;
-import com.scutj2ee.bookstore.service.MailService;
 import com.scutj2ee.bookstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,9 +18,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("")
 public class RegisterController {
-    @Autowired
-    private MailService mailService;
-
     @Autowired
     private UserService userService;
 
@@ -56,7 +52,6 @@ public class RegisterController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
 
     /**
      * 用户验证

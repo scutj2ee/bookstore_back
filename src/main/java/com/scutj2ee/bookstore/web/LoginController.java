@@ -74,6 +74,4 @@ public class LoginController {
             throw new CustomUnauthorizedException("帐号或密码错误(Account or Password Error.)");
         }
     }
-
-
 }
