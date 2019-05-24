@@ -4,6 +4,7 @@ import com.scutj2ee.bookstore.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public interface UserDao {
@@ -15,9 +16,11 @@ public interface UserDao {
 
     List<User> selectAll();
 
-    int updateUser(User record);
+    int updateUser(User user);
 
     User findByUsername(String username);
 
     User findByUsernameAndPassword(String username, String password);
+
+    List<User> getUserListByParams(Map map);
 }

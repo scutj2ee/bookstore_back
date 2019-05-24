@@ -12,7 +12,8 @@ public enum RegisterResultEnum {
     SUCCESS(1,"注册成功"),
     APPLY_SUCCESS(2,"申请成功"),
     APPLY_REPEAT(-3,"重复申请，请等工作人员确认"),
-    USER_FAILD(-4,"用户注册失败");
+    USER_FAILD(-4,"用户注册失败"),
+    ADMINUSER_FAILD(-5,"管理员申请失败");
 
     private Integer code;
     private String msg;

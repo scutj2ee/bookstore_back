@@ -54,5 +54,17 @@
     from user where user_name=#{username}
     and `password`=#{password}
   </select>
+
+  <select id="getUserListByParams" resultMap="userMap">
+    select u.*
+    from user u
+    where
+    <if test="name != null and name != ''">
+      u.name like concat('%',concat(#{name},'%'))
+    </if>
+    <if test="phone != null and phone != ''">
+      and u.phone = #{phone}
+    </if>
+  </select>
 </mapper>
 

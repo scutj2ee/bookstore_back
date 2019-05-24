@@ -43,6 +43,11 @@ public class Order implements Serializable {
      */
     private Integer totalIntegral;
 
+    /**
+     * 是否删除
+     */
+    private Boolean isDelete;
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -111,6 +116,14 @@ public class Order implements Serializable {
         this.totalIntegral = totalIntegral;
     }
 
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -122,6 +135,7 @@ public class Order implements Serializable {
                 ", createTime=" + createTime +
                 ", endTime=" + endTime +
                 ", totalIntegral=" + totalIntegral +
+                ", isDelete=" + isDelete +
                 '}';
     }
 }

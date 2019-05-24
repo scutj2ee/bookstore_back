@@ -1,8 +1,11 @@
 package com.scutj2ee.bookstore.service;
 
+import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.User;
+import com.scutj2ee.bookstore.model.UserResult;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ Author     ：Bin Liu
@@ -20,31 +23,31 @@ public interface UserService {
      */
     public User findByUsername(String username);
 
-    User getUserById(int userId);
+    User getUserById(Integer userId);
 
     List<User> selectAll();
 
     int insert(User user);
 
-    int update(User user);
+    UserResult updateUser(User user);
 
-    User queryUser(String username, String password);
-
-    /**
-     * create by: Bin Liu
-     * description: 发送邮件验证码
-     * create time: 2019/5/24 14:51
-     * @Param: null
-     * @return
-     */
-    String sendVerifyCode(String email);
+    int deleteById(Integer id);
 
     /**
      * create by: Bin Liu
-     * description: 注册
-     * create time: 2019/5/24 14:51
+     * description:
+     * create time: 2019/5/24 23:02
+     * @Param: null
+     * @return 
+     */
+    UserResult userExitOrNot(String username);
+
+    /**
+     * create by: Bin Liu
+     * description: 获取用户列表
+     * create time: 2019/5/24 23:09
      * @Param: null
      * @return
      */
-    Boolean register(User user, String code);
+    PageInfo<User> getUserList(Map map, Integer pageNo, Integer pageSize);
 }

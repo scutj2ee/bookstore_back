@@ -15,6 +15,16 @@ Date: 2019-05-21 15:20:49
 
 SET FOREIGN_KEY_CHECKS=0;
 
+
+DROP TABLE IF EXISTS `admin_user`;
+CREATE TABLE `admin_user` (
+  `id` int(11) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 -- ----------------------------
 -- Table structure for `address`
 -- ----------------------------
@@ -153,6 +163,7 @@ CREATE TABLE `order` (
   `create_time` datetime DEFAULT NULL,
   `end_time` datetime DEFAULT NULL,
   `total_integral` int(11) DEFAULT NULL,
+  `is_delete` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

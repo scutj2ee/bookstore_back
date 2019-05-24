@@ -1,5 +1,6 @@
 package com.scutj2ee.bookstore.model;
 
+import com.scutj2ee.bookstore.entity.AdminUser;
 import com.scutj2ee.bookstore.entity.User;
 
 /**
@@ -12,6 +13,7 @@ public class LoginResult {
     private Integer code;
     private String msg;
     private User user;
+    private AdminUser adminUser;
 
     public Integer getCode() {
         return code;
@@ -35,5 +37,13 @@ public class LoginResult {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public AdminUser getAdminUser() {
+        return adminUser;
+    }
+
+    public void setAdminUser(AdminUser adminUser) {
+        this.adminUser = adminUser;
     }
 }

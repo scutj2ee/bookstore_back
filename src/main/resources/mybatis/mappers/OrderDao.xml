@@ -10,6 +10,7 @@
     <result column="payment" jdbcType="DOUBLE" property="payment" />
     <result column="total_integral" jdbcType="INTEGER" property="totalIntegral" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="is_delete" jdbcType="BOOLEAN" property="idDelete" />
   </resultMap>
 
   <delete id="deleteOrder" parameterType="java.lang.Integer">
@@ -19,9 +20,9 @@
 
   <insert id="insertOrder" parameterType="com.scutj2ee.bookstore.entity.Order">
     insert into order (address_id, create_time, end_time, `state`,
-      payment, total_integral, user_id)
+      payment, total_integral, user_id, is_delete)
     values (#{addressId}, #{createTime}, #{endTime}, #{state},
-      #{payment}, #{totalIntegral}, #{userId})
+      #{payment}, #{totalIntegral}, #{userId}, #{isDelete})
   </insert>
 
   <update id="updateOrder" parameterType="com.scutj2ee.bookstore.entity.Order">
@@ -33,24 +34,25 @@
       <if test="state != null and state != ''">`state` = #{state},</if>
       <if test="payment != null and payment != ''">payment = #{payment},</if>
       <if test="totalIntegral != null and totalIntegral != ''">total_integral = #{totalIntegral},</if>
-      <if test="userId != null and userId != ''">user_id = #{userId}</if>
+      <if test="userId != null and userId != ''">user_id = #{userId},</if>
+      <if test="isDelete != null and isDelete != ''">is_delete = #{isDelete}</if>
     </set>
     where id = #{id}
   </update>
 
   <select id="findOrderById" parameterType="java.lang.Integer" resultMap="orderMap">
-    select id, address_id, create_time, end_time, `state`, payment, total_integral, user_id
+    select id, address_id, create_time, end_time, `state`, payment, total_integral, user_id, is_delete
     from order
     where id = #{id}
   </select>
 
   <select id="selectAll" resultMap="orderMap">
-    select id, address_id, create_time, end_time, `state`, payment, total_integral, user_id
+    select id, address_id, create_time, end_time, `state`, payment, total_integral, user_id,is_delete
     from order
   </select>
 
   <select id="findByUserId" parameterType="java.lang.Integer" resultMap="orderMap">
-    select id, address_id, create_time, end_time, `state`, payment, total_integral, user_id
+    select id, address_id, create_time, end_time, `state`, payment, total_integral, user_id,is_delete
     from order
     where user_id = #{userId}
   </select>

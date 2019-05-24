@@ -23,8 +23,6 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressDao addressDao;
 
-
-
     @Override
     public int create(Address address) {
         return addressDao.insertAddress(address);
@@ -43,13 +41,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public List<Address> findByUserId() {
-//        Object user = request.getSession().getAttribute("user");
-//        if(user == null){
-//            throw new LoginException("请登录！");
-//        }
-//        User loginUser = (User) user;
-//        List<Address> addresses = addressDao.findByUserId(loginUser.getId());
-//        return addresses;
+
         return null;
     }
 
