@@ -1,5 +1,7 @@
 package com.scutj2ee.bookstore.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.AddressDao;
 import com.scutj2ee.bookstore.entity.Address;
 import com.scutj2ee.bookstore.entity.User;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: kevin
@@ -46,12 +49,22 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void update(Address address) {
-        addressDao.updateAddress(address);
+    public int update(Address address) {
+        return addressDao.updateAddress(address);
     }
 
     @Override
-    public void deleteById(Integer id) {
-        addressDao.deleteAddress(id);
+    public int deleteById(Integer id) {
+        return addressDao.deleteAddress(id);
+    }
+
+    @Override
+    public PageInfo<Address> getAddressList(Map map, Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == -1 ? 1 : pageNo;
+        pageSize = pageSize == -1 ? 10 : pageSize;
+        List<Address> list = addressDao.getAddressListByParams(map);
+        PageHelper.startPage(pageNo,pageSize);
+        PageInfo<Address> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

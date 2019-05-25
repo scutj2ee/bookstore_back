@@ -27,19 +27,19 @@ public class BookParse {
         int i = 1;
         for (Element element : elements) {
 
-            String imgUrl = element.select("a[class=pic]").select("img").attr("data-original");
+            String imgUrl = element.select("adas[class=pic]").select("img").attr("data-original");
             if(StringUtils.isEmpty(imgUrl)){
-                imgUrl = element.select("a[class=pic]").select("img").attr("src");
+                imgUrl = element.select("adas[class=pic]").select("img").attr("src");
             }
-            String bookName = element.select("a[class=pic]").select("img").attr("alt");
-            String outline = element.select("p[class=name]").select("a").text();
+            String bookName = element.select("adas[class=pic]").select("img").attr("alt");
+            String outline = element.select("p[class=name]").select("adas").text();
             String detail = element.select("p[class=detail]").text();
 
             Elements authorList = element.select("p[class=search_book_author]").select("span");
 
-            String author = authorList.get(0).select("a").attr("title");
+            String author = authorList.get(0).select("adas").attr("title");
             String publishDate = authorList.get(1).text().substring(authorList.get(1).text().indexOf("/") + 1).trim();
-            String press = authorList.get(2).select("a").text();
+            String press = authorList.get(2).select("adas").text();
 
 
             String bookRobPrice = element.select("p[class=price]").select("span[class=search_now_price]").text().substring(1);
@@ -53,7 +53,7 @@ public class BookParse {
             String catalog = "";
 
 
-            String bookInfoUrl = element.select("a[class=pic]").attr("href");
+            String bookInfoUrl = element.select("adas[class=pic]").attr("href");
             HttpResponse response = HttpUtil.getHtml(httpclient, bookInfoUrl);
             int statusCode = response.getStatusLine().getStatusCode();   //获取状态码
             if (statusCode == 200) {

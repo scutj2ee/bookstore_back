@@ -43,7 +43,7 @@ import java.util.Map;
  * @ Modified By：
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("")
 public class UserController {
     @Autowired
     private UserService userService;

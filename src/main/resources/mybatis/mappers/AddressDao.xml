@@ -58,4 +58,13 @@
     from address
     where user_id=#{userId}
   </select>
+
+  <select id="getAddrsssListByParams" resultMap="userMap">
+    select a.*
+    from address a
+    where
+    <if test="userId != null and userId != ''">
+      a.user_id = #{userId}
+    </if>
+  </select>
 </mapper>

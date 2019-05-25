@@ -1,10 +1,13 @@
 package com.scutj2ee.bookstore.service;
 
+import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.Address;
+import com.scutj2ee.bookstore.entity.User;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: kevin
@@ -35,10 +38,19 @@ public interface AddressService {
     /**
      * 更新一个地址
      */
-    void update(Address address);
+    int update(Address address);
 
     /**
      * 删除一个地址
      */
-    void deleteById(Integer id);
+    int deleteById(Integer id);
+
+    /**
+     * create by: Bin Liu
+     * description: 分页查找地址列表
+     * create time: 2019/5/25 10:30
+     * @Param: null
+     * @return
+     */
+    PageInfo<Address> getAddressList(Map map, Integer pageNo, Integer pageSize);
 }

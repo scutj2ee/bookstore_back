@@ -3,6 +3,7 @@ package com.scutj2ee.bookstore.dao;
 import com.scutj2ee.bookstore.entity.Address;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AddressDao {
     int deleteAddress(Integer id);
@@ -18,4 +19,6 @@ public interface AddressDao {
     Address findByIdAndUserId(Integer id, Integer userId);
 
     List<Address> findByUserId(Integer userId);
+
+    List<Address> getAddressListByParams(Map map);
 }
