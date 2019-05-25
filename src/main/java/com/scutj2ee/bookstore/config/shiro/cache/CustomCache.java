@@ -26,7 +26,7 @@ public class CustomCache<K,V> implements Cache<K,V> {
      * @date 2018/9/4 18:33
      */
     private String getKey(Object key) {
-        return Constant.PREFIX_SHIRO_CACHE + JwtUtil.getClaim(key.toString(), Constant.ACCOUNT);
+        return Constant.PREFIX_SHIRO_CACHE + JwtUtil.getClaim(key.toString(), Constant.USERNAME);
     }
 
     /**

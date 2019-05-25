@@ -1,3 +1,4 @@
+/*
 package com.scutj2ee.bookstore.web;
 
 import com.scutj2ee.bookstore.entity.BookCategory;
@@ -9,12 +10,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+*/
 /**
  * @ Author     ：Bin Liu
  * @ Date       ：2019/5/23 15:42
  * @ Description：书本种类控制类
  * @ Modified By：
- */
+ *//*
+
 
 @RestController
 @RequestMapping("category")
@@ -22,11 +25,13 @@ public class BookCategoryController {
     @Autowired
     private BookCategoryService bookCategoryService;
 
-    /**
+    */
+/**
      * 根据父节点查询商品类目
      * @param pid
      * @return
-     */
+     *//*
+
     @GetMapping("/list")
     public ResponseEntity<List<BookCategory>> queryCategoryByPid(@RequestParam("pid") Long pid){
 
@@ -46,41 +51,49 @@ public class BookCategoryController {
         }
     }
 
-    /**
+    */
+/**
      * 保存
      * @return
-     */
+     *//*
+
     @PostMapping
     public ResponseEntity<Void> saveCategory(BookCategory bookCategory){
         this.bookCategoryService.create(bookCategory);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    /**
+    */
+/**
      * 更新
      * @return
-     */
+     *//*
+
     @PutMapping
     public ResponseEntity<Void> updateCategory(BookCategory bookCategory){
         this.bookCategoryService.update(bookCategory);
         return  ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-    /**
+    */
+/**
      * 删除
      * @return
-     */
+     *//*
+
     @DeleteMapping("cid/{cid}")
     public ResponseEntity<Void> deleteCategory(@PathVariable("cid") Integer id){
         this.bookCategoryService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    /**
+    */
+/**
      * 根据分类id集合查询分类名称
      * @param ids
      * @return
-     */
+     *//*
+
     @GetMapping("names")
     public ResponseEntity<List<String>> queryNameByIds(@RequestParam("ids")List<Integer> ids){
         List<String> list = bookCategoryService.queryNameByIds(ids);
@@ -91,11 +104,13 @@ public class BookCategoryController {
         }
     }
 
-    /**
+    */
+/**
      * 根据分类id集合查询分类名称
      * @param ids
      * @return
-     */
+     *//*
+
     @GetMapping("all")
     public ResponseEntity<List<BookCategory>> queryCategoryByIds(@RequestParam("ids")List<Integer> ids){
         List<BookCategory> list = bookCategoryService.queryCategoryByIds(ids);
@@ -106,11 +121,13 @@ public class BookCategoryController {
         }
     }
 
-    /**
+    */
+/**
      * 根据分类id集合查询分类名称
      * @param id
      * @return
-     */
+     *//*
+
     @GetMapping("all/level/{cid3}")
     public ResponseEntity<List<BookCategory>> queryAllCategoryLevelByCid3(@PathVariable("cid3")Long id){
         List<BookCategory> list = bookCategoryService.queryAllCategoryLevelByCid3(id);
@@ -121,3 +138,4 @@ public class BookCategoryController {
         }
     }
 }
+*/
