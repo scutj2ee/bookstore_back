@@ -22,5 +22,5 @@ public interface UserDao {
 
     User findByUsernameAndPassword(String username, String password);
 
-    List<User> getUserListByParams(Map map);
+    List<User> getUserListByParams();
 }

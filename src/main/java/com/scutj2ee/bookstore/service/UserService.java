@@ -4,7 +4,6 @@ import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.User;
 import com.scutj2ee.bookstore.model.UserResult;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,7 +24,7 @@ public interface UserService {
 
     User getUserById(Integer userId);
 
-    List<User> selectAll();
+    //PageInfo<User> selectAll(Integer pageNo, Integer pageSize);
 
     int insert(User user);
 
@@ -49,7 +48,7 @@ public interface UserService {
      * @Param: null
      * @return
      */
-    PageInfo<User> getUserList(Map map, Integer pageNo, Integer pageSize);
+    PageInfo<User> getUserList(Integer pageNo, Integer pageSize);
 
     /**
      * create by: Bin Liu

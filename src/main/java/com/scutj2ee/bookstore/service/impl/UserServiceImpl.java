@@ -7,14 +7,11 @@ import com.scutj2ee.bookstore.entity.User;
 import com.scutj2ee.bookstore.enums.SystemErrorEnum;
 import com.scutj2ee.bookstore.enums.UserResultEnum;
 import com.scutj2ee.bookstore.exception.CustomException;
-import com.scutj2ee.bookstore.exception.CustomUnauthorizedException;
 import com.scutj2ee.bookstore.exception.UserException;
 import com.scutj2ee.bookstore.model.UserResult;
 import com.scutj2ee.bookstore.service.UserService;
-import com.scutj2ee.bookstore.utils.AesCipherUtil;
 import com.scutj2ee.bookstore.utils.MailUtil;
 import com.scutj2ee.bookstore.utils.RandomUtil;
-import com.scutj2ee.bookstore.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,10 +42,10 @@ public class UserServiceImpl implements UserService {
         return userDao.findUserById(userId);
     }
 
-    @Override
-    public List<User> selectAll() {
-        return userDao.selectAll();
-    }
+//    @Override
+//    public PageInfo<User> selectAll(Integer pageNo, Integer pageSize) {
+//        return userDao.selectAll();
+//    }
 
     @Override
     public int insert(User user) {
@@ -110,10 +107,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageInfo<User> getUserList(Map map, Integer pageNo, Integer pageSize) {
+    public PageInfo<User> getUserList(Integer pageNo, Integer pageSize) {
         pageNo = pageNo == -1 ? 1 : pageNo;
         pageSize = pageSize == -1 ? 10 : pageSize;
-        List<User> list = userDao.getUserListByParams(map);
+        List<User> list = userDao.getUserListByParams();
         PageHelper.startPage(pageNo,pageSize);
         PageInfo<User> pageInfo = new PageInfo<>(list);
         return pageInfo;

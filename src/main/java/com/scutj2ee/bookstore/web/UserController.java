@@ -132,7 +132,7 @@ public class UserController {
         Map para = new HashMap();
         para.put("username", username);
         para.put("phone", phone);
-        PageInfo<User> pageInfo = userService.getUserList(para, pageNo, pageSize);
+        PageInfo<User> pageInfo = userService.getUserList(pageNo, pageSize);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
         resultMap.put("tableData", pageInfo == null ? null : pageInfo.getList());
