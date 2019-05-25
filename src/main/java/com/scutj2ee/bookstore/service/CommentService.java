@@ -1,8 +1,9 @@
 package com.scutj2ee.bookstore.service;
 
+import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.Comment;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * @Author kobe
@@ -43,9 +44,11 @@ public interface CommentService {
      * description:获取评论列表
      * create time: 12:14 2019/5/22
      * @param
+     * @param map
+     * @param pageNo
      * @return
      */
-    List<Comment> selectAll(int bookId);
+    PageInfo<Comment> selectAll(Map map, Integer pageNo, Integer pageSize);
 
     /**
      * create by: Kobe

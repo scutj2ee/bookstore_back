@@ -1,13 +1,19 @@
 package com.scutj2ee.bookstore.web;
 
+import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.entity.Cart;
 import com.scutj2ee.bookstore.entity.CartItem;
+import com.scutj2ee.bookstore.exception.SystemException;
 import com.scutj2ee.bookstore.service.BookInfoService;
 import com.scutj2ee.bookstore.service.CartService;
 import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author kobe
@@ -15,12 +21,43 @@ import javax.servlet.http.HttpServletRequest;
  * @Description: 购物车相关业务
  * @Modified By:
  */
+
+@RestController
+@RequestMapping("cart")
 public class CartController {
     @Autowired
-    private BookInfoService bookInfoService;
-
-    @Autowired
     private CartService cartService;
+    
+    /**
+     * create by: Kobe
+     * description:查看该用户id购物车内所有购物项
+     * create time: 14:20 2019/5/25
+     * @param request,pageNo,pageSize
+     * @return 
+     */
+    @RequestMapping("/list")
+    public HashMap<String,Object> listCartItem(HttpServletRequest request,Integer pageNo, Integer pageSize){
+        HashMap<String,Object> resultMap = new HashMap<>();
+        Integer cartId;
+        //获取前端传过来的cartId
+        try {
+            cartId = HttpServletRequestUtil.getInt(request,"cartId");
+        } catch (NumberFormatException e){
+            resultMap.put("success",false);
+            resultMap.put("msg","获取用户对象ID信息异常！");
+            return resultMap;
+        }
+
+        Map map = new HashMap();
+        map.put("userId",cartId);
+        //分页获取
+        PageInfo<CartItem> pageInfo = cartService.getCartItemList(map,pageNo,pageSize);
+        resultMap.put("success",true);
+        resultMap.put("msg","获取成功");
+        resultMap.put("tableData", pageInfo == null ? null : pageInfo.getList());
+        resultMap.put("total", pageInfo == null ? null : pageInfo.getTotal());
+        return resultMap;
+    }
 
     /**
      * create by: Kobe
@@ -29,21 +66,23 @@ public class CartController {
      * @param request
      * @return
      */
-    public void addToCart(HttpServletRequest request){
-        Cart cart = cartService.findCartById(HttpServletRequestUtil.getInt(request,"cartId"));
-        BookInfo bookInfo = bookInfoService.findById(HttpServletRequestUtil.getInt(request,"bookId"));
-
-        if(bookInfo != null){
-            CartItem cartItem = new CartItem();
-            cartItem.setCartId(cart.getId());
-            cartItem.setBookId(bookInfo.getBookId());
-            cartItem.setBuyNum(HttpServletRequestUtil.getInt(request,"buyNum"));
-            cartItem.setBookInfo(bookInfo);
-            cartItem.setSubTotal(HttpServletRequestUtil.getDouble(request,"buyNum"));
-            cartService.addCartItem(cartItem);
-        } else {
-            //如果商品库存不足怎么返回信息给前端
-            request.getSession().setAttribute("message", "添加失败！");
+    @PostMapping("/add")
+    public HashMap<String,Object> addToCart(HttpServletRequest request, @RequestBody CartItem cartItem) throws Exception{
+        HashMap<String,Object> resultMap = new HashMap<>();
+        try {
+            int result = cartService.addCartItem(cartItem);
+            if(result > 0){
+                resultMap.put("success",true);
+                resultMap.put("msg","成功添加");
+            } else{
+                resultMap.put("success",false);
+            }
+            return resultMap;
+        } catch (SystemException ex){
+            resultMap.put("success",false);
+            resultMap.put("code",ex.getCode());
+            resultMap.put("msg",ex.getMessage());
+            return resultMap;
         }
     }
 
@@ -54,8 +93,24 @@ public class CartController {
      * @param request
      * @return
      */
-    public void clearAll(HttpServletRequest request){
-        cartService.clearAll(HttpServletRequestUtil.getInt(request,"cartId"));
+    @DeleteMapping("/clearAll")
+    public HashMap<String, Object> clearAll(HttpServletRequest request){
+        HashMap<String,Object> resultMap = new HashMap<>();
+        try {
+            int result = cartService.clearAll(HttpServletRequestUtil.getInt(request,"cartId"));
+            if(result > 0){
+                resultMap.put("success",true);
+                resultMap.put("msg","成功清空");
+            } else{
+                resultMap.put("success",false);
+            }
+            return resultMap;
+        } catch (SystemException ex){
+            resultMap.put("success",false);
+            resultMap.put("code",ex.getCode());
+            resultMap.put("msg",ex.getMessage());
+            return resultMap;
+        }
     }
 
     /**
@@ -65,8 +120,25 @@ public class CartController {
      * @param request
      * @return
      */
-    public void delCartItem(HttpServletRequest request){
-        cartService.removeCartItem(HttpServletRequestUtil.getInt(request,"cartItemId"));
+    @DeleteMapping("/delete")
+    public HashMap<String, Object> delCartItem(HttpServletRequest request){
+        HashMap<String,Object> resultMap = new HashMap<>();
+        try {
+            int cartItemId = HttpServletRequestUtil.getInt(request,"cartItemId");
+            int result = cartService.removeCartItem(cartItemId);
+            if(result > 0){
+                resultMap.put("success",true);
+                resultMap.put("msg","成功删除");
+            } else{
+                resultMap.put("success",false);
+            }
+            return resultMap;
+        } catch (SystemException ex){
+            resultMap.put("success",false);
+            resultMap.put("code",ex.getCode());
+            resultMap.put("msg",ex.getMessage());
+            return resultMap;
+        }
     }
 
     /**
@@ -76,9 +148,23 @@ public class CartController {
      * @param request
      * @return
      */
-    public void updateCartItem(HttpServletRequest request){
-        CartItem cartItem = cartService.findCartItemById(HttpServletRequestUtil.getInt(request,"cartItemId"));
-        cartItem.setBuyNum(HttpServletRequestUtil.getInt(request,"buyNum"));
-        cartService.updateCartItem(cartItem);
+    @PutMapping("/update")
+    public HashMap<String, Object> updateCartItem(HttpServletRequest request, @RequestBody CartItem cartItem) throws Exception{
+        HashMap<String,Object> resultMap = new HashMap<>();
+        try {
+            int result = cartService.updateCartItem(cartItem);
+            if(result > 0){
+                resultMap.put("success",true);
+                resultMap.put("msg","成功删除");
+            } else{
+                resultMap.put("success",false);
+            }
+            return resultMap;
+        } catch (SystemException ex){
+            resultMap.put("success",false);
+            resultMap.put("code",ex.getCode());
+            resultMap.put("msg",ex.getMessage());
+            return resultMap;
+        }
     }
 }

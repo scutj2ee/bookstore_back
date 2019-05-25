@@ -17,10 +17,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @ Author     ：Bin Liu
- * @ Date       ：2019/5/25 10:17
- * @ Description：地址管理类
- * @ Modified By：
+ * @Author     ：Bin Liu
+ * @Date       ：2019/5/25 10:17
+ * @Description：地址管理类
+ * @Modified By：
  */
 @RestController
 @RequestMapping("address")
@@ -70,10 +70,10 @@ public class AddressController {
             int result=addressService.create(address);
             if (result>0) {
                 resultMap.put("success", true);
+                resultMap.put("msg", "增加地址成功");
             } else {
                 resultMap.put("success", false);
             }
-            resultMap.put("msg", "增加地址成功");
             return resultMap;
         } catch (SystemException ex) {
             resultMap.put("success", false);
@@ -97,10 +97,10 @@ public class AddressController {
             int result=addressService.update(address);
             if (result>0) {
                 resultMap.put("success", true);
+                resultMap.put("msg", "修改地址成功");
             } else {
                 resultMap.put("success", false);
             }
-            resultMap.put("msg", "修改地址成功");
             return resultMap;
         } catch (SystemException ex) {
             resultMap.put("success", false);

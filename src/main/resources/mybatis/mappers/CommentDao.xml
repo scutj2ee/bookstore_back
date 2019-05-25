@@ -43,4 +43,13 @@
     from comment
     where book_id = #{bookId}
   </select>
+
+  <select id="getCommentListByParams" resultMap="commentMap">
+    select c.*
+    from  comment c
+    where
+    <if test="bookId != null and bookId != ''">
+      c.book_id = #{bookId}
+    </if>
+  </select>
 </mapper>

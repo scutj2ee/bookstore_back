@@ -2,9 +2,11 @@ package com.scutj2ee.bookstore.dao;
 
 import com.scutj2ee.bookstore.entity.Cart;
 import jdk.internal.org.objectweb.asm.commons.AdviceAdapter;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface CartDao {
     int deleteCart(Integer id);
 

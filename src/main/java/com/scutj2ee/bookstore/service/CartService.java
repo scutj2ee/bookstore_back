@@ -1,9 +1,11 @@
 package com.scutj2ee.bookstore.service;
 
+import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.Cart;
 import com.scutj2ee.bookstore.entity.CartItem;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author kobe
@@ -28,7 +30,7 @@ public interface CartService {
      * @param cartItem
      * @return
      */
-    void addCartItem(CartItem cartItem);
+    int addCartItem(CartItem cartItem);
 
     /**
      * create by: Kobe
@@ -55,7 +57,7 @@ public interface CartService {
      * @param cartId
      * @return int
      */
-    void clearAll(int cartId);
+    int clearAll(int cartId);
 
     /**
      * create by: Kobe
@@ -74,4 +76,15 @@ public interface CartService {
      * @return
      */
     CartItem findCartItemById(int cartItemId);
+
+    /**
+     * create by: Kobe
+     * description:分页获得购物车列表
+     * create time: 15:23 2019/5/25
+     * @param map
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    PageInfo<CartItem> getCartItemList(Map map, Integer pageNo, Integer pageSize);
 }

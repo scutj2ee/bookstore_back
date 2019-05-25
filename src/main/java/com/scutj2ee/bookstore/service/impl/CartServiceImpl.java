@@ -1,5 +1,6 @@
 package com.scutj2ee.bookstore.service.impl;
 
+import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.CartDao;
 import com.scutj2ee.bookstore.dao.CartItemDao;
 import com.scutj2ee.bookstore.entity.Cart;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author kobe
@@ -30,8 +32,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void addCartItem(CartItem cartItem) {
-        cartItemDao.insertCartItem(cartItem);
+    public int addCartItem(CartItem cartItem) {
+        return cartItemDao.insertCartItem(cartItem);
     }
 
     @Override
@@ -45,8 +47,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void clearAll(int cartId) {
-        cartItemDao.clearAll(cartId);
+    public int clearAll(int cartId) {
+        return cartItemDao.clearAll(cartId);
     }
 
     @Override
@@ -57,5 +59,14 @@ public class CartServiceImpl implements CartService {
     @Override
     public CartItem findCartItemById(int cartItemId) {
         return cartItemDao.findCartItemById(cartItemId);
+    }
+
+    @Override
+    public PageInfo<CartItem> getCartItemList(Map map, Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == -1 ? 1 : pageNo;
+        pageSize = pageSize == -1 ? 10 : pageSize;
+        List<CartItem> list = cartItemDao.getCartItemListByParams(map);
+        PageInfo<CartItem> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

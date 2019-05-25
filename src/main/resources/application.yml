@@ -1,24 +1,24 @@
-#端口
+#???
 server:
   port: 8888
   tomcat:
     uri-encoding: UTF-8
 
-#编码
+#????
 spring:
   http:
     encoding:
       enabled: true
       force: true
       charset: UTF-8
-  #数据库连接
+  #?????????
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/scutmall?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone = GMT&autoReconnect=true
+    url: jdbc:mysql://localhost/book?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone = GMT&autoReconnect=true
     username: root
-    password: 7887227
-    #druid配置
+    password: 1234
+    #druid????
     druid:
       max-wait: 60000
       time-between-eviction-runs-millis: 60000
@@ -39,13 +39,13 @@ spring:
       stat-view-servlet.login-username: admin
       stat-view-servlet.login-password: 123456
       aop-patterns: com.scutj2ee.service.impl.*
-  #邮件
+  #???
   mail:
     host: smtp.qq.com
     username: 1145054472@qq.com
     password: liubin7887227
     default-encoding: UTF-8
-  #文件上传
+  #??????
   servlet:
     multipart:
       max-file-size: 10MB
@@ -54,11 +54,11 @@ mail:
   fromMail:
     addr: 1145054472@qq.com
 
-#日志
+#???
 #logging:
 #  com:
 #    scutj2ee: true
-#mybatis路径
+#mybatis路??
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml

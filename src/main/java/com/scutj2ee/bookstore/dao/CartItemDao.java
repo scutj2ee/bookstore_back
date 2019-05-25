@@ -1,9 +1,12 @@
 package com.scutj2ee.bookstore.dao;
 
 import com.scutj2ee.bookstore.entity.CartItem;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
+@Component
 public interface CartItemDao {
     int deleteCartItem(Integer id);
 
@@ -22,4 +25,6 @@ public interface CartItemDao {
      * @return int
      */
     int clearAll(int cartId);
+
+    List<CartItem> getCartItemListByParams(Map map);
 }

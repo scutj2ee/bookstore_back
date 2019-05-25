@@ -46,4 +46,13 @@
     delete from cart_item
     where cart_id = #{cartId}
   </select>
+  
+  <select id="getCartItemListByParams" resultMap="cartItemMap">
+    select a.*
+    from cartItem c
+    where
+    <if test="cartItemId != null and cartItemId != ''">
+      c.cartItem_id = #{cartItemId}
+    </if>
+  </select>
 </mapper>

@@ -1,5 +1,7 @@
 package com.scutj2ee.bookstore.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.CommentDao;
 import com.scutj2ee.bookstore.entity.Comment;
 import com.scutj2ee.bookstore.service.CommentService;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author kobe
@@ -35,8 +38,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> selectAll(int bookId) {
-        return commentDao.selectAll(bookId);
+    public PageInfo<Comment> selectAll(Map map, Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == -1 ? 1 : pageNo;
+        pageSize = pageSize == -1 ? 10 : pageSize;
+        List<Comment> list = commentDao.getCommentListByParams(map);
+        PageHelper.startPage(pageNo,pageSize);
+        PageInfo<Comment> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override
