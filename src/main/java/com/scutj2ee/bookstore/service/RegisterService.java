@@ -29,12 +29,4 @@ public interface RegisterService {
      */
     RegisterResult applyByAdminUser(AdminUser adminUser);
 
-    /**
-     * create by: Bin Liu
-     * description: 发送邮件验证码
-     * create time: 2019/5/24 22:38
-     * @Param: null
-     * @return
-     */
-    String sendVerifyCode(String email);
 }

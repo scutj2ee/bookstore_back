@@ -59,8 +59,8 @@
     select u.*
     from user u
     where
-    <if test="name != null and name != ''">
-      u.name like concat('%',concat(#{name},'%'))
+    <if test="username != null and username != ''">
+      u.user_name like concat('%',concat(#{username},'%'))
     </if>
     <if test="phone != null and phone != ''">
       and u.phone = #{phone}

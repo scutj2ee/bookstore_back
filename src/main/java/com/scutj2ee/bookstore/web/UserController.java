@@ -15,6 +15,7 @@ import com.scutj2ee.bookstore.model.common.Constant;
 import com.scutj2ee.bookstore.model.common.ResponseBean;
 import com.scutj2ee.bookstore.service.UserService;
 import com.scutj2ee.bookstore.utils.AesCipherUtil;
+import com.scutj2ee.bookstore.utils.DateUtil;
 import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
 import com.scutj2ee.bookstore.utils.UserUtil;
 import com.scutj2ee.bookstore.utils.common.StringUtil;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,10 +80,26 @@ public class UserController {
         try {
             user = mapper.readValue(userStr, User.class);
             //1.比较验证码是否一致或者超时
-            String sessionCode = (String) request.getSession().getAttribute("user_code_" + user.getId());
+            String sessionCode = (String) request.getSession().getAttribute("user_code_" + user.getUsername());
             if (sessionCode == null) {
                 resultMap.put("success", false);
                 resultMap.put("msg", "请先获取验证码");
+                return resultMap;
+            }
+            //获取前端传递过来的code参数
+            String verifyCode = HttpServletRequestUtil.getString(request, "verifyCode");
+            if (verifyCode != null && verifyCode.equals(sessionCode)) {
+                //判断验证码是否过期
+                Date sendTime = (Date) request.getSession().getAttribute("user_codeTime_" + user.getUsername());
+                long seconds = DateUtil.getDifferenceSeconds(sendTime, new Date());
+                if (seconds > Constant.OVERDUESECONDS) {
+                    resultMap.put("success", false);
+                    resultMap.put("msg", "验证码已过期");
+                    return resultMap;
+                }
+            } else {
+                resultMap.put("success", false);
+                resultMap.put("msg", "验证码不正确");
                 return resultMap;
             }
         } catch (IOException e) {
@@ -109,10 +127,10 @@ public class UserController {
     }
 
     @GetMapping("/user/list")
-    private HashMap<String, Object> list(HttpServletRequest request, String name, String phone, Integer pageNo, Integer pageSize) {
+    private HashMap<String, Object> list(HttpServletRequest request, String username, String phone, Integer pageNo, Integer pageSize) {
         HashMap<String, Object> resultMap = new HashMap<>();
         Map para = new HashMap();
-        para.put("name", name);
+        para.put("username", username);
         para.put("phone", phone);
         PageInfo<User> pageInfo = userService.getUserList(para, pageNo, pageSize);
         resultMap.put("success", true);

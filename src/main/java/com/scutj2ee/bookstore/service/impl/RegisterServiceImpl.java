@@ -91,17 +91,5 @@ public class RegisterServiceImpl implements RegisterService {
         }
     }
 
-    @Override
-    public String sendVerifyCode(String email) {
-        //1.生成验证码
-        String checkCode = RandomUtil.getRandomVerCode();
-        String message = "您的注册验证码为：" + checkCode;
-        //3.发送邮件
-        try {
-            mailUtil.sendSimpleMail(email, "注册验证码", message);
-        } catch (Exception e) {
-            throw new CustomException("发送邮箱验证码失败");
-        }
-        return checkCode;
-    }
+
 }

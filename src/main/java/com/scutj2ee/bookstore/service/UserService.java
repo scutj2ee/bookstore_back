@@ -50,4 +50,13 @@ public interface UserService {
      * @return
      */
     PageInfo<User> getUserList(Map map, Integer pageNo, Integer pageSize);
+
+    /**
+     * create by: Bin Liu
+     * description: 发送邮件验证码
+     * create time: 2019/5/24 22:38
+     * @Param: null
+     * @return
+     */
+    String sendVerifyCode(String email);
 }

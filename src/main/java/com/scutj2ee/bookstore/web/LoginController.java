@@ -119,7 +119,7 @@ public class LoginController {
         //获取要logout的用户id
         Integer userId;
         try {
-            userId = Integer.parseInt(HttpServletRequestUtil.getString(request, "userId"));
+            userId = HttpServletRequestUtil.getInt(request, "userId");
         } catch (NumberFormatException e) {
             resultMap.put("success", false);
             resultMap.put("msg", "获取用户对象ID信息异常，无法完成注销。");
@@ -171,7 +171,7 @@ public class LoginController {
         //获取要logout的 adminUser用户id
         int adminUserId;
         try {
-            adminUserId = Integer.parseInt(HttpServletRequestUtil.getString(request, "adminUserId"));
+            adminUserId = HttpServletRequestUtil.getInt(request, "adminUserId");
         } catch (NumberFormatException e) {
             resultMap.put("success", false);
             resultMap.put("msg", "获取管理员对象ID信息异常，无法完成注销。");

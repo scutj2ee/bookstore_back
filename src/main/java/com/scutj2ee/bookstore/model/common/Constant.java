@@ -56,4 +56,6 @@ public class Constant {
      * PASSWORD_MAX_LEN
      */
     public static final Integer PASSWORD_MAX_LEN = 15;
+
+    public static final long OVERDUESECONDS = 180;  //邮件验证码过期时间
 }
