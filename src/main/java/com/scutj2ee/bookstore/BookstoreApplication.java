@@ -19,7 +19,7 @@ import javax.servlet.MultipartConfigElement;
 public class BookstoreApplication extends SpringBootServletInitializer {
     @Autowired
     private MultipartConfigElement multipartConfigElement;
-    
+
     public static void main(String[] args) {
         SpringApplication.run(BookstoreApplication.class, args);
     }

@@ -63,7 +63,10 @@ public class BookInfo implements Serializable {
      * 浏览量
      */
     private Integer lookMount;
-    private Double discount;
+    /**
+     * 折扣
+     */
+    private BigDecimal discount;
     /**
      * 版面图片
      */
@@ -237,11 +240,11 @@ public class BookInfo implements Serializable {
         this.lookMount = lookMount;
     }
 
-    public Double getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Double discount) {
+    public void setDiscount(BigDecimal discount) {
         this.discount = discount;
     }
 

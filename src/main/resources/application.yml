@@ -17,7 +17,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost/scutmall?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone = GMT&autoReconnect=true
     username: root
-    password: 1234
+    password: 7887227
     #druid配置
     druid:
       max-wait: 60000
