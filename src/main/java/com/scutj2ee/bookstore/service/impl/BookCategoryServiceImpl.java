@@ -1,5 +1,7 @@
 package com.scutj2ee.bookstore.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.BookCategoryDao;
 import com.scutj2ee.bookstore.entity.BookCategory;
 import com.scutj2ee.bookstore.service.BookCategoryService;
@@ -40,8 +42,8 @@ public class BookCategoryServiceImpl implements BookCategoryService {
     }
 
     @Override
-    public void update(BookCategory bookCategory) {
-        bookCategoryDao.updateBookCategory(bookCategory);
+    public int update(BookCategory bookCategory) {
+        return bookCategoryDao.updateBookCategory(bookCategory);
     }
 
     @Override
@@ -50,12 +52,22 @@ public class BookCategoryServiceImpl implements BookCategoryService {
     }
 
     @Override
-    public void deleteById(Integer id) {
-        bookCategoryDao.deleteBookCategory(id);
+    public int deleteById(Integer id) {
+        return bookCategoryDao.deleteBookCategory(id);
     }
 
     @Override
     public List<BookCategory> findByParentId(int pid) {
         return bookCategoryDao.findByParentId(pid);
+    }
+
+    @Override
+    public PageInfo<BookCategory> getUserList(Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == -1 ? 1 : pageNo;
+        pageSize = pageSize == -1 ? 10 : pageSize;
+        List<BookCategory> list = bookCategoryDao.getUserListByParams();
+        PageHelper.startPage(pageNo,pageSize);
+        PageInfo<BookCategory> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

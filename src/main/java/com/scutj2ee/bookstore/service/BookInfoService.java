@@ -1,5 +1,6 @@
 package com.scutj2ee.bookstore.service;
 
+import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.BookInfo;
 
 import java.util.List;
@@ -34,20 +35,22 @@ public interface BookInfoService {
     /**
      * 更新
      */
-    void update(BookInfo bookInfo);
+    int update(BookInfo bookInfo);
 
     /**
      * 创建
      */
-    void create(BookInfo bookInfo);
+    int create(BookInfo bookInfo);
 
     /**
      * 删除
      */
-    void deleteById(Integer id);
+    int deleteById(Integer id);
 
     /**
      * 根据关键字搜索书
      */
     List<BookInfo> findByTitleIsLike(String keyword);
+
+    PageInfo<BookInfo> getUserList(Integer pageNo, Integer pageSize);
 }

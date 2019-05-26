@@ -1,5 +1,7 @@
 package com.scutj2ee.bookstore.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.BookInfoDao;
 import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.service.BookInfoService;
@@ -38,22 +40,32 @@ public class BookInfoServiceImple implements BookInfoService {
     }
 
     @Override
-    public void update(BookInfo bookInfo) {
-        bookInfoDao.updateBookInfo(bookInfo);
+    public int update(BookInfo bookInfo) {
+        return bookInfoDao.updateBookInfo(bookInfo);
     }
 
     @Override
-    public void create(BookInfo bookInfo) {
-        bookInfoDao.insertBookInfo(bookInfo);
+    public int create(BookInfo bookInfo) {
+        return bookInfoDao.insertBookInfo(bookInfo);
     }
 
     @Override
-    public void deleteById(Integer id) {
-        bookInfoDao.deleteBookInfo(id);
+    public int deleteById(Integer id) {
+        return bookInfoDao.deleteBookInfo(id);
     }
 
     @Override
     public List<BookInfo> findByTitleIsLike(String keyword) {
         return null;
+    }
+
+    @Override
+    public PageInfo<BookInfo> getUserList(Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == -1 ? 1 : pageNo;
+        pageSize = pageSize == -1 ? 10 : pageSize;
+        List<BookInfo> list = bookInfoDao.getUserListByParams();
+        PageHelper.startPage(pageNo,pageSize);
+        PageInfo<BookInfo> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

@@ -1,5 +1,6 @@
 package com.scutj2ee.bookstore.service;
 
+import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.BookCategory;
 import org.springframework.data.domain.Example;
 
@@ -36,7 +37,7 @@ public interface BookCategoryService {
     /**
      * 更新
      */
-    void update(BookCategory bookCategory);
+    int update(BookCategory bookCategory);
 
     /**
      * 创建
@@ -46,10 +47,12 @@ public interface BookCategoryService {
     /**
      * 删除
      */
-    void deleteById(Integer id);
+    int deleteById(Integer id);
 
     /**
      * 根据parentId查询，即根据一级分类id查找二级分类
      */
     List<BookCategory> findByParentId(int pid);
+
+    PageInfo<BookCategory> getUserList(Integer pageNo, Integer pageSize);
 }

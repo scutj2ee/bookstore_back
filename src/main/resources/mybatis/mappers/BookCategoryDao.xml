@@ -56,4 +56,9 @@
     from book_category
     where parent_id = #{parentId}
   </select>
+
+  <select id="getUserListByParams" resultMap="bookCategoryMap">
+    select b.*
+    from user b
+  </select>
 </mapper>

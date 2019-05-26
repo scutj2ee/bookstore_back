@@ -34,7 +34,7 @@ public class AdminUserController {
      * @param pageSize
      * @return
      */
-    @RequestMapping("list")
+    @RequestMapping("/list")
     public HashMap<String, Object> getUserList(HttpServletRequest request, Integer pageNo, Integer pageSize){
         HashMap<String, Object> resultMap = new HashMap<>();
         PageInfo<User> pageInfo = userService.getUserList(pageNo,pageSize);
