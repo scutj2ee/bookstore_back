@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class URLEntity {
-
     public static List<BookInfo> URLParse(HttpClient httpclient, String url, String category) throws IOException, ParseException {
         List<BookInfo> getbooks = new ArrayList<BookInfo>();
         HttpResponse response = HttpUtil.getHtml(httpclient, url);
@@ -28,7 +27,6 @@ public class URLEntity {
         else {
             EntityUtils.consume(response.getEntity());
         }
-
         return getbooks;
     }
 }
