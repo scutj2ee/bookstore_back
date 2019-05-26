@@ -3,6 +3,7 @@ package com.scutj2ee.bookstore.service.impl;
 import com.scutj2ee.bookstore.entity.AdminUser;
 import com.scutj2ee.bookstore.model.AdminUserResult;
 import com.scutj2ee.bookstore.service.AdminUserService;
+import org.springframework.stereotype.Service;
 
 /**
  * @ Author     ：Bin Liu
@@ -10,6 +11,7 @@ import com.scutj2ee.bookstore.service.AdminUserService;
  * @ Description：${description}
  * @ Modified By：
  */
+@Service
 public class AdminUserServiceImpl implements AdminUserService {
 
     @Override

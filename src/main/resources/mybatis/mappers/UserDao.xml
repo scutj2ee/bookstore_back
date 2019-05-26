@@ -18,7 +18,7 @@
   <insert id="insertUser" parameterType="com.scutj2ee.bookstore.entity.User">
     insert into user (integration, `password`, phone,
       email, user_name)
-    values (#{integration}, #{password}, #{phone}, #{email,jdbcType}, #{userName})
+    values (#{integration}, #{password}, #{phone}, #{email}, #{userName})
   </insert>
 
   <update id="updateUser" parameterType="com.scutj2ee.bookstore.entity.User">

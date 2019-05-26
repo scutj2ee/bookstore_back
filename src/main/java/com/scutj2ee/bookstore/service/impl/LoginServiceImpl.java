@@ -10,6 +10,7 @@ import com.scutj2ee.bookstore.exception.LoginException;
 import com.scutj2ee.bookstore.model.LoginResult;
 import com.scutj2ee.bookstore.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @ Author     ：Bin Liu
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @ Description：登录业务逻辑实现类
  * @ Modified By：
  */
+@Service
 public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserDao userDao;

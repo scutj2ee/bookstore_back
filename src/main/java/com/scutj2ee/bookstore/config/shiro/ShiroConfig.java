@@ -1,3 +1,4 @@
+/*
 package com.scutj2ee.bookstore.config.shiro;
 
 
@@ -19,22 +20,26 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+*/
 /**
  * @ Author     ：Bin Liu
  * @ Date       ：2019/4/26 19:37
  * @ Description：shiro配置
  * @ Modified By：
- */
+ *//*
+
 @Configuration
 public class ShiroConfig {
-    /**
+    */
+/**
     * create by: Bin Liu
     * description: 配置使用自定义Realm，关闭Shiro自带的session
     * 详情见文档 http://shiro.apache.org/session-management.html#SessionManagement-StatelessApplications%28Sessionless%29
     * create time: 2019/5/24 11:12
     * @Param: null
     * @return
-    */
+    *//*
+
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean("securityManager")
     public DefaultWebSecurityManager defaultWebSecurityManager(UserRealm userRealm) {
@@ -52,7 +57,8 @@ public class ShiroConfig {
         return defaultWebSecurityManager;
     }
 
-    /**
+    */
+/**
      * 添加自己的过滤器，自定义url规则
      * Shiro自带拦截器配置规则
      * rest：比如/admins/user/**=rest[user],根据请求的方法，相当于/admins/user/**=perms[user：method] ,其中method为post，get，delete等
@@ -69,7 +75,8 @@ public class ShiroConfig {
      * @return org.apache.shiro.spring.web.ShiroFilterFactoryBean
      * @author Wang926454
      * @date 2018/8/31 10:57
-     */
+     *//*
+
     @Bean("shiroFilter")
     public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
@@ -94,9 +101,11 @@ public class ShiroConfig {
         return factoryBean;
     }
 
-    /**
+    */
+/**
      * 下面的代码是添加注解支持
-     */
+     *//*
+
     @Bean
     @DependsOn("lifecycleBeanPostProcessor")
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
@@ -118,3 +127,4 @@ public class ShiroConfig {
         return advisor;
     }
 }
+*/

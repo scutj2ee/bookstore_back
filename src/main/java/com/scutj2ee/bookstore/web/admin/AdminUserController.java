@@ -1,4 +1,4 @@
-package com.scutj2ee.bookstore.web;
+package com.scutj2ee.bookstore.web.admin;
 
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.User;

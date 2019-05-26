@@ -21,7 +21,7 @@
       #{bookId},#{fromUid})
   </insert>
 
-  <update id="updateComment" parameterType="com.example.demo.entity.Comment">
+  <update id="updateComment" parameterType="com.scutj2ee.bookstore.entity.Comment">
     update comment
     <set>
       <if test="content != null and content != ''"> content = #{content},</if>

@@ -1,4 +1,4 @@
-package com.scutj2ee.bookstore.web;
+package com.scutj2ee.bookstore.web.admin;
 
 /**
  * @Author kobe

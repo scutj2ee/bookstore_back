@@ -34,7 +34,7 @@
     where book_id = #{bookId}
   </delete>
 
-  <insert id="insertBookInfo" parameterType="com.scutj2ee.bookstore.entity.bookInfo">
+  <insert id="insertBookInfo" parameterType="com.scutj2ee.bookstore.entity.BookInfo">
     insert into book_info (book_id, book_category_id, `name`, 
       outline, detail, press, 
       publish_date, `size`, version, 

@@ -12,6 +12,7 @@ import com.scutj2ee.bookstore.service.RegisterService;
 import com.scutj2ee.bookstore.utils.MailUtil;
 import com.scutj2ee.bookstore.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.OptionalInt;
  * @ Description：注册业务逻辑实现类
  * @ Modified By：
  */
+@Service
 public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private UserDao userDao;

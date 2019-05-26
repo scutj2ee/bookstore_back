@@ -1,3 +1,4 @@
+/*
 package com.scutj2ee.bookstore.config.shiro;
 
 import com.scutj2ee.bookstore.config.shiro.jwt.JwtToken;
@@ -24,12 +25,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 
+*/
 /**
  * @ Author     ：Bin Liu
  * @ Date       ：2019/4/27 22:49
  * @ Description：${description}
  * @ Modified By：
- */
+ *//*
+
 public class UserRealm extends AuthorizingRealm {
     private final UserDao userDao;
     private final RoleDao roleDao;
@@ -42,17 +45,21 @@ public class UserRealm extends AuthorizingRealm {
         this.userDao=userDao;
     }
 
-    /**
+    */
+/**
      * 大坑，必须重写此方法，不然Shiro会报错
-     */
+     *//*
+
     @Override
     public boolean supports(AuthenticationToken authenticationToken) {
         return authenticationToken instanceof JwtToken;
     }
 
-    /**
+    */
+/**
      * 只有当需要检测用户权限的时候才会调用此方法，例如checkRole,checkPermission之类的
-     */
+     *//*
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
@@ -78,9 +85,11 @@ public class UserRealm extends AuthorizingRealm {
         return simpleAuthorizationInfo;
     }
 
-    /**
+    */
+/**
      * 默认使用此方法进行用户名正确与否验证，错误抛出异常即可。
-     */
+     *//*
+
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String token = (String) authenticationToken.getCredentials();
@@ -109,3 +118,4 @@ public class UserRealm extends AuthorizingRealm {
     }
 }
 
+*/

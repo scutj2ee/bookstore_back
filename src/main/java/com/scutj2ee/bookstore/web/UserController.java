@@ -126,20 +126,6 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/list")
-    private HashMap<String, Object> list(HttpServletRequest request, String username, String phone, Integer pageNo, Integer pageSize) {
-        HashMap<String, Object> resultMap = new HashMap<>();
-        Map para = new HashMap();
-        para.put("username", username);
-        para.put("phone", phone);
-        PageInfo<User> pageInfo = userService.getUserList(pageNo, pageSize);
-        resultMap.put("success", true);
-        resultMap.put("msg", "获取成功");
-        resultMap.put("tableData", pageInfo == null ? null : pageInfo.getList());
-        resultMap.put("total", pageInfo == null ? 0 : pageInfo.getTotal());
-        return resultMap;
-    }
-
     @PostMapping("/users/update")
     private HashMap<String, Object> update(HttpServletRequest request, @RequestBody User user) {
         HashMap<String, Object> resultMap = new HashMap<>();

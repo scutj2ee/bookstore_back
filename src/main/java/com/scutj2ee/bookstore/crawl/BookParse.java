@@ -84,8 +84,8 @@ public class BookParse {
             book.setBookCategoryId(Integer.parseInt(category));
             String substring = discount.substring(
                     (discount.indexOf("(") + 1) < 0 ? 0 : discount.indexOf("(") + 1, discount.indexOf(")") - 1 < 0 ? 0 : discount.indexOf(")") - 1);
-            book.setDiscount(Double.valueOf(StringUtils.isEmpty(substring) ? "0" : substring)
-            );
+            book.setDiscount(BigDecimal.valueOf(Double.valueOf(
+                            StringUtils.isEmpty(substring) ? "0" : substring)));
             book.setPrice(Double.valueOf(bookRobPrice));
             book.setMarketPrice(Double.valueOf(bookMarketPrice));
             book.setPress(press);
