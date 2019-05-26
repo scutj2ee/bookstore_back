@@ -2,25 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scutj2ee.bookstore.dao.ReplyDao">
     <resultMap id="replyMap" type="com.scutj2ee.bookstore.entity.Reply">
-        <id column="reply_id" jdbcType="INTEGER" property="replyId" />
-        <result column="content" jdbcType="VARCHAR" property="content" />
-        <result column="date" jdbcType="TIMESTAMP" property="date" />
-        <result column="book_id" jdbcType="INTEGER" property="bookId" />
-        <result column="user_id" jdbcType="INTEGER" property="userId" />
-        <result column="parent_id" jdbcType="INTEGER" property="parentId" />
-        <result column="reply_user_id" jdbcType="INTEGER" property="replyUserId" />
+        <id column="reply_id" property="replyId" />
+        <result column="content" property="content" />
+        <result column="date" property="date" />
+        <result column="book_id" property="bookId" />
+        <result column="user_id" property="userId" />
+        <result column="parent_id" property="parentId" />
+        <result column="reply_user_id" property="replyUserId" />
     </resultMap>
 
     <delete id="deleteReply" parameterType="java.lang.Integer">
     delete from comment
-    where comment_id = #{commentId}
+    where reply_id = #{replyId}
   </delete>
 
     <insert id="insertReply" parameterType="com.scutj2ee.bookstore.entity.Reply">
-    insert into reply (comment_id, content, `date`,
-      book_id, user_id, parent_id,
+    insert into reply (content, `date`,book_id, user_id, parent_id,
       reply_user_id)
-    values (#{commentId}, #{content}, #{date},
+    values ( #{content}, #{date},
       #{bookId}, #{userId}, #{parentId},
       #{replyUserId})
   </insert>
@@ -35,17 +34,17 @@
             <if test="parentId != null and parentId != ''">parent_id = #{parentId},</if>
             <if test="replyUserId != null and replyUserId != ''">reply_user_id = #{replyUserId}</if>
         </set>
-        where comment_id = #{commentId}
+        where reply_id = #{replyId}
     </update>
 
     <select id="findReplyById" parameterType="java.lang.Integer" resultMap="replyMap">
-    select comment_id, content, `date`, book_id, user_id, parent_id, reply_user_id
-    from reply
-    where comment_id = #{commentId}
+    select r.*
+    from reply r
+    where r.reply_id = #{replyId}
   </select>
 
     <select id="selectAll" resultMap="replyMap">
-    select comment_id, content, `date`, book_id, user_id, parent_id, reply_user_id
-    from reply
+    select r.*
+    from reply r
   </select>
 </mapper>

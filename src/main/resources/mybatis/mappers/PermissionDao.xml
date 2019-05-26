@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scutj2ee.bookstore.dao.PermissionDao">
   <resultMap id="permissionMap" type="com.scutj2ee.bookstore.entity.Permission">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="per_code" jdbcType="VARCHAR" property="perCode" />
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="per_code" property="perCode" />
   </resultMap>
 
   <delete id="deletePermissionById" parameterType="java.lang.Integer">
@@ -13,8 +13,8 @@
   </delete>
 
   <insert id="insertPermission" parameterType="com.scutj2ee.bookstore.entity.Permission">
-    insert into permission (id, `name`, per_code)
-    values (#{id}, #{name}, #{perCode})
+    insert into permission (`name`, per_code)
+    values (#{name}, #{perCode})
   </insert>
 
   <update id="updatePermission" parameterType="com.scutj2ee.bookstore.entity.Permission">
@@ -27,20 +27,20 @@
   </update>
 
   <select id="findPermissionById" parameterType="java.lang.Integer" resultMap="permissionMap">
-    select id, `name`, per_code
-    from permission
-    where id = #{id}
+    select p.*
+    from permission p
+    where p.id = #{id}
   </select>
 
   <select id="selectAll" resultMap="permissionMap">
-    select id, `name`, url, father_id
-    from permission
+    select p.*
+    from permission p
   </select>
 
   <select id="findbyUserId" resultMap="permissionMap">
-    select permission.id, permission.name, permission.per_code
-    from permission,role_permission
-    where permission.id=role_permission.permissione_id and role_permission.role_id=#{roleId}
+    select p.*
+    from permission p,role_permission r
+    where p.id=r.permissione_id and r.role_id=#{roleId}
   </select>
 
   <select id="findPermissionByRole" resultType="com.scutj2ee.bookstore.entity.Permission"

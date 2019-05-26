@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scutj2ee.bookstore.dao.RoleDao">
   <resultMap id="roleMap" type="com.scutj2ee.bookstore.entity.Role">
-    <id column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="rolename" jdbcType="VARCHAR" property="rolename" />
-    <result column="type" jdbcType="INTEGER" property="type" />
+    <id column="role_id" property="roleId" />
+    <result column="rolename" property="rolename" />
+    <result column="type" property="type" />
   </resultMap>
 
   <delete id="deleteRoleById" parameterType="java.lang.Integer">
@@ -13,8 +13,8 @@
   </delete>
 
   <insert id="insertRole" parameterType="com.scutj2ee.bookstore.entity.Role">
-    insert into role (role_id, rolename, `type`)
-    values (#{roleId}, #{rolename}, #{type})
+    insert into role ( rolename, `type`)
+    values (#{rolename}, #{type})
   </insert>
 
   <update id="updateRole" parameterType="com.scutj2ee.bookstore.entity.Role">
@@ -27,20 +27,20 @@
   </update>
 
   <select id="findRoleById" parameterType="java.lang.Integer" resultMap="roleMap">
-    select role_id, rolename, `type`
-    from role
-    where role_id = #{roleId}
+    select r.*
+    from role r
+    where r.role_id = #{roleId}
   </select>
 
   <select id="selectAll" resultMap="roleMap">
-    select role_id, rolename, `type`
-    from role
+    select r.*
+    from role r
   </select>
 
   <select id="findRolebyUserId" resultMap="roleMap">
-    select role.role_id, role.rolename
-    from role,user_role
-    where role.role_id=user_role.role_id and user_role.user_id=#{userId}
+    select r.*
+    from role r,user_role u
+    where r.role_id=u.role_id and u.user_id=#{userId}
   </select>
 
   <select id="findRoleByUser" resultType="com.scutj2ee.bookstore.entity.Role" parameterType="com.scutj2ee.bookstore.entity.User">

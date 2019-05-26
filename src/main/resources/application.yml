@@ -50,23 +50,11 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-mail:
-  fromMail:
-    addr: 1145054472@qq.com
-
-#日志
-#logging:
-#  com:
-#    scutj2ee: true
 #mybatis路径
-
 mybatis:
   mapper-locations: classpath:mybatis/mappers/*.xml
   config-location: classpath:mybatis/mybatis-config.xml
 
-
-
-
-
-
-
+mail:
+  fromMail:
+    addr: 1145054472@qq.com
