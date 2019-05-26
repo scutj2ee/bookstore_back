@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scutj2ee.bookstore.dao.UserDao">
   <resultMap id="userMap" type="com.scutj2ee.bookstore.entity.User">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="integration" jdbcType="INTEGER" property="integration" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="phone" jdbcType="INTEGER" property="phone" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <id column="id" property="id" />
+    <result column="integration" property="integration" />
+    <result column="password" property="password" />
+    <result column="phone" property="phone" />
+    <result column="email" property="email" />
+    <result column="user_name" property="userName" />
   </resultMap>
 
   <delete id="deleteUser" parameterType="java.lang.Integer">
@@ -34,25 +34,27 @@
   </update>
 
   <select id="findUserById" parameterType="java.lang.Integer" resultMap="userMap">
-    select id, integration, `password`, phone, email, user_name
-    from user
-    where id = #{id}
+    select u.*
+    from user u
+    where u.id = #{id}
   </select>
 
   <select id="selectAll" parameterType="java.lang.Integer" resultMap="userMap">
-    select id, integration, `password`, phone, email, user_name
-    from user
+    select u.*
+    from user u
   </select>
 
   <select id="findByUsername" resultMap="userMap">
-    select id, integration, `password`, phone, user_name
-    from user where user_name=#{username}
+    select u.*
+    from user u
+    where u.user_name=#{username}
   </select>
 
   <select id="findByUsernameAndPassword" resultMap="userMap">
-    select id, integration, `password`, phone, user_name
-    from user where user_name=#{username}
-    and `password`=#{password}
+    select u.*
+    from user
+    where u.user_name=#{username}
+    and u.password=#{password}
   </select>
 
   <select id="getUserListByParams" resultMap="userMap">

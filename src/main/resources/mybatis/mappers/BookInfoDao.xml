@@ -2,31 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scutj2ee.bookstore.dao.BookInfoDao">
   <resultMap id="bookInfoMap" type="com.scutj2ee.bookstore.entity.BookInfo">
-    <id column="book_id" jdbcType="INTEGER" property="bookId" />
-    <result column="book_category_id" jdbcType="INTEGER" property="bookCategoryId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="outline" jdbcType="VARCHAR" property="outline" />
-    <result column="detail" jdbcType="VARCHAR" property="detail" />
-    <result column="press" jdbcType="VARCHAR" property="press" />
-    <result column="publish_date" jdbcType="TIMESTAMP" property="publishDate" />
-    <result column="size" jdbcType="VARCHAR" property="size" />
-    <result column="version" jdbcType="VARCHAR" property="version" />
-    <result column="author" jdbcType="VARCHAR" property="author" />
-    <result column="translator" jdbcType="VARCHAR" property="translator" />
-    <result column="isbn" jdbcType="VARCHAR" property="isbn" />
-    <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="pages" jdbcType="INTEGER" property="pages" />
-    <result column="catalog" jdbcType="VARCHAR" property="catalog" />
-    <result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
-    <result column="member_price" jdbcType="DECIMAL" property="memberPrice" />
-    <result column="deal_mount" jdbcType="INTEGER" property="dealMount" />
-    <result column="look_mount" jdbcType="INTEGER" property="lookMount" />
-    <result column="discount" jdbcType="DECIMAL" property="discount" />
-    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
-    <result column="store_mount" jdbcType="INTEGER" property="storeMount" />
-    <result column="store_time" jdbcType="TIMESTAMP" property="storeTime" />
-    <result column="pack_style" jdbcType="VARCHAR" property="packStyle" />
-    <result column="is_shelf" jdbcType="INTEGER" property="isShelf" />
+    <id column="book_id" property="bookId" />
+    <result column="book_category_id" property="bookCategoryId" />
+    <result column="name" property="name" />
+    <result column="outline" property="outline" />
+    <result column="detail" property="detail" />
+    <result column="press" property="press" />
+    <result column="publish_date" property="publishDate" />
+    <result column="size" property="size" />
+    <result column="version" property="version" />
+    <result column="author" property="author" />
+    <result column="translator" property="translator" />
+    <result column="isbn" property="isbn" />
+    <result column="price" property="price" />
+    <result column="pages" property="pages" />
+    <result column="catalog" property="catalog" />
+    <result column="market_price" property="marketPrice" />
+    <result column="member_price" property="memberPrice" />
+    <result column="deal_mount" property="dealMount" />
+    <result column="look_mount" property="lookMount" />
+    <result column="discount" property="discount" />
+    <result column="image_url" property="imageUrl" />
+    <result column="store_mount" property="storeMount" />
+    <result column="store_time" property="storeTime" />
+    <result column="pack_style" property="packStyle" />
+    <result column="is_shelf" property="isShelf" />
   </resultMap>
 
   <delete id="deleteBookInfo" parameterType="java.lang.Integer">
@@ -35,7 +35,7 @@
   </delete>
 
   <insert id="insertBookInfo" parameterType="com.scutj2ee.bookstore.entity.BookInfo">
-    insert into book_info (book_id, book_category_id, `name`, 
+    insert into book_info (book_category_id, `name`,
       outline, detail, press, 
       publish_date, `size`, version, 
       author, translator, isbn, 
@@ -44,7 +44,7 @@
       look_mount, discount, image_url, 
       store_mount, store_time, pack_style, 
       is_shelf)
-    values (#{bookId}, #{bookCategoryId}, #{name}, #{outline}, #{detail}, #{press},
+    values ( #{bookCategoryId}, #{name}, #{outline}, #{detail}, #{press},
       #{publishDate}, #{size}, #{version}, #{author}, #{translator}, #{isbn},
       #{price}, #{pages}, #{catalog}, #{marketPrice}, #{memberPrice}, #{dealMount},
       #{lookMount}, #{discount}, #{imageUrl}, #{storeMount}, #{storeTime}, #{packStyle},
@@ -83,29 +83,20 @@
   </update>
 
   <select id="findBookInfoById" parameterType="java.lang.Integer" resultMap="bookInfoMap">
-    select book_id, book_category_id, `name`, outline, detail, press, publish_date, `size`, 
-    version, author, translator, isbn, price, pages, `catalog`, market_price, member_price, 
-    deal_mount, look_mount, discount, image_url, store_mount, store_time, pack_style, 
-    is_shelf
-    from book_info
-    where book_id = #{bookId}
+    select b.*
+    from book_info b
+    where b.book_id = #{bookId}
   </select>
 
   <select id="selectAll" resultMap="bookInfoMap">
-    select book_id, book_category_id, `name`, outline, detail, press, publish_date, `size`, 
-    version, author, translator, isbn, price, pages, `catalog`, market_price, member_price, 
-    deal_mount, look_mount, discount, image_url, store_mount, store_time, pack_style, 
-    is_shelf
-    from book_info
+    select b.*
+    from book_info b
   </select>
 
   <select id="findByBookCategoryId" parameterType="java.lang.Integer" resultMap="bookInfoMap">
-    select book_id, book_category_id, `name`, outline, detail, press, publish_date, `size`,
-    version, author, translator, isbn, price, pages, `catalog`, market_price, member_price,
-    deal_mount, look_mount, discount, image_url, store_mount, store_time, pack_style,
-    is_shelf
-    from book_info
-    where book_category_id = #{bookCategoryId}
+    select b.*
+    from book_info b
+    where b.book_category_id = #{bookCategoryId}
   </select>
 
   <select id="findNew" parameterType="java.lang.Integer" resultMap="bookInfoMap">

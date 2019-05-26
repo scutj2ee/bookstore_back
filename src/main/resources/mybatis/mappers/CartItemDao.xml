@@ -3,10 +3,10 @@
 <mapper namespace="com.scutj2ee.bookstore.dao.CartItemDao">
   <resultMap id="cartItemMap" type="com.scutj2ee.bookstore.entity.CartItem">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="cart_id" jdbcType="INTEGER" property="cartId" />
-    <result column="book_id" jdbcType="INTEGER" property="bookId" />
-    <result column="subTotal" jdbcType="DOUBLE" property="subtotal" />
-    <result column="buyNum" jdbcType="INTEGER" property="buynum" />
+    <result column="cart_id" property="cartId" />
+    <result column="book_id" property="bookId" />
+    <result column="subTotal" property="subtotal" />
+    <result column="buyNum" property="buynum" />
   </resultMap>
 
   <delete id="deleteCartItem" parameterType="java.lang.Integer">
@@ -31,15 +31,15 @@
   </update>
 
   <select id="findCartItemById" parameterType="java.lang.Integer" resultMap="cartItemMap">
-    select id, cart_id, book_id, subTotal, buyNum
-    from cart_item
-    where id = #{id}
+    select c.*
+    from cart_item c
+    where c.id = #{id}
   </select>
 
   <select id="selectAll" parameterType="java.lang.Integer" resultMap="cartItemMap">
-    select id, cart_id, book_id, subTotal, buyNum
-    from cart_item
-    where cart_id = #{cartId}
+    select c.*
+    from cart_item c
+    where c.cart_id = #{cartId}
   </select>
 
   <select id="clearAll" parameterType="java.lang.Integer" resultMap="cartItemMap">
@@ -48,7 +48,7 @@
   </select>
   
   <select id="getCartItemListByParams" resultMap="cartItemMap">
-    select a.*
+    select c.*
     from cartItem c
     where
     <if test="cartItemId != null and cartItemId != ''">

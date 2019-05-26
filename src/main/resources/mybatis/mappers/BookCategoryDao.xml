@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scutj2ee.bookstore.dao.BookCategoryDao">
   <resultMap id="bookCategoryMap" type="com.scutj2ee.bookstore.entity.BookCategory">
-    <id column="cate_id" jdbcType="INTEGER" property="cateId" />
-    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="created" jdbcType="TIMESTAMP" property="created" />
-    <result column="updated" jdbcType="TIMESTAMP" property="updated" />
+    <id column="cate_id" property="cateId" />
+    <result column="parent_id" property="parentId" />
+    <result column="name" property="name" />
+    <result column="status" property="status" />
+    <result column="type" property="type" />
+    <result column="created" property="created" />
+    <result column="updated" property="updated" />
   </resultMap>
 
   <delete id="deleteBookCategory" parameterType="java.lang.Integer">
@@ -17,8 +17,8 @@
   </delete>
 
   <insert id="insertBookCategory" parameterType="com.scutj2ee.bookstore.entity.BookCategory">
-    insert into book_category (cate_id, parent_id, `name`, `status`, `type`, created, updated)
-    values (#{cateId}, #{parentId}, #{name}, #{status}, #{type}, #{created}, #{updated})
+    insert into book_category (parent_id, `name`, `status`, `type`, created, updated)
+    values (#{parentId}, #{name}, #{status}, #{type}, #{created}, #{updated})
   </insert>
 
   <update id="updateBookCategory" parameterType="com.scutj2ee.bookstore.entity.BookCategory">
@@ -35,26 +35,26 @@
   </update>
 
   <select id="findBookCategoryById" parameterType="java.lang.Integer" resultMap="bookCategoryMap">
-    select cate_id, parent_id, `name`, `status`, `type`, created, updated
-    from book_category
-    where cate_id = #{cateId}
+    select b.*
+    from book_category b
+    where b.cate_id = #{cateId}
   </select>
 
   <select id="selectAll" resultMap="bookCategoryMap">
-    select cate_id, parent_id, `name`, `status`, `type`, created, updated
-    from book_category
+    select b.*
+    from book_category b
   </select>
 
   <select id="findByType" parameterType="java.lang.Integer" resultMap="bookCategoryMap">
-    select cate_id, fparent_id, `name`, `status`, `type`, created, updated
-    from book_category
-    where `type` = #{type}
+    select b.*
+    from book_category b
+    where b.type = #{type}
   </select>
 
   <select id="findByParentId" parameterType="java.lang.Integer" resultMap="bookCategoryMap">
-    select cate_id, parent_id, `name`, `status`, `type`, created, updated
-    from book_category
-    where parent_id = #{parentId}
+    select b.*
+    from book_category b
+    where b.parent_id = #{parentId}
   </select>
 
   <select id="getBookCategoryListByParams" resultMap="bookCategoryMap">

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scutj2ee.bookstore.dao.RolePermissionDao">
   <resultMap id="rolePermissionMap" type="com.scutj2ee.bookstore.entity.RolePermission">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="permission_id" jdbcType="INTEGER" property="permissionId" />
+    <id column="id" property="id" />
+    <result column="role_id" property="roleId" />
+    <result column="permission_id" property="permissionId" />
   </resultMap>
 
   <delete id="deleteRolePermissionById" parameterType="java.lang.Integer">
@@ -27,13 +27,13 @@
   </update>
 
   <select id="findRolePermissionById" parameterType="java.lang.Integer" resultMap="rolePermissionMap">
-    select id, role_id, permission_id
-    from role_permission
+    select r.*
+    from role_permission r
     where id = #{id}
   </select>
 
   <select id="selectAll" resultMap="rolePermissionMap">
-    select id, role_id, permission_id
-    from role_permission
+    select r.*
+    from role_permission r
   </select>
 </mapper>

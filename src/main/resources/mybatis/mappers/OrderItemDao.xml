@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scutj2ee.bookstore.dao.OrderItemDao">
   <resultMap id="orderItemMap" type="com.scutj2ee.bookstore.entity.OrderItem">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="count" jdbcType="INTEGER" property="count" />
-    <result column="order_id" jdbcType="INTEGER" property="orderId" />
-    <result column="book_id" jdbcType="INTEGER" property="bookId" />
-    <result column="sub_payment" jdbcType="INTEGER" property="subPayment" />
-    <result column="sub_payment" jdbcType="DOUBLE" property="subPayment" />
+    <id column="id" property="id" />
+    <result column="count" property="count" />
+    <result column="order_id" property="orderId" />
+    <result column="book_id" property="bookId" />
+    <result column="sub_payment" property="subPayment" />
+    <result column="sub_payment" property="subPayment" />
   </resultMap>
 
   <delete id="deleteOrderItemById" parameterType="java.lang.Integer">
@@ -35,19 +35,19 @@
   </update>
 
   <select id="findOrderItemById" parameterType="java.lang.Integer" resultMap="orderItemMap">
-    select id, `count`, order_id, book_id, sub_integral, sub_payment
-    from order_item
-    where id = #{id}
+    select o.*
+    from order_item o
+    where o.id = #{id}
   </select>
 
   <select id="selectAll" resultMap="orderItemMap">
-    select id, `count`, order_id, book_id, sub_integral, sub_payment
-    from order_item
+    select o.*
+    from order_item o
   </select>
 
   <select id="findByOrderId" parameterType="java.lang.Integer" resultMap="orderItemMap">
-    select id, `count`, order_id, book_id, sub_integral, sub_payment
-    from order_item
-    where order_id = #{orderId}
+    select o.*
+    from order_item o
+    where o.order_id = #{orderId}
   </select>
 </mapper>

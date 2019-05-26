@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scutj2ee.bookstore.dao.AdminUserDao">
   <resultMap id="adminUserMap" type="com.scutj2ee.bookstore.entity.AdminUser">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <id column="id" property="id" />
+    <result column="password" property="password" />
+    <result column="user_name" property="userName" />
   </resultMap>
 
   <delete id="deleteAdminUser" parameterType="java.lang.Integer">
@@ -27,20 +27,20 @@
   </update>
 
   <select id="findAdminUserById" parameterType="java.lang.Integer" resultMap="adminUserMap">
-    select id, `password`, username
-    from admin_user
-    where id = #{id}
+    select a.*
+    from admin_user a
+    where a.id = #{id}
   </select>
 
   <select id="selectAll" parameterType="java.lang.Integer" resultMap="adminUserMap">
-    select id, `password`, username
-    from admin_user
+    select a.*
+    from admin_user a
   </select>
 
   <select id="findAdminUserByUserNameAndPassord" parameterType="java.lang.Integer" resultMap="adminUserMap">
-    select id, `password`, username
-    from admin_user
-    where `password`=#{password} and username=#{username}
+    select a.*
+    from admin_user a
+    where a.password =#{password} and a.username=#{username}
   </select>
 </mapper>
 

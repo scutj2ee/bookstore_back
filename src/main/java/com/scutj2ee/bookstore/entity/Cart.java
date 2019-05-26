@@ -2,6 +2,7 @@ package com.scutj2ee.bookstore.entity;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,13 +18,17 @@ public class Cart implements Serializable {
 
     private Integer id;
 
+    @Transient
     private Map<Integer, CartItem> cartItems = new HashMap<>();
 
-    private double total;
+    private Double total;
 
     private int userId;
 
-    public Cart(Integer id, Map<Integer, CartItem> cartItems, double total, int userId) {
+    public Cart() {
+    }
+
+    public Cart(Integer id, Map<Integer, CartItem> cartItems, Double total, int userId) {
         this.id = id;
         this.cartItems = cartItems;
         this.total = total;
@@ -50,11 +55,11 @@ public class Cart implements Serializable {
         this.cartItems = cartItems;
     }
 
-    public double getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
