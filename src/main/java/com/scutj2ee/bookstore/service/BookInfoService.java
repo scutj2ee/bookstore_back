@@ -16,21 +16,19 @@ public interface BookInfoService {
      */
     BookInfo findById(Integer id);
 
-    /**
-     * 查询所有书
-     */
-    List<BookInfo> findAll();
 
     /**
      * 根据书的类别查找商品
+     * @param bookCategoryId
+     * @return
      */
-    List<BookInfo> findByBookCategoryId(Integer bookCategoryId);
+    PageInfo<BookInfo> findByBookCategoryId(Integer bookCategoryId, Integer pageNo, Integer pageSize);
 
     /**
      * 查找最新产品
-     *
+     * @return
      */
-    List<BookInfo> findNewBook();
+    PageInfo<BookInfo> findNewBook(Integer pageNo, Integer pageSize);
 
     /**
      * 更新
@@ -48,9 +46,7 @@ public interface BookInfoService {
     int deleteById(Integer id);
 
     /**
-     * 根据关键字搜索书
+     * 查找所有书
      */
-    List<BookInfo> findByTitleIsLike(String keyword);
-
     PageInfo<BookInfo> getBookInfoList(Integer pageNo, Integer pageSize);
 }

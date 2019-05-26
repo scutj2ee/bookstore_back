@@ -24,20 +24,27 @@ public class BookInfoServiceImple implements BookInfoService {
         return bookInfoDao.findBookInfoById(id);
     }
 
+
     @Override
-    public List<BookInfo> findAll() {
-        return bookInfoDao.selectAll();
+    public PageInfo<BookInfo> findByBookCategoryId(Integer bookCategoryId, Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == -1 ? 1 : pageNo;
+        pageSize = pageSize == -1 ? 10 : pageSize;
+        List<BookInfo> bookInfoLists = bookInfoDao.findByBookCategoryId(bookCategoryId);
+        PageHelper.startPage(pageNo, pageSize);
+        PageInfo<BookInfo> pageInfo = new PageInfo<>(bookInfoLists);
+        return pageInfo;
     }
 
     @Override
-    public List<BookInfo> findByBookCategoryId(Integer bookCategoryId) {
-        return bookInfoDao.findByBookCategoryId(bookCategoryId);
+    public PageInfo<BookInfo> findNewBook(Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == -1 ? 1 : pageNo;
+        pageSize = pageSize == -1 ? 10 : pageSize;
+        List<BookInfo> newBooks = bookInfoDao.findNew();
+        PageHelper.startPage(pageNo, pageSize);
+        PageInfo<BookInfo> pageInfo = new PageInfo<>(newBooks);
+        return pageInfo;
     }
 
-    @Override
-    public List<BookInfo> findNewBook() {
-        return bookInfoDao.findNew();
-    }
 
     @Override
     public int update(BookInfo bookInfo) {
@@ -52,11 +59,6 @@ public class BookInfoServiceImple implements BookInfoService {
     @Override
     public int deleteById(Integer id) {
         return bookInfoDao.deleteBookInfo(id);
-    }
-
-    @Override
-    public List<BookInfo> findByTitleIsLike(String keyword) {
-        return null;
     }
 
     @Override
