@@ -26,5 +26,5 @@ public interface BookInfoDao {
      */
     List<BookInfo> findNew();
 
-    List<BookInfo> getUserListByParams();
+    List<BookInfo> getBookInfoListByParams();
 }

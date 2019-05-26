@@ -1,5 +1,7 @@
 package com.scutj2ee.bookstore.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.*;
 import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.entity.Order;
@@ -44,7 +46,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     *  查询订单中的每一个订单项
+     * 查询订单中的每一个订单项
+     *
      * @param orderId
      * @return
      */
@@ -61,8 +64,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void update(Order order) {
-        orderDao.updateOrder(order);
+    public int update(Order order) {
+        return orderDao.updateOrder(order);
     }
 
     @Override
@@ -71,19 +74,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deleteById(Integer id) {
-        orderDao.deleteOrder(id);
+    public int deleteById(Integer id) {
+        return orderDao.deleteOrder(id);
     }
 
     /**
      * 查询用户订单
+     *
      * @param request
      * @return
      */
     @Override
     public List<Order> findUserOrder(HttpServletRequest request) {
         Object user = request.getSession().getAttribute("user");
-        if(user == null){
+        if (user == null) {
             throw new LoginException("请登录！");
         }
         User loginUser = (User) user;
@@ -97,10 +101,10 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderDao.findOrderById(orderId);
         Object user = request.getSession().getAttribute("user");
         User loginUser = (User) user;
-        if(order == null){
+        if (order == null) {
             throw new RuntimeException("订单不存在！");
         }
-        loginUser.setIntegration(order.getTotalIntegral()+loginUser.getIntegration());
+        loginUser.setIntegration(order.getTotalIntegral() + loginUser.getIntegration());
         userDao.updateUser(loginUser);
         order.setStatus(STATE_WAITE_SEND);
         order.setEndTime(new Date());
@@ -111,7 +115,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void submit(Integer addressId, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Object user = request.getSession().getAttribute("user");
-        if(user == null){
+        if (user == null) {
             throw new LoginException("请登录！");
         }
         User loginUser = (User) user;
@@ -132,10 +136,20 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void receive(Integer orderId) {
         Order order = orderDao.findOrderById(orderId);
-        if(order ==  null) {
+        if (order == null) {
             throw new RuntimeException("订单不存在！");
         }
         order.setStatus(STATE_COMPLETE);
         orderDao.updateOrder(order);
+    }
+
+    @Override
+    public PageInfo<Order> getOrderList(Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == -1 ? 1 : pageNo;
+        pageSize = pageSize == -1 ? 10 : pageSize;
+        List<Order> list = orderDao.getOrderListByParams();
+        PageHelper.startPage(pageNo, pageSize);
+        PageInfo<Order> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

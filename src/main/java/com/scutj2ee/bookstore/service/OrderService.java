@@ -1,5 +1,7 @@
 package com.scutj2ee.bookstore.service;
 
+import com.github.pagehelper.PageInfo;
+import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.entity.Order;
 import com.scutj2ee.bookstore.entity.OrderItem;
 
@@ -47,7 +49,7 @@ public interface OrderService {
     /**
      * 更新
      */
-    void update(Order order);
+    int update(Order order);
 
     /**
      * 创建订单
@@ -57,7 +59,7 @@ public interface OrderService {
     /**
      * 根据id查询
      */
-    void deleteById(Integer id);
+    int deleteById(Integer id);
 
     /**
      * 查找用户订单
@@ -78,4 +80,13 @@ public interface OrderService {
      * 确定收货
      */
     void receive(Integer orderId);
+
+    /**
+     * create by: Bin Liu
+     * description: 查看所有订单
+     * create time: 2019/5/26 15:18
+     * @Param: null
+     * @return
+     */
+    PageInfo<Order> getOrderList(Integer pageNo, Integer pageSize);
 }

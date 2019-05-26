@@ -16,4 +16,6 @@ public interface OrderDao {
     int updateOrder(Order order);
 
     List<Order> findByUserId(Integer userId);
+
+    List<Order> getOrderListByParams();
 }

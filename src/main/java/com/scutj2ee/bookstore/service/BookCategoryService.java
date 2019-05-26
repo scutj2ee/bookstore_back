@@ -54,5 +54,5 @@ public interface BookCategoryService {
      */
     List<BookCategory> findByParentId(int pid);
 
-    PageInfo<BookCategory> getUserList(Integer pageNo, Integer pageSize);
+    PageInfo<BookCategory> getBookCategoryList(Integer pageNo, Integer pageSize);
 }

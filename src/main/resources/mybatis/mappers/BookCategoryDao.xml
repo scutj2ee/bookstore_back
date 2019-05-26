@@ -57,8 +57,8 @@
     where parent_id = #{parentId}
   </select>
 
-  <select id="getUserListByParams" resultMap="bookCategoryMap">
+  <select id="getBookCategoryListByParams" resultMap="bookCategoryMap">
     select b.*
-    from user b
+    from book_category b
   </select>
 </mapper>

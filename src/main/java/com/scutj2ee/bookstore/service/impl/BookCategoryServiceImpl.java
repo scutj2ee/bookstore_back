@@ -62,10 +62,10 @@ public class BookCategoryServiceImpl implements BookCategoryService {
     }
 
     @Override
-    public PageInfo<BookCategory> getUserList(Integer pageNo, Integer pageSize) {
+    public PageInfo<BookCategory> getBookCategoryList(Integer pageNo, Integer pageSize) {
         pageNo = pageNo == -1 ? 1 : pageNo;
         pageSize = pageSize == -1 ? 10 : pageSize;
-        List<BookCategory> list = bookCategoryDao.getUserListByParams();
+        List<BookCategory> list = bookCategoryDao.getBookCategoryListByParams();
         PageHelper.startPage(pageNo,pageSize);
         PageInfo<BookCategory> pageInfo = new PageInfo<>(list);
         return pageInfo;

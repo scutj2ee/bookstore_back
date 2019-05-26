@@ -60,10 +60,10 @@ public class BookInfoServiceImple implements BookInfoService {
     }
 
     @Override
-    public PageInfo<BookInfo> getUserList(Integer pageNo, Integer pageSize) {
+    public PageInfo<BookInfo> getBookInfoList(Integer pageNo, Integer pageSize) {
         pageNo = pageNo == -1 ? 1 : pageNo;
         pageSize = pageSize == -1 ? 10 : pageSize;
-        List<BookInfo> list = bookInfoDao.getUserListByParams();
+        List<BookInfo> list = bookInfoDao.getBookInfoListByParams();
         PageHelper.startPage(pageNo,pageSize);
         PageInfo<BookInfo> pageInfo = new PageInfo<>(list);
         return pageInfo;

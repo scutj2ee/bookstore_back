@@ -34,9 +34,9 @@ public class AdminBookInfoController {
      * @return
      */
     @RequestMapping("/list")
-    public HashMap<String, Object> getBookCategoryList(HttpServletRequest request, Integer pageNo, Integer pageSize){
+    public HashMap<String, Object> getBookInfoList(HttpServletRequest request, Integer pageNo, Integer pageSize){
         HashMap<String, Object> resultMap = new HashMap<>();
-        PageInfo<BookInfo> pageInfo = bookInfoService.getUserList(pageNo,pageSize);
+        PageInfo<BookInfo> pageInfo = bookInfoService.getBookInfoList(pageNo,pageSize);
         resultMap.put("success",true);
         resultMap.put("msg","获取成功");
         resultMap.put("tableData",pageInfo == null ? null : pageInfo.getList() );
@@ -53,7 +53,7 @@ public class AdminBookInfoController {
      * @return
      */
     @PostMapping("/add")
-    public HashMap<String, Object> addBookCategory(HttpServletRequest request, @RequestBody BookInfo bookInfo) throws Exception{
+    public HashMap<String, Object> addBookInfo(HttpServletRequest request, @RequestBody BookInfo bookInfo) throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
         try {
             int result = bookInfoService.create(bookInfo);
@@ -101,14 +101,14 @@ public class AdminBookInfoController {
 
     /**
      * create by: Kobe
-     * description: 管理院更新一个书类
+     * description: 管理员更新一个书类
      * create time: 14:39 2019/5/26
      * @param request
      * @param bookInfo
      * @return
      */
     @PutMapping("/update")
-    public HashMap<String, Object> updateBookCategory(HttpServletRequest request, @RequestBody BookInfo bookInfo) throws Exception{
+    public HashMap<String, Object> updateBookInfo(HttpServletRequest request, @RequestBody BookInfo bookInfo) throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
         try {
             int result=bookInfoService.update(bookInfo);

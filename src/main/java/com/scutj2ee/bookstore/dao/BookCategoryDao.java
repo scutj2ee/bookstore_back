@@ -21,5 +21,5 @@ public interface BookCategoryDao {
 
     List<BookCategory> findByParentId(Integer parentId);
 
-    List<BookCategory> getUserListByParams();
+    List<BookCategory> getBookCategoryListByParams();
 }

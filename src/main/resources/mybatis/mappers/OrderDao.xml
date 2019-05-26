@@ -56,4 +56,9 @@
     from order
     where user_id = #{userId}
   </select>
+
+  <select id="getOrderListByParams" resultMap="bookInfoMap">
+    select o.*
+    from order o
+  </select>
 </mapper>

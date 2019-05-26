@@ -52,5 +52,5 @@ public interface BookInfoService {
      */
     List<BookInfo> findByTitleIsLike(String keyword);
 
-    PageInfo<BookInfo> getUserList(Integer pageNo, Integer pageSize);
+    PageInfo<BookInfo> getBookInfoList(Integer pageNo, Integer pageSize);
 }

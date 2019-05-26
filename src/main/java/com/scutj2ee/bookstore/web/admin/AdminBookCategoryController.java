@@ -36,7 +36,7 @@ public class AdminBookCategoryController {
     @RequestMapping("/list")
     public HashMap<String, Object> getBookCategoryList(HttpServletRequest request, Integer pageNo, Integer pageSize){
         HashMap<String, Object> resultMap = new HashMap<>();
-        PageInfo<BookCategory> pageInfo = bookCategoryService.getUserList(pageNo,pageSize);
+        PageInfo<BookCategory> pageInfo = bookCategoryService.getBookCategoryList(pageNo,pageSize);
         resultMap.put("success",true);
         resultMap.put("msg","获取成功");
         resultMap.put("tableData",pageInfo == null ? null : pageInfo.getList() );
@@ -101,7 +101,7 @@ public class AdminBookCategoryController {
 
     /**
      * create by: Kobe
-     * description: 管理院更新一个书类
+     * description: 管理员更新一个书类
      * create time: 14:39 2019/5/26
      * @param request
      * @param bookCategory

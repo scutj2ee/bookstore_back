@@ -111,4 +111,9 @@
   <select id="findNew" parameterType="java.lang.Integer" resultMap="bookInfoMap">
     SELECT * FROM book_info where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= publish_date
   </select>
+
+  <select id="getBookInfoListByParams" resultMap="bookInfoMap">
+    select b.*
+    from book_info b
+  </select>
 </mapper>
