@@ -27,13 +27,23 @@ public class BookCategoryServiceImpl implements BookCategoryService {
     }
 
     @Override
-    public List<BookCategory> findByType(Integer type) {
-        return bookCategoryDao.findByType(type);
+    public PageInfo<BookCategory> findByType(Integer type, Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == -1 ? 1 : pageNo;
+        pageSize = pageSize == -1 ? 10 : pageSize;
+        List<BookCategory> list = bookCategoryDao.findByType(type);
+        PageHelper.startPage(pageNo, pageSize);
+        PageInfo<BookCategory> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override
-    public List<BookCategory> findAll() {
-        return bookCategoryDao.selectAll();
+    public PageInfo<BookCategory> findAll(Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == -1 ? 1 : pageNo;
+        pageSize = pageSize == -1 ? 10 : pageSize;
+        List<BookCategory> list = bookCategoryDao.selectAll();
+        PageHelper.startPage(pageNo, pageSize);
+        PageInfo<BookCategory> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override
@@ -57,8 +67,13 @@ public class BookCategoryServiceImpl implements BookCategoryService {
     }
 
     @Override
-    public List<BookCategory> findByParentId(int pid) {
-        return bookCategoryDao.findByParentId(pid);
+    public PageInfo<BookCategory> findByParentId(Integer parentId, Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == -1 ? 1 : pageNo;
+        pageSize = pageSize == -1 ? 10 : pageSize;
+        List<BookCategory> list = bookCategoryDao.findByParentId(parentId);
+        PageHelper.startPage(pageNo, pageSize);
+        PageInfo<BookCategory> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override

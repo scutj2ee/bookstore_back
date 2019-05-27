@@ -1,6 +1,7 @@
 package com.scutj2ee.bookstore.web;
 
 import com.github.pagehelper.PageInfo;
+import com.scutj2ee.bookstore.entity.BookCategory;
 import com.scutj2ee.bookstore.entity.BookInfo;
 
 import com.scutj2ee.bookstore.service.AddressService;
@@ -101,5 +102,29 @@ public class BookInfoController {
         return resultMap;
     }
 
+    /**
+     * 根据以及分类查询二级分类
+     * @param request
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("/getCategorySec")
+    public HashMap<String, Object> getCategorySec(HttpServletRequest request, Integer pageNo, Integer pageSize){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        Integer categoryParentId;
+        try{
+            categoryParentId = HttpServletRequestUtil.getInt(request, "parentId");
+        }catch (NumberFormatException e){
+            resultMap.put("success", false);
+            resultMap.put("msg", "获取用户对象ID信息异常");
+            return resultMap;
+        }
+        PageInfo<BookCategory> pageInfo = bookCategoryService.findByParentId(categoryParentId, pageNo, pageSize);
+        resultMap.put("success", true);
+        resultMap.put("msg", "获取成功");
+        resultMap.put("totallData", pageInfo==null?null:pageInfo.getList());
+        return resultMap;
+    }
 
 }

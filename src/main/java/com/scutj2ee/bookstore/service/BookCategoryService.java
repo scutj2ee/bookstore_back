@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.BookCategory;
 import org.springframework.data.domain.Example;
 
+import java.awt.print.Book;
 import java.util.List;
 
 /**
@@ -14,19 +15,27 @@ import java.util.List;
 public interface BookCategoryService {
     /**
      * 根据id查询
+     * @param id
+     * @return
      */
     BookCategory findById(Integer id);
 
     /**
      * 按分类查询所有分类
-     * dao还没写
+     * @param type
+     * @param pageNo
+     * @param pageSize
+     * @return
      */
-    List<BookCategory> findByType(Integer type);
+    PageInfo<BookCategory> findByType(Integer type, Integer pageNo, Integer pageSize);
 
     /**
      * 查找所有分类
+     * @param pageNo
+     * @param pageSize
+     * @return
      */
-    List<BookCategory> findAll();
+    PageInfo<BookCategory> findAll(Integer pageNo, Integer pageSize);
 
     /**
      *  按条件查询
@@ -52,7 +61,7 @@ public interface BookCategoryService {
     /**
      * 根据parentId查询，即根据一级分类id查找二级分类
      */
-    List<BookCategory> findByParentId(int pid);
+    PageInfo<BookCategory> findByParentId(Integer parentId, Integer pageNo, Integer pageSize);
 
     PageInfo<BookCategory> getBookCategoryList(Integer pageNo, Integer pageSize);
 }
