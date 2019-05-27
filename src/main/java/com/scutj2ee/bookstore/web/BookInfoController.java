@@ -12,13 +12,9 @@ import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sun.rmi.server.InactiveGroupException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.awt.print.Book;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author: kevin
@@ -62,7 +58,6 @@ public class BookInfoController {
 
     /**
      * 获取最新的书
-     * 不知是否需要换成分页的形式
      * @return
      */
     @RequestMapping("/new")
@@ -102,29 +97,6 @@ public class BookInfoController {
         return resultMap;
     }
 
-    /**
-     * 根据以及分类查询二级分类
-     * @param request
-     * @param pageNo
-     * @param pageSize
-     * @return
-     */
-    @RequestMapping("/getCategorySec")
-    public HashMap<String, Object> getCategorySec(HttpServletRequest request, Integer pageNo, Integer pageSize){
-        HashMap<String, Object> resultMap = new HashMap<>();
-        Integer categoryParentId;
-        try{
-            categoryParentId = HttpServletRequestUtil.getInt(request, "parentId");
-        }catch (NumberFormatException e){
-            resultMap.put("success", false);
-            resultMap.put("msg", "获取用户对象ID信息异常");
-            return resultMap;
-        }
-        PageInfo<BookCategory> pageInfo = bookCategoryService.findByParentId(categoryParentId, pageNo, pageSize);
-        resultMap.put("success", true);
-        resultMap.put("msg", "获取成功");
-        resultMap.put("totallData", pageInfo==null?null:pageInfo.getList());
-        return resultMap;
-    }
+
 
 }

@@ -1,22 +1,26 @@
-/*
+
 package com.scutj2ee.bookstore.web;
 
+import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.BookCategory;
+import com.scutj2ee.bookstore.exception.SystemException;
 import com.scutj2ee.bookstore.service.BookCategoryService;
+import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
-*/
+
+
 /**
  * @ Author     ：Bin Liu
  * @ Date       ：2019/5/23 15:42
  * @ Description：书本种类控制类
  * @ Modified By：
- *//*
+ */
 
 
 @RestController
@@ -25,117 +29,155 @@ public class BookCategoryController {
     @Autowired
     private BookCategoryService bookCategoryService;
 
-    */
-/**
+    /**
      * 根据父节点查询商品类目
-     * @param pid
+     * @param request
      * @return
-     *//*
-
+     */
     @GetMapping("/list")
-    public ResponseEntity<List<BookCategory>> queryCategoryByPid(@RequestParam("pid") Long pid){
-
-        //如果pid的值为-1那么需要获取数据库中最后一条数据
-        if (pid == -1){
-            List<BookCategory> last = this.bookCategoryService.queryLast();
-            return ResponseEntity.ok(last);
+    public HashMap<String, Object> getCategoryById(HttpServletRequest request){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        Integer cateId;
+        try{
+            cateId = HttpServletRequestUtil.getInt(request, "cateId");
+        }catch (NumberFormatException e){
+            resultMap.put("success", false);
+            resultMap.put("msg", "获取用户对象ID异常");
+            return resultMap;
         }
-        else {
-            List<BookCategory> list = this.bookCategoryService.queryCategoryByPid(pid);
-            if (list == null) {
-                //没有找到返回404
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-            }
-            //找到返回200
-            return ResponseEntity.ok(list);
-        }
+        BookCategory bookCategory = bookCategoryService.findById(cateId);
+        resultMap.put("success", true);
+        resultMap.put("msg", "获取成功");
+        resultMap.put("BookCategory", bookCategory);
+        return resultMap;
     }
 
-    */
-/**
+    /**
      * 保存
+     * @param request
+     * @param bookCategory
      * @return
-     *//*
-
+     */
     @PostMapping
-    public ResponseEntity<Void> saveCategory(BookCategory bookCategory){
-        this.bookCategoryService.create(bookCategory);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public HashMap<String, Object> saveCategory(HttpServletRequest request, @RequestBody BookCategory bookCategory)throws Exception{
+        HashMap<String, Object> resultMap = new HashMap<>();
+        try{
+            int result = bookCategoryService.create(bookCategory);
+            if(result>0){
+                resultMap.put("success", true);
+                resultMap.put("msg", "保存成功");
+            }else {
+                resultMap.put("success", false);
+            }
+            return resultMap;
+        }catch (SystemException ex){
+            resultMap.put("success", false);
+            resultMap.put("code", ex.getCode());
+            resultMap.put("msg", ex.getMessage());
+            return resultMap;
+        }
     }
 
-    */
-/**
+
+    /**
      * 更新
+     * @param request
+     * @param bookCategory
      * @return
-     *//*
-
-    @PutMapping
-    public ResponseEntity<Void> updateCategory(BookCategory bookCategory){
-        this.bookCategoryService.update(bookCategory);
-        return  ResponseEntity.status(HttpStatus.ACCEPTED).build();
+     * @throws Exception
+     */
+    @PutMapping("/updateCategory")
+    public HashMap<String, Object> updateCategory(HttpServletRequest request, @RequestBody BookCategory bookCategory)throws Exception{
+        HashMap<String, Object> resultMap = new HashMap<>();
+        try{
+            int result = bookCategoryService.update(bookCategory);
+            if(result>0){
+                resultMap.put("success", true);
+                resultMap.put("msg", "保存成功");
+            }else {
+                resultMap.put("success", false);
+            }
+            return resultMap;
+        }catch (SystemException ex){
+            resultMap.put("success", false);
+            resultMap.put("code", ex.getCode());
+            resultMap.put("msg", ex.getMessage());
+            return resultMap;
+        }
     }
 
-    */
-/**
+    /**
      * 删除
      * @return
-     *//*
-
-    @DeleteMapping("cid/{cid}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable("cid") Integer id){
-        this.bookCategoryService.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).build();
+     */
+    @DeleteMapping("/deleteCategory")
+    public HashMap<String, Object> deleteCategory(HttpServletRequest request){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        Integer bookCategoryId = HttpServletRequestUtil.getInt(request, "bookCategoryId");
+        try {
+            int result = bookCategoryService.deleteById(bookCategoryId);
+            if(result==0){
+                resultMap.put("success", false);
+                resultMap.put("msg", "删除失败");
+            }else {
+                resultMap.put("success", true);
+                resultMap.put("msg", "删除失败");
+            }
+        }catch (RuntimeException e){
+            resultMap.put("success", false);
+            resultMap.put("msg", e.getMessage());
+        }
+        return resultMap;
     }
 
-    */
-/**
+    /**
      * 根据分类id集合查询分类名称
-     * @param ids
+     * @param request
      * @return
-     *//*
-
-    @GetMapping("names")
-    public ResponseEntity<List<String>> queryNameByIds(@RequestParam("ids")List<Integer> ids){
-        List<String> list = bookCategoryService.queryNameByIds(ids);
-        if (list == null || list.size() < 1){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }else {
-            return ResponseEntity.ok(list);
+     */
+    @RequestMapping("/names")
+    public HashMap<String, Object> getCategoryName(HttpServletRequest request){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        Integer bookCategoryId;
+        try{
+            bookCategoryId = HttpServletRequestUtil.getInt(request, "bookCategoryId");
+        }catch (NumberFormatException e){
+            resultMap.put("success", false);
+            resultMap.put("msg", "获取对象ID信息异常");
+            return resultMap;
         }
+        BookCategory bookCategory = bookCategoryService.findById(bookCategoryId);
+        String name = bookCategory.getName();
+        resultMap.put("success", true);
+        resultMap.put("msg", "获取成功");
+        resultMap.put("name", name);
+        return resultMap;
     }
 
-    */
-/**
-     * 根据分类id集合查询分类名称
-     * @param ids
+    /**
+     * 根据以及分类查询二级分类
+     * @param request
+     * @param pageNo
+     * @param pageSize
      * @return
-     *//*
-
-    @GetMapping("all")
-    public ResponseEntity<List<BookCategory>> queryCategoryByIds(@RequestParam("ids")List<Integer> ids){
-        List<BookCategory> list = bookCategoryService.queryCategoryByIds(ids);
-        if (list == null || list.size() < 1){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }else {
-            return ResponseEntity.ok(list);
+     */
+    @RequestMapping("/getCategorySec")
+    public HashMap<String, Object> getCategorySec(HttpServletRequest request, Integer pageNo, Integer pageSize){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        Integer categoryParentId;
+        try{
+            categoryParentId = HttpServletRequestUtil.getInt(request, "parentId");
+        }catch (NumberFormatException e){
+            resultMap.put("success", false);
+            resultMap.put("msg", "获取用户对象ID信息异常");
+            return resultMap;
         }
-    }
-
-    */
-/**
-     * 根据分类id集合查询分类名称
-     * @param id
-     * @return
-     *//*
-
-    @GetMapping("all/level/{cid3}")
-    public ResponseEntity<List<BookCategory>> queryAllCategoryLevelByCid3(@PathVariable("cid3")Long id){
-        List<BookCategory> list = bookCategoryService.queryAllCategoryLevelByCid3(id);
-        if (list == null || list.size() < 1){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }else {
-            return ResponseEntity.ok(list);
-        }
+        PageInfo<BookCategory> pageInfo = bookCategoryService.findByParentId(categoryParentId, pageNo, pageSize);
+        resultMap.put("success", true);
+        resultMap.put("msg", "获取成功");
+        resultMap.put("totallData", pageInfo==null?null:pageInfo.getList());
+        return resultMap;
     }
 }
-*/
+
+
