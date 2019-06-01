@@ -1,6 +1,7 @@
 package com.scutj2ee.bookstore.dao;
 
 import com.scutj2ee.bookstore.entity.Reply;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @ Description：${description}
  * @ Modified By：
  */
+@Component
 public interface ReplyDao {
     int deleteReply(Integer replyId);
 

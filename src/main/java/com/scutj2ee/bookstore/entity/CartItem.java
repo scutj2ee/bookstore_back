@@ -1,5 +1,6 @@
 package com.scutj2ee.bookstore.entity;
 
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 /**
@@ -17,6 +18,7 @@ public class CartItem implements Serializable {
 
     private Integer bookId;
 
+    @Transient
     private BookInfo bookInfo;
 
     private double subTotal;

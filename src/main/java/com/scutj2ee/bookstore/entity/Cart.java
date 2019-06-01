@@ -23,7 +23,7 @@ public class Cart implements Serializable {
 
     private Double total;
 
-    private int userId;
+    private Integer userId;
 
     public Cart() {
     }

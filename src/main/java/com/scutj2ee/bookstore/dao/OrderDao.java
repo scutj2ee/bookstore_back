@@ -1,9 +1,11 @@
 package com.scutj2ee.bookstore.dao;
 
 import com.scutj2ee.bookstore.entity.Order;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface OrderDao {
     int deleteOrder(Integer id);
 

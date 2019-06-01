@@ -14,7 +14,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.MultipartConfigElement;
 
 
-@MapperScan("com.scutj2ee.bookstore.dao")
+@MapperScan(basePackages = "com.scutj2ee.bookstore.dao")
 @SpringBootApplication
 public class BookstoreApplication extends SpringBootServletInitializer {
     @Autowired

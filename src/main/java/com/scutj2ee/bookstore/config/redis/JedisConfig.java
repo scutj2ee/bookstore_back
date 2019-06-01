@@ -1,3 +1,4 @@
+/*
 package com.scutj2ee.bookstore.config.redis;
 
 
@@ -13,21 +14,25 @@ import org.springframework.context.annotation.PropertySource;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+*/
 /**
  * @ Author     ：Bin Liu
  * @ Date       ：2019/5/24 10:25
  * @ Description：Jedis配置，项目启动注入JedisPool
  * @ Modified By：
- */
+ *//*
+
 @Configuration
 @EnableAutoConfiguration
 @PropertySource("classpath:config.properties")
 @ConfigurationProperties(prefix = "redis")
 public class JedisConfig {
 
-    /**
+    */
+/**
      * LOGGER
-     */
+     *//*
+
     private static final Logger LOGGER = LoggerFactory.getLogger(JedisConfig.class);
 
     private String host;
@@ -133,3 +138,4 @@ public class JedisConfig {
         this.minIdle = minIdle;
     }
 }
+*/

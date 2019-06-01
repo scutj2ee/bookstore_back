@@ -14,7 +14,7 @@ public interface CartItemDao {
 
     CartItem findCartItemById(Integer id);
 
-    List<CartItem> selectAll(int cartId);
+    List<CartItem> selectAll(Integer cartId);
 
     int updateCartItem(CartItem cartItem);
 
@@ -24,7 +24,7 @@ public interface CartItemDao {
      * create time: 20:59 2019/5/21
      * @return int
      */
-    int clearAll(int cartId);
+    int clearAll(Integer cartId);
 
     List<CartItem> getCartItemListByParams(Map map);
 }

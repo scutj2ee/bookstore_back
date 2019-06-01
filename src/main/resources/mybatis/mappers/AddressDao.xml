@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.scutj2ee.bookstore.dao.AddressDao">
-  <resultMap id="addressMap" type="com.scutj2ee.bookstore.entity.Address">
-    <id column="id" property="id" />
-    <result column="city" property="city" />
-    <result column="detail" property="detail" />
-    <result column="district" property="district" />
-    <result column="phone" property="phone" />
-    <result column="province" property="province" />
-    <result column="receiver" property="receiver" />
-    <result column="user_id" property="userId" />
-  </resultMap>
+<mapper namespace="com.scutj2ee.bookstore.dao.AddressDao" >
+    <resultMap id="addressMap" type="com.scutj2ee.bookstore.entity.Address">
+        <id column="id" property="id"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="district" property="district"/>
+        <result column="detail" property="detail"/>
+        <result column="phone" property="phone"/>
+        <result column="receiver" property="receiver"/>
+        <result column="user_id" property="userId"/>
+    </resultMap>
 
-  <delete id="deleteAddress" parameterType="java.lang.Integer">
-    delete from address
-    where id = #{id}
-  </delete>
+    <select id="findAddressById" resultMap="addressMap">
+        select a.*
+        from address a
+        where a.id = #{id}
+    </select>
 
-  <insert id="insertAddress" parameterType="com.scutj2ee.bookstore.entity.Address" keyProperty="addressId" keyColumn="address_id">
-    insert into address (city, detail, district, phone, province, receiver, user_id)
-    values (#{city}, #{detail}, #{district}, #{phone}, #{province}, #{receiver}, #{userId})
-  </insert>
+    <insert id="insertAddress" parameterType="com.scutj2ee.bookstore.entity.Address" keyProperty="id" keyColumn="id">
+        insert into address(city,detail,district,phone,province,receiver,user_id)
+        values(#{city},#{detail},#{district},#{phone},#{province},#{receiver},#{userId})
+    </insert>
 
-  <update id="updateAddress" parameterType="com.scutj2ee.bookstore.entity.Address">
-    update address
-    <set>
-      <if test="city != null and city != ''"> city = #{city},</if>
-      <if test="detail != null and detail != ''"> detail = #{detail},</if>
-      <if test="district != null and district != ''"> district = #{district},</if>
-      <if test="phone != null and phone != ''"> phone = #{phone},</if>
-      <if test="province != null and province != ''"> province = #{province},</if>
-      <if test="receiver != null and receiver != ''"> receiver = #{receiver},</if>
-      <if test="userId != null and userId != ''"> user_id = #{userId}</if>
-    </set>
-    where id = #{id}
-  </update>
+    <update id="updateAddress">
+        update address
+        <set>
+            <if test="city != null and city != ''"> city = #{city},</if>
+            <if test="detail != null and detail != ''"> detail = #{detail},</if>
+            <if test="district != null and district != ''"> district = #{district},</if>
+            <if test="phone != null and phone != ''"> phone = #{phone},</if>
+            <if test="province != null and province != ''"> province = #{province},</if>
+            <if test="receiver != null and receiver != ''"> receiver = #{receiver},</if>
+            <if test="userId != null and userId != ''"> user_id = #{userId}</if>
+        </set>
+        where id = #{id}
+    </update>
 
-  <select id="findAddressById" resultMap="addressMap">
-    select a.*
-    from address a
-    where a.id = #{id}
-  </select>
+    <delete id="deleteAddress">
+        delete from address
+        where id = #{id}
+    </delete>
 
-  <select id="selectAll" resultMap="addressMap">
-    select a.*
-    from address a
-  </select>
+    <select id="selectAll" resultMap="addressMap">
+        select a.*
+        from address a
+    </select>
 
-  <select id="findByIdAndUserId" resultMap="addressMap">
-    select a.*
-    from address a
-    where a.id=#{id} and a.user_id=#{userId}
-  </select>
+    <select id="findByIdAndUserId" resultMap="addressMap">
+        select a.*
+        from address a
+        where a.id = #{id} and a.user_id=#{userId}
+    </select>
 
-  <select id="findByUserId" resultMap="addressMap">
-    select a.*
-    from address a
-    where a.user_id=#{userId}
-  </select>
+    <select id="findByUserId" resultMap="addressMap">
+        select a.*
+        from address a
+        where a.user_id=#{userId}
+    </select>
 
-  <select id="getAddrsssListByParams" resultMap="addressMap">
-    select a.*
-    from address a
-    where
-    <if test="userId != null and userId != ''">
-      a.user_id = #{userId}
-    </if>
-  </select>
+    <select id="getAddressListByParams" resultMap="addressMap">
+        select a.*
+        from address a
+        where
+        <if test="userId !=null and userId != ''">
+            a.user_id=#{userId}
+        </if>
+    </select>
 </mapper>

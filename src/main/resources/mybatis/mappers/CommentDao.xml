@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scutj2ee.bookstore.dao.CommentDao">
-  <resultMap id="commentMap" type="com.scutj2ee.bookstore.entity.Comment">
-    <id column="id" property="id" />
-    <result column="book_id" property="bookId" />
-    <result column="content" property="content" />
-    <result column="date" property="date" />
-    <result column="from_uid" property="fromUid" />
-  </resultMap>
+    <resultMap id="commentMap" type="com.scutj2ee.bookstore.entity.Comment">
+        <id column="id" property="id" />
+        <result column="book_id" property="bookId" />
+        <result column="content" property="content" />
+        <result column="date" property="date" />
+        <result column="from_uid" property="fromUid" />
+    </resultMap>
 
-  <delete id="deleteComment" parameterType="java.lang.Integer">
+    <delete id="deleteComment" parameterType="java.lang.Integer">
     delete from comment
     where id = #{id}
   </delete>
 
-  <insert id="insertComment" parameterType="com.scutj2ee.bookstore.entity.Comment">
+    <insert id="insertComment" parameterType="com.scutj2ee.bookstore.entity.Comment">
     insert into comment (content, `date`,book_id,from_uid)
     values (#{contient}, #{date},#{bookId},#{fromUid})
   </insert>
 
-  <update id="updateComment" parameterType="com.scutj2ee.bookstore.entity.Comment">
-    update comment
-    <set>
-      <if test="content != null and content != ''"> content = #{content},</if>
-      <if test="date != null and date != ''"> `date` = #{date},</if>
-      <if test="bookId != null and bookId != ''"> book_id = #{bookId},</if>
-      <if test="fromUid != null and fromUid!= ''"> from_uid = #{fromUid}</if>
-    </set>
-    where id = #{id}
-  </update>
+    <update id="updateComment" parameterType="com.scutj2ee.bookstore.entity.Comment">
+        update comment
+        <set>
+            <if test="content != null and content != ''"> content = #{content},</if>
+            <if test="date != null and date != ''"> `date` = #{date},</if>
+            <if test="bookId != null and bookId != ''"> book_id = #{bookId},</if>
+            <if test="fromUid != null and fromUid!= ''"> from_uid = #{fromUid}</if>
+        </set>
+        where id = #{id}
+    </update>
 
-  <select id="findCommentById" parameterType="java.lang.Integer" resultMap="commentMap">
+    <select id="findCommentById" parameterType="java.lang.Integer" resultMap="commentMap">
     select c.*
     from comment c
     where c.id = #{id}
   </select>
 
-  <select id="selectAll" resultMap="commentMap">
+    <select id="selectAll" resultMap="commentMap">
     select c.*
     from comment c
     where c.book_id = #{bookId}
   </select>
 
-  <select id="getCommentListByParams" resultMap="commentMap">
-    select c.*
-    from  comment c
-    where
-    <if test="bookId != null and bookId != ''">
-      c.book_id = #{bookId}
-    </if>
-  </select>
+    <select id="getCommentListByParams" resultMap="commentMap">
+        select c.*
+        from  comment c
+        where
+        <if test="bookId != null and bookId != ''">
+            c.book_id = #{bookId}
+        </if>
+    </select>
 </mapper>

@@ -1,3 +1,4 @@
+/*
 package com.scutj2ee.bookstore.utils;
 
 import com.scutj2ee.bookstore.exception.CustomUnauthorizedException;
@@ -15,17 +16,21 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.Security;
 
+*/
 /**
  * @ Author     ：Bin Liu
  * @ Date       ：2019/5/24 9:30
  * @ Description：AES加密解密工具类
  * @ Modified By：
- */
+ *//*
+
 @Component
 public class AesCipherUtil {
-    /**
+    */
+/**
      * AES密码加密私钥(Base64加密)
-     */
+     *//*
+
     private static String encryptAESKey;
     // private static final byte[] KEY = { 1, 1, 33, 82, -32, -85, -128, -65 };
 
@@ -34,18 +39,22 @@ public class AesCipherUtil {
         AesCipherUtil.encryptAESKey = encryptAESKey;
     }
 
-    /**
+    */
+/**
      * LOGGER
-     */
+     *//*
+
     private static final Logger LOGGER = LoggerFactory.getLogger(AesCipherUtil.class);
 
-    /**
+    */
+/**
      * create by: Bin Liu
      * description: 加密
      * create time: 2019/5/24 9:33
      * @Param: null
      * @return 
-     */
+     *//*
+
     public static String enCrypto(String str) {
         try {
             Security.addProvider(new com.sun.crypto.provider.SunJCE());
@@ -82,13 +91,15 @@ public class AesCipherUtil {
         }
     }
 
-    /**
+    */
+/**
      * create by: Bin Liu
      * description: 解密
      * create time: 2019/5/24 9:39
      * @Param: null
      * @return 
-     */
+     *//*
+
     public static String deCrypto(String str) {
         try {
             Security.addProvider(new com.sun.crypto.provider.SunJCE());
@@ -123,3 +134,4 @@ public class AesCipherUtil {
         }
     }
 }
+*/

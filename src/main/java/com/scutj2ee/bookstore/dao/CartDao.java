@@ -25,5 +25,5 @@ public interface CartDao {
      * @param userId
      * @return
      */
-    int findByUserId(int userId);
+    int findByUserId(Integer userId);
 }

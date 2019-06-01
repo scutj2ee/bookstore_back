@@ -36,6 +36,9 @@ public class Address implements Serializable {
      * 收货人
      */
     private String receiver;
+    /**
+     * 用户id
+     */
     private Integer userId;
 
     public Integer getId() {

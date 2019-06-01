@@ -1,3 +1,4 @@
+/*
 package com.scutj2ee.bookstore.utils;
 
 import com.auth0.jwt.JWT;
@@ -16,27 +17,35 @@ import org.springframework.stereotype.Component;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
+*/
 /**
  * @ Author     ：Bin Liu
  * @ Date       ：2019/5/24 9:39
  * @ Description：JAVA-JWT工具类
  * @ Modified By：
- */
+ *//*
+
 @Component
 public class JwtUtil {
-    /**
+    */
+/**
      * LOGGER
-     */
+     *//*
+
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtUtil.class);
 
-    /**
+    */
+/**
      * 过期时间改为从配置文件获取
-     */
+     *//*
+
     private static String accessTokenExpireTime;
 
-    /**
+    */
+/**
      * JWT认证加密私钥(Base64加密)
-     */
+     *//*
+
     private static String encryptJWTKey;
 
     @Value("${accessTokenExpireTime}")
@@ -49,13 +58,15 @@ public class JwtUtil {
         JwtUtil.encryptJWTKey = encryptJWTKey;
     }
 
-    /**
+    */
+/**
      * create by: Bin Liu
      * description: 校验token是否正确
      * create time: 2019/5/24 9:41
      * @Param: null
      * @return 
-     */
+     *//*
+
     public static boolean verify(String token) {
         try {
             // 帐号加JWT私钥解密
@@ -71,13 +82,15 @@ public class JwtUtil {
         }
     }
 
-    /**
+    */
+/**
      * create by: Bin Liu
      * description: 获得Token中的信息无需secret解密也能获得
      * create time: 2019/5/24 9:45
      * @Param: null
      * @return 
-     */
+     *//*
+
     public static String getClaim(String token, String claim) {
         try {
             DecodedJWT jwt = JWT.decode(token);
@@ -89,13 +102,15 @@ public class JwtUtil {
         }
     }
 
-    /**
+    */
+/**
      * create by: Bin Liu
      * description: 生成签名
      * create time: 2019/5/24 9:45
      * @Param: null
      * @return 
-     */
+     *//*
+
     public static String sign(String username, String currentTimeMillis) {
         try {
             // 帐号加JWT私钥加密
@@ -115,3 +130,4 @@ public class JwtUtil {
         }
     }
 }
+*/

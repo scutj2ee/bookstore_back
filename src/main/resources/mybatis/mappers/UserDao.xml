@@ -1,72 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scutj2ee.bookstore.dao.UserDao">
-  <resultMap id="userMap" type="com.scutj2ee.bookstore.entity.User">
-    <id column="id" property="id" />
-    <result column="integration" property="integration" />
-    <result column="password" property="password" />
-    <result column="phone" property="phone" />
-    <result column="email" property="email" />
-    <result column="user_name" property="userName" />
-  </resultMap>
+    <resultMap id="userMap" type="com.scutj2ee.bookstore.entity.User">
+        <id column="id" property="id" />
+        <result column="integration" property="integration" />
+        <result column="password" property="password" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="user_name" property="userName" />
+    </resultMap>
 
-  <delete id="deleteUser" parameterType="java.lang.Integer">
+    <delete id="deleteUser" parameterType="java.lang.Integer">
     delete from user
     where id = #{id}
   </delete>
 
-  <insert id="insertUser" parameterType="com.scutj2ee.bookstore.entity.User">
+    <insert id="insertUser" parameterType="com.scutj2ee.bookstore.entity.User">
     insert into user (integration, `password`, phone,
       email, user_name)
     values (#{integration}, #{password}, #{phone}, #{email}, #{userName})
   </insert>
 
-  <update id="updateUser" parameterType="com.scutj2ee.bookstore.entity.User">
-    update user
-    <set>
-      <if test="integration != null and integration != ''">integration = #{integration},</if>
-      <if test="password != null and password != ''"> `password` = #{password},</if>
-      <if test="phone != null and phone != ''"> phone = #{phone},</if>
-      <if test="email != null and email != ''"> email = #{email},</if>
-      <if test="userName != null and userName != ''"> user_name = #{userName}</if>
-    </set>
-    where id = #{id}
-  </update>
+    <update id="updateUser" parameterType="com.scutj2ee.bookstore.entity.User">
+        update user
+        <set>
+            <if test="integration != null and integration != ''">integration = #{integration},</if>
+            <if test="password != null and password != ''"> `password` = #{password},</if>
+            <if test="phone != null and phone != ''"> phone = #{phone},</if>
+            <if test="email != null and email != ''"> email = #{email},</if>
+            <if test="userName != null and userName != ''"> user_name = #{userName}</if>
+        </set>
+        where id = #{id}
+    </update>
 
-  <select id="findUserById" parameterType="java.lang.Integer" resultMap="userMap">
+    <select id="findUserById" parameterType="java.lang.Integer" resultMap="userMap">
     select u.*
     from user u
     where u.id = #{id}
   </select>
 
-  <select id="selectAll" parameterType="java.lang.Integer" resultMap="userMap">
+    <select id="selectAll" parameterType="java.lang.Integer" resultMap="userMap">
     select u.*
     from user u
   </select>
 
-  <select id="findByUsername" resultMap="userMap">
+    <select id="findByUsername" resultMap="userMap">
     select u.*
     from user u
     where u.user_name=#{username}
   </select>
 
-  <select id="findByUsernameAndPassword" resultMap="userMap">
+    <select id="findByUsernameAndPassword" resultMap="userMap">
     select u.*
     from user
     where u.user_name=#{username}
     and u.password=#{password}
   </select>
 
-  <select id="getUserListByParams" resultMap="userMap">
-    select u.*
-    from user u
-    where
-    <if test="username != null and username != ''">
-      u.user_name like concat('%',concat(#{username},'%'))
-    </if>
-    <if test="phone != null and phone != ''">
-      and u.phone = #{phone}
-    </if>
-  </select>
+    <select id="getUserListByParams" resultMap="userMap">
+        select u.*
+        from user u
+        where
+        <if test="username != null and username != ''">
+            u.user_name like concat('%',concat(#{username},'%'))
+        </if>
+        <if test="phone != null and phone != ''">
+            and u.phone = #{phone}
+        </if>
+    </select>
 </mapper>
-
