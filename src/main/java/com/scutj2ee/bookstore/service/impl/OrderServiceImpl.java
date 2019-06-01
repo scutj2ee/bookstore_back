@@ -1,5 +1,6 @@
 package com.scutj2ee.bookstore.service.impl;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.*;
@@ -45,16 +46,16 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.selectAll();
     }
 
-    /**
-     * 查询订单中的每一个订单项
-     *
-     * @param orderId
-     * @return
-     */
     @Override
-    public List<OrderItem> findItems(Integer orderId) {
-        return orderItemDao.findByOrderId(orderId);
+    public PageInfo<OrderItem> findItems(Integer orderId, Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == -1 ? 1 : pageNo;
+        pageSize = pageSize == -1 ? 10 : pageSize;
+        List<OrderItem> list = orderItemDao.findByOrderId(orderId);
+        PageHelper.startPage(pageNo, pageSize);
+        PageInfo<OrderItem> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
+
 
     @Override
     public void updateStatus(Integer id, int status) {
@@ -78,23 +79,16 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.deleteOrder(id);
     }
 
-    /**
-     * 查询用户订单
-     *
-     * @param request
-     * @return
-     */
     @Override
-    public List<Order> findUserOrder(HttpServletRequest request) {
-        Object user = request.getSession().getAttribute("user");
-        if (user == null) {
-            throw new LoginException("请登录！");
-        }
-        User loginUser = (User) user;
-        List<Order> orders = orderDao.findByUserId(loginUser.getId());
-
-        return orders;
+    public PageInfo<Order> findUserOrder(Integer userId, Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == -1 ? 1 : pageNo;
+        pageSize = pageSize == -1 ? 10 : pageSize;
+        List<Order> list = orderDao.findByUserId(userId);
+        PageHelper.startPage(pageNo, pageSize);
+        PageInfo<Order> pageinfo = new PageInfo<>(list);
+        return pageinfo;
     }
+
 
     @Override
     public void pay(Integer orderId, HttpServletRequest request, HttpServletResponse response) throws Exception {

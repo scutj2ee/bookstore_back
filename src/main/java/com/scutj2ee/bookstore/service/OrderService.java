@@ -35,10 +35,14 @@ public interface OrderService {
 
     /**
      * 查询订单的订单项
+     * 分页
      * @param orderId
+     * @param pageNo
+     * @param pageSize
      * @return
      */
-    List<OrderItem> findItems(Integer orderId);
+
+    PageInfo<OrderItem> findItems(Integer orderId, Integer pageNo, Integer pageSize);
 
     /**
      * 更新订单状态
@@ -63,8 +67,13 @@ public interface OrderService {
 
     /**
      * 查找用户订单
+     * 使用分页
+     * @param userId
+     * @param pageNo
+     * @param pageSize
+     * @return
      */
-    List<Order> findUserOrder(HttpServletRequest request);
+    PageInfo<Order> findUserOrder(Integer userId, Integer pageNo, Integer pageSize);
 
     /**
      * 支付
