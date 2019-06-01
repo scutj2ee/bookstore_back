@@ -2,7 +2,10 @@ package com.scutj2ee.bookstore.dao;
 
 import com.scutj2ee.bookstore.entity.Cart;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.*;
 
@@ -12,6 +15,8 @@ import static org.junit.Assert.*;
  * @ Description：${description}
  * @ Modified By：
  */
+@SpringBootTest
+@RunWith(SpringRunner.class)
 public class CartDaoTest {
     @Autowired
     private CartDao cartDao;

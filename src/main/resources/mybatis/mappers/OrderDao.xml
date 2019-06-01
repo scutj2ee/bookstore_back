@@ -57,7 +57,7 @@
     where o.user_id = #{userId}
   </select>
 
-    <select id="getOrderListByParams" resultMap="bookInfoMap">
+    <select id="getOrderListByParams" resultMap="orderMap">
     select o.*
     from order o
   </select>
