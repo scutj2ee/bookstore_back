@@ -7,7 +7,7 @@
         <result column="password" property="password" />
         <result column="phone" property="phone" />
         <result column="email" property="email" />
-        <result column="user_name" property="userName" />
+        <result column="user_name" property="username" />
     </resultMap>
 
     <delete id="deleteUser" parameterType="java.lang.Integer">
