@@ -3,8 +3,10 @@ package com.scutj2ee.bookstore.utils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.security.MessageDigest;
 
 /**
  * @Author kobe
@@ -14,37 +16,42 @@ import java.util.Date;
  */
 public class FileUploadUtil {
     /**
-     * create by: Kobe
-     * description:
-     * create time: 15:43 2019/4/25
-     *
-     * @param
+     * create by: Bin Liu
+     * description: 保存上传的文件
+     * create time: 2019/6/2 19:43
+     * @Param: null
      * @return
      */
     public static String saveFile(MultipartFile file) throws Exception {
-        if (file == null || file.isEmpty()) {
+        if (file == null || file.isEmpty())
             return "";
-        }
-
         File target = new File("file");
         if (!target.isDirectory()) {
             target.mkdirs();
         }
-        // 获取文件名
-        String fileName = file.getOriginalFilename();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        //加个时间戳，尽量避免文件名称重复
-        String newFileName = sdf.format(new Date()) + "_" + fileName;
-        String path = "E:/fileUpload/" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) +  newFileName;
-        File dest = new File(path);
-        //判断文件是否已经存在
-        if (dest.exists()) {
+        String originalFilename = file.getOriginalFilename();
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(file.getBytes());
+        String fileName = (Helper.bytesToHex(md.digest(),0,md.digest().length-1)) + "." + getPostfix(originalFilename);
+        File file1 = new File(target.getPath() + "/" + fileName);
+        Files.write(Paths.get(file1.toURI()), file.getBytes(), StandardOpenOption.CREATE_NEW);
+        return "/bookstore/book/img/" + fileName;
+    }
+
+    /**
+     * create by: Bin Liu
+     * description: 获得文件的后缀名
+     * create time: 2019/6/2 19:47
+     * @Param: null
+     * @return 
+     */
+    public static String getPostfix(String fileName) {
+        if (fileName == null || "".equals(fileName.trim())) {
             return "";
         }
-        //上传文件(保存文件)
-        file.transferTo(dest);
-        String url = "localhost:8080/img/" + newFileName;
-
-        return url;
+        if (fileName.contains(".")) {
+            return fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
+        }
+        return "";
     }
 }

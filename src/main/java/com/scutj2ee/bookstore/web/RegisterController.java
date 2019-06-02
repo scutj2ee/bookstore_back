@@ -112,17 +112,8 @@ public class RegisterController {
     @PostMapping("/user/code")
     public HashMap<String,Object> sendVerifyCode(HttpServletRequest request){
         HashMap<String, Object> resultMap = new HashMap<>();
-        //1.将前台获取的参数转换成User对象
-        String userStr = HttpServletRequestUtil.getString(request, "user");
-        ObjectMapper mapper = new ObjectMapper();
-        User user = null;
-        try {
-            user = mapper.readValue(userStr, User.class);
-        } catch (IOException e) {
-            resultMap.put("success", false);
-            resultMap.put("msg", SystemErrorEnum.SYSTEM_INNER_ERROR.getMsg());
-            return resultMap;
-        }
+        //1.将前台获取username和email参数
+        String username = HttpServletRequestUtil.getString(request, "username");
         String email = HttpServletRequestUtil.getString(request, "email");
         //2.发送验证码
         try {
@@ -137,8 +128,8 @@ public class RegisterController {
                 resultMap.put("msg", "发送验证码失败");
             }
             //将验证码信息存入session中
-            request.getSession().setAttribute("user_code_" + user.getUsername(),verifyCode);
-            request.getSession().setAttribute("user_codeTime_" + user.getUsername(),new Date());
+            request.getSession().setAttribute("user_code_" + username,verifyCode);
+            request.getSession().setAttribute("user_codeTime_" + username,new Date());
         } catch (LoginException ex) {
             resultMap.put("success", false);
             resultMap.put("code", ex.getCode());

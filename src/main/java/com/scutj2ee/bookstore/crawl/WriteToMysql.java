@@ -20,9 +20,9 @@ public class WriteToMysql {
         for (BookInfo bookdata : bookdatas) {
             bookInfoMapper.insertBookInfo(bookdata);
         }
-        System.out.println("成功插入" + bookdatas.size() + "条");
-        System.out.println(System.currentTimeMillis() / 1000);
-        System.out.println(System.currentTimeMillis() / 1000 - start);
+//        System.out.println("成功插入" + bookdatas.size() + "条");
+//        System.out.println(System.currentTimeMillis() / 1000);
+//        System.out.println(System.currentTimeMillis() / 1000 - start);
     }
 }
 

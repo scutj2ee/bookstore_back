@@ -19,9 +19,9 @@ public class CrawlBookDataMain {
         List<BookInfo> books = URLEntity.URLParse(httpclient, url,"7");
         //mysql_control.executeInsert(books);  //数据库添加数据
         new WriteToMysql().executeInsert(books);
-//        for(BookInfo bookInfo : books){
-//            System.out.println(bookInfo.getName());
-//        }
+        for(BookInfo bookInfo : books){
+            System.out.println(bookInfo.getName());
+        }
     }
 }
 
