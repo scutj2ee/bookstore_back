@@ -34,7 +34,7 @@ spring:
   mail:
     host: smtp.qq.com
     username: 1145054472@qq.com
-    password: liubin7887227
+    password: ptdzuiymqlyrffga
     default-encoding: UTF-8
   #文件上传
   servlet:
