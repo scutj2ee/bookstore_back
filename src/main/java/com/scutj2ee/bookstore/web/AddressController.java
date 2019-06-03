@@ -1,5 +1,6 @@
 package com.scutj2ee.bookstore.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.Address;
 import com.scutj2ee.bookstore.entity.User;
@@ -64,8 +65,12 @@ public class AddressController {
      * @return
      */
     @PostMapping("/add")
-    public HashMap<String, Object> addAddress(HttpServletRequest request, @RequestBody Address address)throws Exception{
+    public HashMap<String, Object> addAddress(HttpServletRequest request)throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
+        //1.将前台获取的参数转换成User对象
+        String addressStr = HttpServletRequestUtil.getString(request, "address");
+        ObjectMapper mapper = new ObjectMapper();
+        Address address= mapper.readValue(addressStr, Address.class);
         try {
             int result=addressService.create(address);
             if (result>0) {
@@ -91,8 +96,12 @@ public class AddressController {
      * @return 
      */
     @PutMapping("/update")
-    public HashMap<String, Object> changeAddress(HttpServletRequest request, @RequestBody  Address address)throws Exception{
+    public HashMap<String, Object> changeAddress(HttpServletRequest request)throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
+        //1.将前台获取的参数转换成User对象
+        String addressStr = HttpServletRequestUtil.getString(request, "address");
+        ObjectMapper mapper = new ObjectMapper();
+        Address address= mapper.readValue(addressStr, Address.class);
         try {
             int result=addressService.update(address);
             if (result>0) {
