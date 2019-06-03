@@ -18,7 +18,7 @@
     <insert id="insertUser" parameterType="com.scutj2ee.bookstore.entity.User">
     insert into user (integration, `password`, phone,
       email, user_name)
-    values (#{integration}, #{password}, #{phone}, #{email}, #{userName})
+    values (#{integration}, #{password}, #{phone}, #{email}, #{username})
   </insert>
 
     <update id="updateUser" parameterType="com.scutj2ee.bookstore.entity.User">
@@ -28,7 +28,7 @@
             <if test="password != null and password != ''"> `password` = #{password},</if>
             <if test="phone != null and phone != ''"> phone = #{phone},</if>
             <if test="email != null and email != ''"> email = #{email},</if>
-            <if test="userName != null and userName != ''"> user_name = #{userName}</if>
+            <if test="username != null and username != ''"> user_name = #{username}</if>
         </set>
         where id = #{id}
     </update>
