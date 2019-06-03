@@ -18,7 +18,7 @@ SET FOREIGN_KEY_CHECKS=0;
 
 DROP TABLE IF EXISTS `admin_user`;
 CREATE TABLE `admin_user` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `password` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -30,7 +30,7 @@ CREATE TABLE `admin_user` (
 -- ----------------------------
 DROP TABLE IF EXISTS `address`;
 CREATE TABLE `address` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `province` varchar(255) DEFAULT NULL,
   `city` varchar(255) DEFAULT NULL,
   `district` varchar(255) DEFAULT NULL,
@@ -155,7 +155,7 @@ CREATE TABLE `comment` (
 -- ----------------------------
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_no` varchar(255) NOT NULL,
   `pay_no` varchar(255) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -178,7 +178,7 @@ CREATE TABLE `order` (
 -- ----------------------------
 DROP TABLE IF EXISTS `order_item`;
 CREATE TABLE `order_item` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) DEFAULT NULL,
   `count` int(11) DEFAULT NULL,
   `book_id` int(11) DEFAULT NULL,
@@ -261,7 +261,7 @@ CREATE TABLE `role_permission` (
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `integration` int(11) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
