@@ -98,4 +98,22 @@ public interface OrderService {
      * @return
      */
     PageInfo<Order> getOrderList(Integer pageNo, Integer pageSize);
+
+    /**
+     * create by: Bin Liu
+     * description: 通过流水号更新订单
+     * create time: 2019/6/3 11:15
+     * @Param: null
+     * @return 
+     */
+    int updateOrderByOrderNoAndPayNo(String out_trade_no, String trade_no);
+
+    /**
+     * create by: Bin Liu
+     * description: 通过订单流水号查找订单
+     * create time: 2019/6/3 11:27
+     * @Param: null
+     * @return
+     */
+    Order findByOrderNo(String out_trade_no);
 }

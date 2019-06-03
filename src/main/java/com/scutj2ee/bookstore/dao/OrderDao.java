@@ -20,4 +20,8 @@ public interface OrderDao {
     List<Order> findByUserId(Integer userId);
 
     List<Order> getOrderListByParams();
+
+    Order findByOrderNo(String out_trade_no);
+
+    int updateOrderByOrderNoAndPayNo(String out_trade_no, String trade_no);
 }

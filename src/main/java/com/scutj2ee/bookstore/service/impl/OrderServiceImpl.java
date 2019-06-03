@@ -146,4 +146,14 @@ public class OrderServiceImpl implements OrderService {
         PageInfo<Order> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
+
+    @Override
+    public int updateOrderByOrderNoAndPayNo(String out_trade_no, String trade_no) {
+        return orderDao.updateOrderByOrderNoAndPayNo(out_trade_no, trade_no);
+    }
+
+    @Override
+    public Order findByOrderNo(String out_trade_no) {
+        return orderDao.findByOrderNo(out_trade_no);
+    }
 }

@@ -45,4 +45,10 @@ spring:
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mappers/*.xml
+#日志
+logging:
+  level:
+    root: warn
+    com.scutj2ee.bookstore: DEBUG
+
 

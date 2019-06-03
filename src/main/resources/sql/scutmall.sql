@@ -156,6 +156,8 @@ CREATE TABLE `comment` (
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int(11) NOT NULL,
+  `order_no` varchar(255) NOT NULL,
+  `pay_no` varchar(255) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `payment` double DEFAULT NULL,
   `state` int(4) DEFAULT NULL,

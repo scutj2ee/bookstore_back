@@ -15,6 +15,14 @@ public class Order implements Serializable {
 
     private Integer id;
     /**
+     * 订单流水号id
+     */
+    private String orderNo;
+    /**
+     * 第三方支付流水号
+     */
+    private String payNo;
+    /**
      * 用户id
      */
     private Integer userId;
@@ -124,10 +132,28 @@ public class Order implements Serializable {
         isDelete = delete;
     }
 
+    public String getPayNo() {
+        return payNo;
+    }
+
+    public void setPayNo(String payNo) {
+        this.payNo = payNo;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
+                ", orderNo='" + orderNo + '\'' +
+                ", payNo='" + payNo + '\'' +
                 ", userId=" + userId +
                 ", payment=" + payment +
                 ", status=" + status +
