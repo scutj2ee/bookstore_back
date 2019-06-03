@@ -1,7 +1,6 @@
 package com.scutj2ee.bookstore.dao;
 
 import com.scutj2ee.bookstore.entity.Cart;
-import jdk.internal.org.objectweb.asm.commons.AdviceAdapter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,16 +13,34 @@ public interface CartDao {
 
     Cart findCartById(Integer id);
 
-    List<Cart> selectAll();
+    List<Cart> selectAll(Integer userId);
 
     int updateCart(Cart cart);
 
     /**
-     * create by: Kobe
-     * description:根据用户Id查找购物车
-     * create time: 15:38 2019/5/21
-     * @param userId
+     * create by: Bin Liu
+     * description: 清空购物车
+     * create time: 2019/6/3 21:18
+     * @Param: null
      * @return
      */
-    Cart findByUserId(Integer userId);
+    int clearAll(Integer userId);
+
+    /**
+     * create by: Bin Liu
+     * description: 通过userId和bookId找到购物车项
+     * create time: 2019/6/3 21:34
+     * @Param: null
+     * @return
+     */
+    Cart findCartByBookIdAndUerId(Integer bookId, Integer userId);
+
+    /**
+     * create by: Bin Liu
+     * description: 通过userId和bookId删除购物车项
+     * create time: 2019/6/3 21:40
+     * @Param: null
+     * @return
+     */
+    int deleteCartByUserIdAndBookId(Integer userId, Integer bookId);
 }

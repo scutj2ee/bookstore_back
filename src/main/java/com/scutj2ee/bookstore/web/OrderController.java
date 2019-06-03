@@ -1,6 +1,8 @@
 package com.scutj2ee.bookstore.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
+import com.scutj2ee.bookstore.entity.Address;
 import com.scutj2ee.bookstore.entity.Order;
 import com.scutj2ee.bookstore.entity.OrderItem;
 import com.scutj2ee.bookstore.service.OrderService;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author: kevin
@@ -24,7 +27,9 @@ public class OrderController {
     private OrderService orderService;
 
     /**
-     * 查看用户的订单
+     * create by: Bin Liu
+     * description: 查看用户的所有订单
+     * create time: 2019/6/3 20:03
      * @param request
      * @param pageNo
      * @param pageSize
@@ -45,18 +50,19 @@ public class OrderController {
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
         resultMap.put("totalData", pageInfo == null? null : pageInfo.getList());
+        resultMap.put("total", pageInfo == null ? 0 : pageInfo.getTotal());
         return resultMap;
     }
 
     /**
-     * 查询订单详情
-     * @param request
-     * @param pageNo
-     * @param pageSize
+     * create by: Bin Liu
+     * description: 查询订单详情
+     * create time: 2019/6/3 20:04
+     * @Param: request
      * @return
      */
     @RequestMapping("/getDetail")
-    public HashMap<String, Object> getDetail(HttpServletRequest request, Integer pageNo, Integer pageSize){
+    public HashMap<String, Object> getDetail(HttpServletRequest request){
         HashMap<String, Object> resultMap = new HashMap<>();
         Integer orderId;
         try{
@@ -66,41 +72,36 @@ public class OrderController {
             resultMap.put("msg", "获取用户对象ID异常");
             return resultMap;
         }
-        PageInfo<OrderItem> pageInfo = orderService.findItems(orderId, pageNo, pageSize);
+        List<OrderItem> orderItems = orderService.findItems(orderId);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
-        resultMap.put("totalData", pageInfo == null ? null : pageInfo.getList());
+        resultMap.put("totalData", orderItems);
         return resultMap;
     }
 
     /**
-     * 确认收货
-     * @param request
-     * @return
+     * create by: Bin Liu
+     * description: 确认收货
+     * create time: 2019/6/3 20:18
+     * @Param: null
+     * @return 
      */
     @RequestMapping("/receive")
     public HashMap<String, Object> receive(HttpServletRequest request){
         HashMap<String, Object> resultMap = new HashMap<>();
-        Integer userId;
+        Integer orderId;
         try{
-            userId = HttpServletRequestUtil.getInt(request, "userId");
+            orderId = HttpServletRequestUtil.getInt(request, "orderId");
         }catch (NumberFormatException e){
             resultMap.put("success", false);
             resultMap.put("msg", "获取用户对象ID异常");
             return resultMap;
         }
-        orderService.receive(userId);
+        orderService.receive(orderId);
         resultMap.put("success", true);
         resultMap.put("msg", "确认收货成功");
         return resultMap;
     }
 
-    /**
-     * 提交订单
-     */
-
-    /**
-     * 支付
-     */
 
 }

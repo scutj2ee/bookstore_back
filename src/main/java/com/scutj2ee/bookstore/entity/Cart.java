@@ -18,21 +18,27 @@ public class Cart implements Serializable {
 
     private Integer id;
 
-    @Transient
-    private Map<Integer, CartItem> cartItems = new HashMap<>();
-
-    private Double total;
-
     private Integer userId;
+
+    private Integer bookId;
+
+    @Transient
+    private BookInfo bookInfo;
+
+    private Double subTotal;
+
+    private Integer buyNum;
 
     public Cart() {
     }
 
-    public Cart(Integer id, Map<Integer, CartItem> cartItems, Double total, int userId) {
+    public Cart(Integer id, Integer userId, Integer bookId, BookInfo bookInfo, Double subTotal, Integer buyNum) {
         this.id = id;
-        this.cartItems = cartItems;
-        this.total = total;
         this.userId = userId;
+        this.bookId = bookId;
+        this.bookInfo = bookInfo;
+        this.subTotal = subTotal;
+        this.buyNum = buyNum;
     }
 
     public static long getSerialVersionUID() {
@@ -47,27 +53,55 @@ public class Cart implements Serializable {
         this.id = id;
     }
 
-    public Map<Integer, CartItem> getCartItems() {
-        return cartItems;
-    }
-
-    public void setCartItems(Map<Integer, CartItem> cartItems) {
-        this.cartItems = cartItems;
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
+    }
+
+    public BookInfo getBookInfo() {
+        return bookInfo;
+    }
+
+    public void setBookInfo(BookInfo bookInfo) {
+        this.bookInfo = bookInfo;
+    }
+
+    public Double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(Double subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public Integer getBuyNum() {
+        return buyNum;
+    }
+
+    public void setBuyNum(Integer buyNum) {
+        this.buyNum = buyNum;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", bookId=" + bookId +
+                ", bookInfo=" + bookInfo +
+                ", subTotal=" + subTotal +
+                ", buyNum=" + buyNum +
+                '}';
     }
 }

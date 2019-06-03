@@ -35,7 +35,7 @@ CREATE TABLE `address` (
   `city` varchar(255) DEFAULT NULL,
   `district` varchar(255) DEFAULT NULL,
   `detail` varchar(255) DEFAULT NULL,
-  `phone` int(11) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
   `receiver` varchar(255) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -107,30 +107,15 @@ CREATE TABLE `book_info` (
 DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `total` double NOT NULL,
   `user_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `sub_total` double NOT NULL,
+  `buy_num` int(5) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of cart
--- ----------------------------
-
--- ----------------------------
--- Table structure for `cart_item`
--- ----------------------------
-DROP TABLE IF EXISTS `cart_item`;
-CREATE TABLE `cart_item` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cart_id` int(11) NOT NULL,
-  `book_id` int(11) NOT NULL,
-  `subTotal` double NOT NULL,
-  `buyNum` int(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- ----------------------------
--- Records of cart_item
 -- ----------------------------
 
 -- ----------------------------
@@ -156,8 +141,8 @@ CREATE TABLE `comment` (
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_no` varchar(255) NOT NULL,
-  `pay_no` varchar(255) NOT NULL,
+  `order_no` varchar(255) DEFAULT NULL,
+  `pay_no` varchar(255) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `payment` double DEFAULT NULL,
   `state` int(4) DEFAULT NULL,

@@ -47,15 +47,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public PageInfo<OrderItem> findItems(Integer orderId, Integer pageNo, Integer pageSize) {
-        pageNo = pageNo == -1 ? 1 : pageNo;
-        pageSize = pageSize == -1 ? 10 : pageSize;
+    public List<OrderItem> findItems(Integer orderId) {
         List<OrderItem> list = orderItemDao.findByOrderId(orderId);
-        PageHelper.startPage(pageNo, pageSize);
-        PageInfo<OrderItem> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        for (OrderItem orderItem : list) {
+            BookInfo bookInfo = bookInfoDao.findBookInfoById(orderItem.getBookId());
+            orderItem.setBookInfo(bookInfo);
+        }
+        return list;
     }
-
 
     @Override
     public void updateStatus(Integer id, int status) {

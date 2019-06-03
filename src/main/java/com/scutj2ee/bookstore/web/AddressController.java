@@ -65,7 +65,7 @@ public class AddressController {
     @PostMapping("/add")
     public HashMap<String, Object> addAddress(HttpServletRequest request)throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
-        //1.将前台获取的参数转换成User对象
+        //1.将前台获取的参数转换成Address对象
         String addressStr = HttpServletRequestUtil.getString(request, "address");
         ObjectMapper mapper = new ObjectMapper();
         Address address= mapper.readValue(addressStr, Address.class);

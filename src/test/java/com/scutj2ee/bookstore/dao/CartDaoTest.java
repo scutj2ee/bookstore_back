@@ -30,7 +30,7 @@ public class CartDaoTest {
     public void insertCart() {
         Cart cart=new Cart();
         cart.setUserId(1);
-        cart.setTotal(1.0);
+        cart.setSubTotal(1.0);
         cart.setId(2);
         cartDao.insertCart(cart);
     }

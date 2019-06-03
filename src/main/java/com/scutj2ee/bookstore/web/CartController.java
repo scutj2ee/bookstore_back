@@ -1,7 +1,7 @@
 package com.scutj2ee.bookstore.web;
 
 import com.github.pagehelper.PageInfo;
-import com.scutj2ee.bookstore.entity.CartItem;
+import com.scutj2ee.bookstore.entity.Cart;
 import com.scutj2ee.bookstore.exception.SystemException;
 import com.scutj2ee.bookstore.service.CartService;
 import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
@@ -32,7 +32,7 @@ public class CartController {
      * @return 
      */
     @RequestMapping("/list")
-    public HashMap<String,Object> listCartItem(HttpServletRequest request,Integer pageNo, Integer pageSize){
+    public HashMap<String,Object> listCart(HttpServletRequest request,Integer pageNo, Integer pageSize){
         HashMap<String,Object> resultMap = new HashMap<>();
         Integer userId;
         try {
@@ -43,7 +43,7 @@ public class CartController {
             return resultMap;
         }
         //分页获取
-        PageInfo<CartItem> pageInfo = cartService.listCart(userId,pageNo,pageSize);
+        PageInfo<Cart> pageInfo = cartService.listCart(userId,pageNo,pageSize);
         resultMap.put("success",true);
         resultMap.put("msg","获取成功");
         resultMap.put("tableData", pageInfo == null ? null : pageInfo.getList());
@@ -70,7 +70,7 @@ public class CartController {
             return resultMap;
         }
         try {
-            int result = cartService.addCartItem(userId,bookId,subTotal,buyNum);
+            int result = cartService.addCart(userId,bookId,subTotal,buyNum);
             if(result > 0){
                 resultMap.put("success",true);
                 resultMap.put("msg","添加成功");
@@ -133,8 +133,9 @@ public class CartController {
     public HashMap<String, Object> delCartItem(HttpServletRequest request){
         HashMap<String,Object> resultMap = new HashMap<>();
         try {
-            int cartItemId = HttpServletRequestUtil.getInt(request,"cartItemId");
-            int result = cartService.removeCartItem(cartItemId);
+            Integer bookId = HttpServletRequestUtil.getInt(request,"bookId");
+            Integer userId = HttpServletRequestUtil.getInt(request,"userId");
+            int result = cartService.removeCart(bookId,userId);
             if(result > 0){
                 resultMap.put("success",true);
                 resultMap.put("msg","成功删除");
@@ -152,16 +153,24 @@ public class CartController {
 
     /**
      * create by: Kobe
-     * description:更新订单
+     * description:更新购物车项
      * create time: 11:11 2019/5/22
      * @param request
      * @return
      */
     @PutMapping("/update")
-    public HashMap<String, Object> updateCartItem(HttpServletRequest request, @RequestBody CartItem cartItem) throws Exception{
+    public HashMap<String, Object> updateCartItem(HttpServletRequest request,@RequestParam Integer bookId,@RequestParam Double subTotal,@RequestParam Integer buyNum) throws Exception{
         HashMap<String,Object> resultMap = new HashMap<>();
+        Integer userId;
         try {
-            int result = cartService.updateCartItem(cartItem);
+            userId = HttpServletRequestUtil.getInt(request, "userId");
+        } catch (NumberFormatException e) {
+            resultMap.put("success", false);
+            resultMap.put("msg", "获取用户对象ID信息异常，无法完成注销。");
+            return resultMap;
+        }
+        try {
+            int result = cartService.updateCart(bookId,userId,subTotal,buyNum);
             if(result > 0){
                 resultMap.put("success",true);
                 resultMap.put("msg","修改成功");

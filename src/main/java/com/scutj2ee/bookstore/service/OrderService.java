@@ -37,12 +37,9 @@ public interface OrderService {
      * 查询订单的订单项
      * 分页
      * @param orderId
-     * @param pageNo
-     * @param pageSize
      * @return
      */
-
-    PageInfo<OrderItem> findItems(Integer orderId, Integer pageNo, Integer pageSize);
+    List<OrderItem> findItems(Integer orderId);
 
     /**
      * 更新订单状态

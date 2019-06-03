@@ -1,5 +1,6 @@
 package com.scutj2ee.bookstore.entity;
 
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 /**
@@ -34,6 +35,9 @@ public class OrderItem implements Serializable {
      * 价格
      */
     private Double subPayment;
+
+    @Transient
+    private BookInfo bookInfo;
 
     public Integer getId() {
         return id;
@@ -85,6 +89,14 @@ public class OrderItem implements Serializable {
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public BookInfo getBookInfo() {
+        return bookInfo;
+    }
+
+    public void setBookInfo(BookInfo bookInfo) {
+        this.bookInfo = bookInfo;
     }
 
     @Override

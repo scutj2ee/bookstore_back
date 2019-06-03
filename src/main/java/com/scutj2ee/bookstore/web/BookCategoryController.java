@@ -13,16 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
-
-
 /**
  * @ Author     ：Bin Liu
  * @ Date       ：2019/5/23 15:42
  * @ Description：书本种类控制类
  * @ Modified By：
  */
-
-
 @RestController
 @RequestMapping("category")
 public class BookCategoryController {

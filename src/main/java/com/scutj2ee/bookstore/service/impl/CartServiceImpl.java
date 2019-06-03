@@ -3,15 +3,12 @@ package com.scutj2ee.bookstore.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.CartDao;
-import com.scutj2ee.bookstore.dao.CartItemDao;
 import com.scutj2ee.bookstore.entity.Cart;
-import com.scutj2ee.bookstore.entity.CartItem;
 import com.scutj2ee.bookstore.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author kobe
@@ -24,62 +21,51 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private CartDao cartDao;
 
-    @Autowired
-    private CartItemDao cartItemDao;
-
     @Override
-    public Cart findCartById(Integer  id) {
-        return cartDao.findCartById(id);
+    public int addCart(Integer userId,Integer bookId,Double subTotal,Integer buyNum) {
+        //根据userId获取cart
+        Cart cart=cartDao.findCartByBookIdAndUerId(bookId,userId);
+        //如果cart存在则更新，不存在则添加
+        if(cart==null){
+            cart.setUserId(userId);
+            cart.setBookId(bookId);
+            cart.setBuyNum(buyNum);
+            cart.setSubTotal(subTotal);
+            return cartDao.insertCart(cart);
+        }else {
+            cart.setSubTotal(subTotal);
+            cart.setBuyNum(buyNum);
+            return cartDao.updateCart(cart);
+        }
     }
 
     @Override
-    public int addCartItem(Integer userId,Integer bookId,Double subTotal,Integer buyNum) {
-        //根据userId获取cartId
-        Cart cart=cartDao.findByUserId(userId);
-        Integer cartId=cart.getId();
-        //添加新的CartItem
-        CartItem cartItem=new CartItem();
-        cartItem.setBookId(bookId);
-        cartItem.setCartId(cartId);
-        cartItem.setBuyNum(buyNum);
-        cartItem.setSubTotal(subTotal);
-        return cartItemDao.insertCartItem(cartItem);
+    public int removeCart(Integer userId,Integer bookId){
+        return cartDao.deleteCartByUserIdAndBookId(userId,bookId);
     }
 
     @Override
-    public int removeCartItem(Integer cartItemId){
-        return cartItemDao.deleteCartItem(cartItemId);
-    }
-
-    @Override
-    public PageInfo<CartItem> listCart(Integer userId, Integer pageNo, Integer pageSize){
+    public PageInfo<Cart> listCart(Integer userId, Integer pageNo, Integer pageSize){
         pageNo = pageNo == -1 ? 1 : pageNo;
         pageSize = pageSize == -1 ? 10 : pageSize;
-        //根据userId获取cartId
-        Cart cart=cartDao.findByUserId(userId);
-        Integer cartId=cart.getId();
-        //根据cartId获取cartId获取List<cartItem>
-        List<CartItem> cartItemList=cartItemDao.selectAll(cartId);
+        //根据userId获取List<Cart>
+        List<Cart> cartList=cartDao.selectAll(userId);
         PageHelper.startPage(pageNo,pageSize);
-        PageInfo<CartItem> pageInfo = new PageInfo<>(cartItemList);
+        PageInfo<Cart> pageInfo = new PageInfo<>(cartList);
         return pageInfo;
     }
 
     @Override
     public int clearAll(Integer userId) {
-        //根据userId获取cartId
-        Cart cart=cartDao.findByUserId(userId);
-        Integer cartId=cart.getId();
-        return cartItemDao.clearAll(cartId);
+        return cartDao.clearAll(userId);
     }
 
     @Override
-    public int updateCartItem(CartItem cartItem) {
-        return cartItemDao.updateCartItem(cartItem);
-    }
-
-    @Override
-    public CartItem findCartItemById(Integer  cartItemId) {
-        return cartItemDao.findCartItemById(cartItemId);
+    public int updateCart(Integer bookId,Integer userId,Double subTotal,Integer buyNum) {
+        //根据userId获取cart
+        Cart cart=cartDao.findCartByBookIdAndUerId(bookId,userId);
+        cart.setSubTotal(subTotal);
+        cart.setBuyNum(buyNum);
+        return cartDao.updateCart(cart);
     }
 }

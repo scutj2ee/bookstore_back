@@ -31,7 +31,7 @@ public class Address implements Serializable {
     /**
      * 电话
      */
-    private Integer phone;
+    private String phone;
     /**
      * 收货人
      */
@@ -73,11 +73,11 @@ public class Address implements Serializable {
         this.district = district;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

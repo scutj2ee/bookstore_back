@@ -62,9 +62,6 @@
     <select id="getAddressListByUserId" resultMap="addressMap">
         select a.*
         from address a
-        where
-        <if test="userId !=null and userId != ''">
-            a.user_id=#{userId}
-        </if>
+        where a.user_id=#{userId}
     </select>
 </mapper>
