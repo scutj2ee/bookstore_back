@@ -21,7 +21,7 @@ public class CartItem implements Serializable {
     @Transient
     private BookInfo bookInfo;
 
-    private double subTotal;
+    private Double subTotal;
 
     private Integer buyNum;
 
@@ -31,7 +31,7 @@ public class CartItem implements Serializable {
 
     public  CartItem(){}
 
-    public CartItem(Integer id, Integer cartId, Integer bookId, BookInfo bookInfo, double subTotal, Integer buyNum) {
+    public CartItem(Integer id, Integer cartId, Integer bookId, BookInfo bookInfo, Double subTotal, Integer buyNum) {
         this.id = id;
         this.cartId = cartId;
         this.bookId = bookId;
@@ -48,16 +48,20 @@ public class CartItem implements Serializable {
         this.id = id;
     }
 
+    public Integer getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Integer cartId) {
+        this.cartId = cartId;
+    }
+
     public Integer getBookId() {
         return bookId;
     }
 
     public void setBookId(Integer bookId) {
         this.bookId = bookId;
-    }
-
-    public void setBuyNum(Integer buyNum) {
-        this.buyNum = buyNum;
     }
 
     public BookInfo getBookInfo() {
@@ -68,27 +72,19 @@ public class CartItem implements Serializable {
         this.bookInfo = bookInfo;
     }
 
-    public double getSubTotal() {
+    public Double getSubTotal() {
         return subTotal;
     }
 
-    public void setSubTotal(double subTotal) {
+    public void setSubTotal(Double subTotal) {
         this.subTotal = subTotal;
     }
 
-    public int getBuyNum() {
+    public Integer getBuyNum() {
         return buyNum;
     }
 
-    public void setBuyNum(int buyNum) {
+    public void setBuyNum(Integer buyNum) {
         this.buyNum = buyNum;
-    }
-
-    public Integer getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(Integer cartId) {
-        this.cartId = cartId;
     }
 }

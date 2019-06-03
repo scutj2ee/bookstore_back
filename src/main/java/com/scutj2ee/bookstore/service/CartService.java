@@ -21,16 +21,19 @@ public interface CartService {
      * @param id
      * @return
      */
-    Cart findCartById(int id);
+    Cart findCartById(Integer id);
 
     /**
      * create by: Kobe
      * description: 添加商品进购物车
      * create time: 20:54 2019/5/20
-     * @param cartItem
+     * @param userId
+     * @param bookId
+     * @param subTotal
+     * @param buyNum
      * @return
      */
-    int addCartItem(CartItem cartItem);
+    int addCartItem(Integer userId,Integer bookId,Double subTotal,Integer buyNum);
 
     /**
      * create by: Kobe
@@ -39,25 +42,25 @@ public interface CartService {
      * @param cartItemId
      * @return
      */
-    int removeCartItem(int cartItemId);
+    int removeCartItem(Integer  cartItemId);
 
     /**
-     * create by: Kobe
-     * description: 查看购物车
-     * create time: 15:08 2019/5/21
+     * create by: Liu Bin
+     * description: 分页查看购物车
+     * create time: 15:08 2019/6/3
      * @param userId
      * @return
      */
-    List<CartItem> listCart(int userId);
+    PageInfo<CartItem> listCart(Integer userId, Integer pageNo, Integer pageSize);
 
     /**
      * create by: Kobe
      * description:清空购物车
      * create time: 21:01 2019/5/21
-     * @param cartId
+     * @param userId
      * @return int
      */
-    int clearAll(int cartId);
+    int clearAll(Integer userId);
 
     /**
      * create by: Kobe
@@ -75,16 +78,6 @@ public interface CartService {
      * @param cartItemId
      * @return
      */
-    CartItem findCartItemById(int cartItemId);
+    CartItem findCartItemById(Integer  cartItemId);
 
-    /**
-     * create by: Kobe
-     * description:分页获得购物车列表
-     * create time: 15:23 2019/5/25
-     * @param map
-     * @param pageNo
-     * @param pageSize
-     * @return
-     */
-    PageInfo<CartItem> getCartItemList(Map map, Integer pageNo, Integer pageSize);
 }

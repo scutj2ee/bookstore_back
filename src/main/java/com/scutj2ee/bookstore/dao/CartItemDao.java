@@ -25,6 +25,4 @@ public interface CartItemDao {
      * @return int
      */
     int clearAll(Integer cartId);
-
-    List<CartItem> getCartItemListByParams(Map map);
 }

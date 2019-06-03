@@ -38,7 +38,7 @@ public class BookInfoController {
      * @param
      * @return
      */
-    @RequestMapping("/get")
+    @RequestMapping("/info")
     public HashMap<String, Object> getBookInfo(HttpServletRequest request){
         HashMap<String, Object> resultMap = new HashMap<>();
         Integer bookInfoId;
@@ -96,7 +96,4 @@ public class BookInfoController {
         resultMap.put("total", pageInfo == null ? null : pageInfo.getList());
         return resultMap;
     }
-
-
-
 }
