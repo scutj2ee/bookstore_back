@@ -52,5 +52,5 @@ public interface AddressService {
      * @Param: null
      * @return
      */
-    PageInfo<Address> getAddressList(Map map, Integer pageNo, Integer pageSize);
+    PageInfo<Address> getAddressList(Integer userId, Integer pageNo, Integer pageSize);
 }

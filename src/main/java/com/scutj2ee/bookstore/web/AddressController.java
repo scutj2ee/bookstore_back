@@ -47,9 +47,7 @@ public class AddressController {
             resultMap.put("msg", "获取用户对象ID信息异常，无法完成注销。");
             return resultMap;
         }
-        Map map = new HashMap();
-        map.put("userId", userId);
-        PageInfo<Address> pageInfo = addressService.getAddressList(map, pageNo, pageSize);
+        PageInfo<Address> pageInfo = addressService.getAddressList(userId, pageNo, pageSize);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
         resultMap.put("tableData", pageInfo == null ? null : pageInfo.getList());

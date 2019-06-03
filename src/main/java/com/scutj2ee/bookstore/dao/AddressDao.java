@@ -22,5 +22,5 @@ public interface AddressDao {
 
     List<Address> findByUserId(Integer userId);
 
-    List<Address> getAddressListByParams(Map map);
+    List<Address> getAddressListByUserId(Integer userId);
 }

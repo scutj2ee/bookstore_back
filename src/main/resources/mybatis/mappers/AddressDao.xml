@@ -59,7 +59,7 @@
         where a.user_id=#{userId}
     </select>
 
-    <select id="getAddressListByParams" resultMap="addressMap">
+    <select id="getAddressListByUserId" resultMap="addressMap">
         select a.*
         from address a
         where

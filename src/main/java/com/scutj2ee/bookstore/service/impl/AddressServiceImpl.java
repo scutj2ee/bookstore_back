@@ -59,10 +59,10 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public PageInfo<Address> getAddressList(Map map, Integer pageNo, Integer pageSize) {
+    public PageInfo<Address> getAddressList(Integer userId, Integer pageNo, Integer pageSize) {
         pageNo = pageNo == -1 ? 1 : pageNo;
         pageSize = pageSize == -1 ? 10 : pageSize;
-        List<Address> list = addressDao.getAddressListByParams(map);
+        List<Address> list = addressDao.getAddressListByUserId(userId);
         PageHelper.startPage(pageNo,pageSize);
         PageInfo<Address> pageInfo = new PageInfo<>(list);
         return pageInfo;
