@@ -66,15 +66,6 @@ public class AddressController {
     @PostMapping("/add")
     public HashMap<String, Object> addAddress(HttpServletRequest request, @RequestBody Address address)throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
-        Integer userId;
-        try {
-            userId = HttpServletRequestUtil.getInt(request, "userId");
-        } catch (NumberFormatException e) {
-            resultMap.put("success", false);
-            resultMap.put("msg", "获取用户对象ID信息异常，无法完成注销。");
-            return resultMap;
-        }
-        address.setUserId(userId);
         try {
             int result=addressService.create(address);
             if (result>0) {
