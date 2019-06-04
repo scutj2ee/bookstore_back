@@ -13,37 +13,34 @@ import java.util.Date;
 public class BookCategory implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Integer cateId;
+    private Integer id;
     /**
-     * 父级id
+     * 类别名称
      */
-    private Integer parentId;
     private String name;
     /**
      * 状态 1上架 0下架
      */
     private Integer status;
     /**
-     * 类型 1一级分类 2二级分类
+     * 创建时间
      */
-    private Integer type;
     private Date created;
+    /**
+     * 修改时间
+     */
     private Date updated;
 
-    public Integer getCateId() {
-        return cateId;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setCateId(Integer cateId) {
-        this.cateId = cateId;
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -62,14 +59,6 @@ public class BookCategory implements Serializable {
         this.status = status;
     }
 
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
     public Date getCreated() {
         return created;
     }
@@ -86,18 +75,12 @@ public class BookCategory implements Serializable {
         this.updated = updated;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     @Override
     public String toString() {
         return "BookCategory{" +
-                "cateId=" + cateId +
-                ", parentId=" + parentId +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", status=" + status +
-                ", type=" + type +
                 ", created=" + created +
                 ", updated=" + updated +
                 '}';

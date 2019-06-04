@@ -89,22 +89,17 @@
   </select>
 
     <select id="selectAll" resultMap="bookInfoMap">
-    select b.*
-    from book_info b
-  </select>
+      select b.*
+      from book_info b
+    </select>
 
     <select id="findByBookCategoryId" parameterType="java.lang.Integer" resultMap="bookInfoMap">
-    select b.*
-    from book_info b
-    where b.book_category_id = #{bookCategoryId}
-  </select>
+      select b.*
+      from book_info b
+      where b.book_category_id = #{bookCategoryId}
+    </select>
 
     <select id="findNew" parameterType="java.lang.Integer" resultMap="bookInfoMap">
-    SELECT * FROM book_info where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= publish_date
-  </select>
-
-    <select id="getBookInfoListByParams" resultMap="bookInfoMap">
-    select b.*
-    from book_info b
-  </select>
+      SELECT * FROM book_info where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= publish_date
+    </select>
 </mapper>

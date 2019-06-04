@@ -50,14 +50,12 @@ CREATE TABLE `address` (
 -- ----------------------------
 DROP TABLE IF EXISTS `book_category`;
 CREATE TABLE `book_category` (
-  `cate_id` int(16) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(16) DEFAULT NULL,
+  `id` int(16) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) DEFAULT NULL,
   `status` int(1) DEFAULT NULL,
-  `type` int(1) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
-  PRIMARY KEY (`cate_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------

@@ -42,12 +42,15 @@
     where c.book_id = #{bookId}
   </select>
 
-    <select id="getCommentListByParams" resultMap="commentMap">
+    <select id="getCommentListByBookId" resultMap="commentMap">
         select c.*
         from  comment c
-        where
-        <if test="bookId != null and bookId != ''">
-            c.book_id = #{bookId}
-        </if>
+        where c.book_id = #{bookId}
+    </select>
+
+    <select id="getCommentListByUserId" resultMap="commentMap">
+        select c.*
+        from  comment c
+        where c.from_uid = #{userId}
     </select>
 </mapper>

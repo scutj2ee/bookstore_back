@@ -18,5 +18,7 @@ public interface CommentDao {
 
     int updateComment(Comment comment);
 
-    List<Comment> getCommentListByParams(Map map);
+    List<Comment> getCommentListByBookId(Integer bookId);
+
+    List<Comment> getCommentListByUserId(Integer userId);
 }

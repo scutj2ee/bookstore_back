@@ -1,5 +1,6 @@
 package com.scutj2ee.bookstore.web.admin;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.BookCategory;
 import com.scutj2ee.bookstore.exception.SystemException;
@@ -14,8 +15,8 @@ import java.util.HashMap;
 /**
  * @Author kobe
  * @Date 2019/5/25 16:45
- * @Description: 管理员对书籍类别的业
- * @Modified By:
+ * @Description: 管理员对书籍类别业务
+ * @Modified By: Liu Bin
  */
 
 @RestController
@@ -49,12 +50,15 @@ public class AdminBookCategoryController {
      * description:管理员增加一个书类
      * create time: 14:21 2019/5/26
      * @param request
-     * @param bookCategory
      * @return
      */
     @PostMapping("/add")
-    public HashMap<String, Object> addBookCategory(HttpServletRequest request, @RequestBody BookCategory bookCategory) throws Exception{
+    public HashMap<String, Object> addBookCategory(HttpServletRequest request ) throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
+        //1.将前台获取的参数转换成bookCategory对象
+        String bookCategoryStr = HttpServletRequestUtil.getString(request, "bookCategory");
+        ObjectMapper mapper = new ObjectMapper();
+        BookCategory bookCategory = mapper.readValue(bookCategoryStr, BookCategory.class);
         try {
             int result = bookCategoryService.create(bookCategory);
             if(result > 0){

@@ -31,11 +31,9 @@ public interface BookCategoryService {
 
     /**
      * 查找所有分类
-     * @param pageNo
-     * @param pageSize
      * @return
      */
-    PageInfo<BookCategory> findAll(Integer pageNo, Integer pageSize);
+    List<BookCategory> findAll();
 
     /**
      *  按条件查询
@@ -57,11 +55,6 @@ public interface BookCategoryService {
      * 删除
      */
     int deleteById(Integer id);
-
-    /**
-     * 根据parentId查询，即根据一级分类id查找二级分类
-     */
-    PageInfo<BookCategory> findByParentId(Integer parentId, Integer pageNo, Integer pageSize);
 
     PageInfo<BookCategory> getBookCategoryList(Integer pageNo, Integer pageSize);
 }

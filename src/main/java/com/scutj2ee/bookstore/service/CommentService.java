@@ -44,11 +44,12 @@ public interface CommentService {
      * description:获取评论列表
      * create time: 12:14 2019/5/22
      * @param
-     * @param map
+     * @param bookId
      * @param pageNo
+     * @param pageSize
      * @return
      */
-    PageInfo<Comment> selectAll(Map map, Integer pageNo, Integer pageSize);
+    PageInfo<Comment> selectAll(Integer bookId, Integer pageNo, Integer pageSize);
 
     /**
      * create by: Kobe
@@ -58,4 +59,16 @@ public interface CommentService {
      * @return
      */
     Comment findCommentById(int commentId);
+
+    /**
+     * create by: Bin Liu
+     * description:获取评论列表
+     * create time: 11:24 2019/6/4
+     * @param
+     * @param userId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    PageInfo<Comment> selectAllByUerId(Integer userId, Integer pageNo, Integer pageSize);
 }

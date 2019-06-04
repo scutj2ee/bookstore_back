@@ -1,13 +1,10 @@
 package com.scutj2ee.bookstore.web;
 
 import com.github.pagehelper.PageInfo;
-import com.scutj2ee.bookstore.entity.BookCategory;
 import com.scutj2ee.bookstore.entity.BookInfo;
-
-import com.scutj2ee.bookstore.service.AddressService;
-import com.scutj2ee.bookstore.service.BookCategoryService;
+import com.scutj2ee.bookstore.entity.Comment;
 import com.scutj2ee.bookstore.service.BookInfoService;
-import com.scutj2ee.bookstore.service.CartService;
+import com.scutj2ee.bookstore.service.CommentService;
 import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,28 +24,20 @@ public class BookInfoController {
     @Autowired
     private BookInfoService bookInfoService;
     @Autowired
-    private BookCategoryService bookCategoryService;
-    @Autowired
-    private AddressService addressService;
-    @Autowired
-    private CartService cartService;
+    private CommentService commentService;
 
     /**
-     * 获取商品信息
-     * @param
+     * create by: Bin Liu
+     * description: 获取具体商品信息
+     * create time: 2019/6/4 10:10
+     * @Param: null
      * @return
      */
     @RequestMapping("/info")
     public HashMap<String, Object> getBookInfo(HttpServletRequest request){
         HashMap<String, Object> resultMap = new HashMap<>();
-        Integer bookInfoId;
-        try{
-            bookInfoId = HttpServletRequestUtil.getInt(request, "bookInfoId");
-        }catch (NumberFormatException e){
-            resultMap.put("success", false);
-            resultMap.put("msg", "获取用户对象ID信息异常！");
-            return resultMap;
-        }
+        //1.获取前端传递的bookInfoId参数
+        Integer bookInfoId = HttpServletRequestUtil.getInt(request, "bookInfoId");
         BookInfo bookInfo = bookInfoService.findById(bookInfoId);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
@@ -72,28 +61,59 @@ public class BookInfoController {
     }
 
     /**
-     * 通过书的类别来查找书
-     * @param request
-     * @param pageNo
-     * @param pageSize
+     * create by: Bin Liu
+     * description: 通过类目id获取书本
+     * create time: 2019/6/4 10:24
+     * @Param: null
      * @return
      */
     @RequestMapping("/bookCategory")
     public HashMap<String, Object> getBookInfoByCategory(HttpServletRequest request, Integer pageNo, Integer pageSize){
         HashMap<String, Object> resultMap = new HashMap<>();
-        Integer bookCategoryId;
-        try{
-            bookCategoryId = HttpServletRequestUtil.getInt(request, "BookCategoryId");
-        }catch (NumberFormatException e){
-            resultMap.put("success", false);
-            resultMap.put("msg", "获取用户对象ID信息异常");
-            return resultMap;
-        }
+        Integer bookCategoryId = HttpServletRequestUtil.getInt(request, "BookCategoryId");
         PageInfo<BookInfo> pageInfo = bookInfoService.findByBookCategoryId(bookCategoryId, pageNo, pageSize);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
         resultMap.put("totalData", pageInfo == null ? null : pageInfo.getList());
         resultMap.put("total", pageInfo == null ? null : pageInfo.getList());
+        return resultMap;
+    }
+
+    /**
+     * create by: Bin Liu
+     * description: 获取所有商品
+     * create time: 2019/6/4 10:10
+     * @Param: null
+     * @return
+     */
+    @RequestMapping("/all")
+    public HashMap<String, Object> getAll(HttpServletRequest request, Integer pageNo, Integer pageSize){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        PageInfo<BookInfo> pageInfo= bookInfoService.getBookInfoList(pageNo,pageSize);
+        resultMap.put("success", true);
+        resultMap.put("msg", "获取成功");
+        resultMap.put("tableData", pageInfo == null ? null : pageInfo.getList());
+        resultMap.put("total", pageInfo == null ? 0 : pageInfo.getTotal());
+        return resultMap;
+    }
+
+    /**
+     * @Author: Bin Liu
+     * @Description: 获取书本的评论
+     * @Date: 2019/6/4 11:00
+     * @Param:
+     * @return:
+     */
+    @RequestMapping("/comment")
+    public HashMap<String, Object> getBookInfoComment(HttpServletRequest request,Integer pageNo, Integer pageSize) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        //1.获取前端传递的bookInfoId参数
+        Integer bookInfoId = HttpServletRequestUtil.getInt(request, "bookInfoId");
+        PageInfo<Comment> pageInfo = commentService.selectAll(bookInfoId, pageNo, pageSize);
+        resultMap.put("success", true);
+        resultMap.put("msg", "获取成功");
+        resultMap.put("tableData", pageInfo == null ? null : pageInfo.getList());
+        resultMap.put("total", pageInfo == null ? 0 : pageInfo.getTotal());
         return resultMap;
     }
 }

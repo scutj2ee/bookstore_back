@@ -1,12 +1,15 @@
 package com.scutj2ee.bookstore.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageInfo;
+import com.scutj2ee.bookstore.entity.Comment;
 import com.scutj2ee.bookstore.entity.User;
 import com.scutj2ee.bookstore.enums.SystemErrorEnum;
 import com.scutj2ee.bookstore.enums.UserResultEnum;
 import com.scutj2ee.bookstore.exception.UserException;
 import com.scutj2ee.bookstore.model.UserResult;
 import com.scutj2ee.bookstore.model.common.Constant;
+import com.scutj2ee.bookstore.service.CommentService;
 import com.scutj2ee.bookstore.service.UserService;
 import com.scutj2ee.bookstore.utils.DateUtil;
 import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
@@ -14,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,12 +31,14 @@ import java.util.HashMap;
  * @ Modified By：
  */
 @Controller
-@RequestMapping("")
+@RequestMapping("user")
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private CommentService commentService;
 
-    @GetMapping("/user/usersexit")
+    @GetMapping("/usersexit")
     private HashMap<String, Object> userExitOrNot(HttpServletRequest request) {
         HashMap<String, Object> resultMap = new HashMap<>();
         try {
@@ -56,7 +60,7 @@ public class UserController {
         return resultMap;
     }
 
-    @PostMapping("/user/changepassword")
+    @PostMapping("/changepassword")
     private HashMap<String, Object> changePassword(HttpServletRequest request) {
         HashMap<String, Object> resultMap = new HashMap<>();
         //获取user对应的json字符串
@@ -112,16 +116,16 @@ public class UserController {
         }
     }
 
-    @PostMapping("/users/update")
-    private HashMap<String, Object> update(HttpServletRequest request, @RequestBody User user) {
+    @PostMapping("/update")
+    private HashMap<String, Object> update(HttpServletRequest request) throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
+        //获取user对应的json字符串
+        String userStr = HttpServletRequestUtil.getString(request, "user");
+        ObjectMapper mapper = new ObjectMapper();
+        User user = mapper.readValue(userStr, User.class);
         try {
             UserResult userResult = userService.updateUser(user);
-            if (userResult.getCode() == UserResultEnum.SUCCESS.getCode()) {
-                resultMap.put("success", true);
-            } else {
-                resultMap.put("success", false);
-            }
+            resultMap.put("success", true);
             resultMap.put("code", userResult.getCode());
             resultMap.put("msg", userResult.getMsg());
             return resultMap;
@@ -133,23 +137,17 @@ public class UserController {
         }
     }
 
-    @PostMapping("/users/delete")
-    private HashMap<String, Object> delete(HttpServletRequest request) {
+    @PostMapping("/comments")
+    private HashMap<String, Object> comments(HttpServletRequest request, Integer pageNo, Integer pageSize) throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
-        Integer id = HttpServletRequestUtil.getInt(request, "id");
-        try {
-            int result = userService.deleteById(id);
-            if (result == 0) {
-                resultMap.put("success", false);
-                resultMap.put("msg", "删除失败");
-            } else {
-                resultMap.put("success", true);
-                resultMap.put("msg", "删除成功");
-            }
-        } catch (RuntimeException e) {
-            resultMap.put("success", false);
-            resultMap.put("msg", e.getMessage());
-        }
+        //1.获取前端传递的userId参数
+        Integer userId = HttpServletRequestUtil.getInt(request, "userId");
+        PageInfo<Comment> pageInfo = commentService.selectAllByUerId(userId, pageNo, pageSize);
+        resultMap.put("success", true);
+        resultMap.put("msg", "获取成功");
+        resultMap.put("tableData", pageInfo == null ? null : pageInfo.getList());
+        resultMap.put("total", pageInfo == null ? 0 : pageInfo.getTotal());
         return resultMap;
     }
+
 }

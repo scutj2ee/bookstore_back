@@ -37,13 +37,9 @@ public class BookCategoryServiceImpl implements BookCategoryService {
     }
 
     @Override
-    public PageInfo<BookCategory> findAll(Integer pageNo, Integer pageSize) {
-        pageNo = pageNo == -1 ? 1 : pageNo;
-        pageSize = pageSize == -1 ? 10 : pageSize;
+    public List<BookCategory> findAll() {
         List<BookCategory> list = bookCategoryDao.selectAll();
-        PageHelper.startPage(pageNo, pageSize);
-        PageInfo<BookCategory> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        return list;
     }
 
     @Override
@@ -64,16 +60,6 @@ public class BookCategoryServiceImpl implements BookCategoryService {
     @Override
     public int deleteById(Integer id) {
         return bookCategoryDao.deleteBookCategory(id);
-    }
-
-    @Override
-    public PageInfo<BookCategory> findByParentId(Integer parentId, Integer pageNo, Integer pageSize) {
-        pageNo = pageNo == -1 ? 1 : pageNo;
-        pageSize = pageSize == -1 ? 10 : pageSize;
-        List<BookCategory> list = bookCategoryDao.findByParentId(parentId);
-        PageHelper.startPage(pageNo, pageSize);
-        PageInfo<BookCategory> pageInfo = new PageInfo<>(list);
-        return pageInfo;
     }
 
     @Override

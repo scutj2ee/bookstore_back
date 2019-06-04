@@ -27,6 +27,4 @@ public interface BookInfoDao {
      * @return
      */
     List<BookInfo> findNew();
-
-    List<BookInfo> getBookInfoListByParams();
 }

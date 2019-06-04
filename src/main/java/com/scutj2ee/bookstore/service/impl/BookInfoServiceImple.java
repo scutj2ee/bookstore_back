@@ -2,7 +2,9 @@ package com.scutj2ee.bookstore.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.scutj2ee.bookstore.dao.BookCategoryDao;
 import com.scutj2ee.bookstore.dao.BookInfoDao;
+import com.scutj2ee.bookstore.entity.BookCategory;
 import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.service.BookInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,13 @@ import java.util.List;
 public class BookInfoServiceImple implements BookInfoService {
     @Autowired
     private BookInfoDao bookInfoDao;
+    @Autowired
+    private BookCategoryDao bookCategoryDao;
+
     @Override
     public BookInfo findById(Integer id) {
         return bookInfoDao.findBookInfoById(id);
     }
-
 
     @Override
     public PageInfo<BookInfo> findByBookCategoryId(Integer bookCategoryId, Integer pageNo, Integer pageSize) {
@@ -45,7 +49,6 @@ public class BookInfoServiceImple implements BookInfoService {
         return pageInfo;
     }
 
-
     @Override
     public int update(BookInfo bookInfo) {
         return bookInfoDao.updateBookInfo(bookInfo);
@@ -65,7 +68,11 @@ public class BookInfoServiceImple implements BookInfoService {
     public PageInfo<BookInfo> getBookInfoList(Integer pageNo, Integer pageSize) {
         pageNo = pageNo == -1 ? 1 : pageNo;
         pageSize = pageSize == -1 ? 10 : pageSize;
-        List<BookInfo> list = bookInfoDao.getBookInfoListByParams();
+        List<BookInfo> list = bookInfoDao.selectAll();
+        for(BookInfo bookInfo:list){
+            BookCategory bookCategory=bookCategoryDao.findBookCategoryById(bookInfo.getBookCategoryId());
+            bookInfo.setBookCategory(bookCategory);
+        }
         PageHelper.startPage(pageNo,pageSize);
         PageInfo<BookInfo> pageInfo = new PageInfo<>(list);
         return pageInfo;

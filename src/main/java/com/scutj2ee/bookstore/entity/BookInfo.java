@@ -1,5 +1,6 @@
 package com.scutj2ee.bookstore.entity;
 
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -16,6 +17,8 @@ public class BookInfo implements Serializable {
 
     private Integer bookId;
     private Integer bookCategoryId;
+    @Transient
+    private BookCategory bookCategory;
     private String name;
     /**
      * 简介
@@ -290,6 +293,14 @@ public class BookInfo implements Serializable {
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public BookCategory getBookCategory() {
+        return bookCategory;
+    }
+
+    public void setBookCategory(BookCategory bookCategory) {
+        this.bookCategory = bookCategory;
     }
 
     @Override
