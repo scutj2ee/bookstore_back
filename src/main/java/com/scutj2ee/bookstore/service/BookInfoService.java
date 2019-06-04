@@ -18,7 +18,7 @@ public interface BookInfoService {
 
 
     /**
-     * 根据书的类别查找商品
+     * 根据书的一级类别查找商品
      * @param bookCategoryId
      * @return
      */
@@ -46,7 +46,20 @@ public interface BookInfoService {
     int deleteById(Integer id);
 
     /**
-     * 查找所有书
+     * @Author Bin Liu
+     * @Description 查找所有书
+     * @Date 2019/6/4 16:22
+     * @param
+     * @return
      */
     PageInfo<BookInfo> getBookInfoList(Integer pageNo, Integer pageSize);
+
+    /**
+     * @Author Bin Liu
+     * @Description 根据书的二级类别查找商品
+     * @Date 2019/6/4 16:25
+     * @param 
+     * @return 
+     */
+    PageInfo<BookInfo> findByBookCategoryIdSecond(Integer bookCategoryId, Integer pageNo, Integer pageSize);
 }

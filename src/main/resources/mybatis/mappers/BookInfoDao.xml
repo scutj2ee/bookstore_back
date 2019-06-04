@@ -102,4 +102,15 @@
     <select id="findNew" parameterType="java.lang.Integer" resultMap="bookInfoMap">
       SELECT * FROM book_info where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= publish_date
     </select>
+
+    <select id="getEmployeesListParams" parameterType="java.util.List" resultType="bookInfoMap">
+        select *
+        from book_info b
+        where b.book_category_id in
+        <foreach collection="list" item="bookCategoryId" index="index"
+                 open="(" close=")" separator=",">
+            #{bookCategoryId}
+        </foreach>
+    </select>
+
 </mapper>

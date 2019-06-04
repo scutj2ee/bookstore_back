@@ -158,7 +158,7 @@ public class CartController {
      * @param request
      * @return
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public HashMap<String, Object> updateCartItem(HttpServletRequest request,@RequestParam Integer bookId,@RequestParam Double subTotal,@RequestParam Integer buyNum) throws Exception{
         HashMap<String,Object> resultMap = new HashMap<>();
         Integer userId;

@@ -5,11 +5,13 @@ import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.Address;
 import com.scutj2ee.bookstore.entity.Order;
 import com.scutj2ee.bookstore.entity.OrderItem;
+import com.scutj2ee.bookstore.exception.SystemException;
 import com.scutj2ee.bookstore.service.OrderService;
 import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -55,23 +57,16 @@ public class OrderController {
     }
 
     /**
-     * create by: Bin Liu
-     * description: 查询订单详情
-     * create time: 2019/6/3 20:04
-     * @Param: request
+     * @Author Bin Liu
+     * @Description 查询订单详情
+     * @Date 2019/6/4 14:32
+     * @param request
      * @return
      */
     @RequestMapping("/getDetail")
     public HashMap<String, Object> getDetail(HttpServletRequest request){
         HashMap<String, Object> resultMap = new HashMap<>();
-        Integer orderId;
-        try{
-            orderId = HttpServletRequestUtil.getInt(request, "orderId");
-        }catch (NumberFormatException e){
-            resultMap.put("success", false);
-            resultMap.put("msg", "获取用户对象ID异常");
-            return resultMap;
-        }
+        Integer orderId= HttpServletRequestUtil.getInt(request, "orderId");
         List<OrderItem> orderItems = orderService.findItems(orderId);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
@@ -79,6 +74,66 @@ public class OrderController {
         return resultMap;
     }
 
+    /**
+     * @Author Bin Liu
+     * @Description 生成订单
+     * @Date 2019/6/4 14:41
+     * @param request
+     *
+     * @return 
+     */
+    @RequestMapping("/submit")
+    public HashMap<String, Object> submit(HttpServletRequest request){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        Integer userId= HttpServletRequestUtil.getInt(request, "userId");
+        Integer addressId= HttpServletRequestUtil.getInt(request, "addressId");
+
+        try {
+            int result = orderService.submit(userId,addressId,cardId);
+            if (result > 0) {
+                resultMap.put("success", true);
+                resultMap.put("msg", "提交成功");
+            } else {
+                resultMap.put("success", false);
+            }
+            return resultMap;
+        } catch (SystemException ex) {
+            resultMap.put("success", false);
+            resultMap.put("code", ex.getCode());
+            resultMap.put("msg", ex.getMessage());
+            return resultMap;
+        }
+    }
+
+    /**
+     * @Author Bin Liu
+     * @Description 付款
+     * @Date 2019/6/4 15:42
+     * @param
+     * @return
+     */
+    @RequestMapping("/pay")
+    public HashMap<String, Object> pay(HttpServletRequest request){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        Integer orderId= HttpServletRequestUtil.getInt(request, "orderId");
+        Integer userId= HttpServletRequestUtil.getInt(request, "userId");
+        try {
+            int result = orderService.pay(orderId,userId);
+            if (result > 0) {
+                resultMap.put("success", true);
+                resultMap.put("msg", "付款成功");
+            } else {
+                resultMap.put("success", false);
+            }
+            return resultMap;
+        } catch (SystemException ex) {
+            resultMap.put("success", false);
+            resultMap.put("code", ex.getCode());
+            resultMap.put("msg", ex.getMessage());
+            return resultMap;
+        }
+    }
+    
     /**
      * create by: Bin Liu
      * description: 确认收货
@@ -89,19 +144,10 @@ public class OrderController {
     @RequestMapping("/receive")
     public HashMap<String, Object> receive(HttpServletRequest request){
         HashMap<String, Object> resultMap = new HashMap<>();
-        Integer orderId;
-        try{
-            orderId = HttpServletRequestUtil.getInt(request, "orderId");
-        }catch (NumberFormatException e){
-            resultMap.put("success", false);
-            resultMap.put("msg", "获取用户对象ID异常");
-            return resultMap;
-        }
+        Integer orderId = HttpServletRequestUtil.getInt(request, "orderId");
         orderService.receive(orderId);
         resultMap.put("success", true);
         resultMap.put("msg", "确认收货成功");
         return resultMap;
     }
-
-
 }

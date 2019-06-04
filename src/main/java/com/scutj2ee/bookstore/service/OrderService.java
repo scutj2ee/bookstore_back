@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface OrderService {
     /**
-     * 订单状态 1：未付款 2：等待发货 4：订单完成
+     * 订单状态 1：未付款 2：等待发货 3:等待收货 4：订单完成
      */
     int STATE_NO_PAY = 1;
     int STATE_WAITE_SEND = 2;
@@ -73,14 +73,25 @@ public interface OrderService {
     PageInfo<Order> findUserOrder(Integer userId, Integer pageNo, Integer pageSize);
 
     /**
-     * 支付
+     * @Author Bin Liu
+     * @Description 支付
+     * @Date 2019/6/4 15:35
+     * @param orderId
+     * @param userId
+     * @return 
      */
-    void pay(Integer orderId, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    int pay(Integer orderId,Integer userId) ;
 
     /**
-     * 提交订单
+     * @Author Bin Liu
+     * @Description 提交购物车项并生成订单
+     * @Date 2019/6/4 15:08
+     * @param userId
+     * @param addressId
+     * @param cartId
+     * @return
      */
-    void submit(Integer addressId, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    int submit(Integer userId, Integer addressId, Integer cartId);
 
     /**
      * 确定收货

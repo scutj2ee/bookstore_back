@@ -87,4 +87,11 @@
         </set>
         where order_no= #{orderNo}
     </update>
+
+
+    <update id="updateState" parameterType="com.scutj2ee.bookstore.entity.Order">
+        update order
+        set status = #{status}
+        where id= #{id}
+    </update>
 </mapper>

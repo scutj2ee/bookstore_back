@@ -27,4 +27,13 @@ public interface BookInfoDao {
      * @return
      */
     List<BookInfo> findNew();
+
+    /**
+     * @Author Bin Liu
+     * @Description 根据二级id集合获取书本
+     * @Date 2019/6/4 16:47
+     * @param 
+     * @return 
+     */
+    List<BookInfo> getBookListParams(List<Integer> bookCategorySecondIdList);
 }

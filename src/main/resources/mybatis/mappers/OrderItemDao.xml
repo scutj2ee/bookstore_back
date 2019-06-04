@@ -11,16 +11,16 @@
     </resultMap>
 
     <delete id="deleteOrderItemById" parameterType="java.lang.Integer">
-    delete from order_item
-    where id = #{id}
-  </delete>
+      delete from order_item
+      where id = #{id}
+    </delete>
 
     <insert id="insertOrderItem" parameterType="com.scutj2ee.bookstore.entity.OrderItem">
-    insert into order_item (`count`, order_id, book_id,
-      sub_integral, sub_payment)
-    values (#{count}, #{orderId}, #{productId},
-      #{subIntegral}, #{subPayment})
-  </insert>
+      insert into order_item (`count`, order_id, book_id,
+        sub_integral, sub_payment)
+      values (#{count}, #{orderId}, #{productId},
+        #{subIntegral}, #{subPayment})
+    </insert>
 
     <update id="updateOrderItem" parameterType="com.scutj2ee.bookstore.entity.OrderItem">
         update order_item
@@ -35,19 +35,19 @@
     </update>
 
     <select id="findOrderItemById" parameterType="java.lang.Integer" resultMap="orderItemMap">
-    select o.*
-    from order_item o
-    where o.id = #{id}
-  </select>
+      select o.*
+      from order_item o
+      where o.id = #{id}
+    </select>
 
     <select id="selectAll" resultMap="orderItemMap">
-    select o.*
-    from order_item o
-  </select>
+      select o.*
+      from order_item o
+    </select>
 
     <select id="findByOrderId" parameterType="java.lang.Integer" resultMap="orderItemMap">
-    select o.*
-    from order_item o
-    where o.order_id = #{orderId}
-  </select>
+      select o.*
+      from order_item o
+      where o.order_id = #{orderId}
+    </select>
 </mapper>

@@ -30,16 +30,13 @@ public interface BookCategoryService {
     PageInfo<BookCategory> findByType(Integer type, Integer pageNo, Integer pageSize);
 
     /**
-     * 查找所有分类
+     * @Author Bin Liu
+     * @Description 找到所有的一级分类
+     * @Date 2019/6/4 16:02
+     * @param 
      * @return
      */
-    List<BookCategory> findAll();
-
-    /**
-     *  按条件查询
-     *  dao还没写
-     */
-    List<BookCategory> findAllExample(Example<BookCategory> example);
+    List<BookCategory> findAllFirst();
 
     /**
      * 更新
@@ -57,4 +54,13 @@ public interface BookCategoryService {
     int deleteById(Integer id);
 
     PageInfo<BookCategory> getBookCategoryList(Integer pageNo, Integer pageSize);
+
+    /**
+     * @Author Bin Liu
+     * @Description 通过一级类目id找到其对应的二级类目
+     * @Date 2019/6/4 16:07
+     * @param parentId
+     * @return
+     */
+    List<BookCategory> findCategorySecond(Integer parentId);
 }

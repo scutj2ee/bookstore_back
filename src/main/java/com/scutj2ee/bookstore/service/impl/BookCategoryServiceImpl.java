@@ -37,14 +37,8 @@ public class BookCategoryServiceImpl implements BookCategoryService {
     }
 
     @Override
-    public List<BookCategory> findAll() {
-        List<BookCategory> list = bookCategoryDao.selectAll();
-        return list;
-    }
-
-    @Override
-    public List<BookCategory> findAllExample(Example<BookCategory> example) {
-        return null;
+    public List<BookCategory> findAllFirst() {
+        return bookCategoryDao.selectAll();
     }
 
     @Override
@@ -70,5 +64,10 @@ public class BookCategoryServiceImpl implements BookCategoryService {
         PageHelper.startPage(pageNo,pageSize);
         PageInfo<BookCategory> pageInfo = new PageInfo<>(list);
         return pageInfo;
+    }
+
+    @Override
+    public List<BookCategory> findCategorySecond(Integer parentId) {
+        return bookCategoryDao.findByParentId(parentId);
     }
 }

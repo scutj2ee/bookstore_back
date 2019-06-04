@@ -10,6 +10,7 @@ import com.scutj2ee.bookstore.service.BookInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +32,22 @@ public class BookInfoServiceImple implements BookInfoService {
 
     @Override
     public PageInfo<BookInfo> findByBookCategoryId(Integer bookCategoryId, Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == -1 ? 1 : pageNo;
+        pageSize = pageSize == -1 ? 10 : pageSize;
+        //找出所有一级类目的二级类目集合
+        List<BookCategory> bookCategoryList=bookCategoryDao.findByParentId(bookCategoryId);
+        List<Integer> bookCategorySecondIdList=new ArrayList<>();
+        for(BookCategory bookCategory:bookCategoryList){
+            bookCategorySecondIdList.add(bookCategory.getId());
+        }
+        List<BookInfo> bookInfoLists=bookInfoDao.getBookListParams(bookCategorySecondIdList);
+        PageHelper.startPage(pageNo, pageSize);
+        PageInfo<BookInfo> pageInfo = new PageInfo<>(bookInfoLists);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<BookInfo> findByBookCategoryIdSecond(Integer bookCategoryId, Integer pageNo, Integer pageSize) {
         pageNo = pageNo == -1 ? 1 : pageNo;
         pageSize = pageSize == -1 ? 10 : pageSize;
         List<BookInfo> bookInfoLists = bookInfoDao.findByBookCategoryId(bookCategoryId);

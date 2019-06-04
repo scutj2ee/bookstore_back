@@ -30,6 +30,24 @@ public class BookCategory implements Serializable {
      * 修改时间
      */
     private Date updated;
+    /**
+     * 上级分类Id
+     */
+    private Integer parentId;
+    /**
+     * 类型 1一级分类 2二级分类
+     */
+    private Integer type;
+
+    public BookCategory(Integer id, String name, Integer status, Date created, Date updated, Integer parentId, Integer type) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.created = created;
+        this.updated = updated;
+        this.parentId = parentId;
+        this.type = type;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -75,6 +93,22 @@ public class BookCategory implements Serializable {
         this.updated = updated;
     }
 
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "BookCategory{" +
@@ -83,6 +117,8 @@ public class BookCategory implements Serializable {
                 ", status=" + status +
                 ", created=" + created +
                 ", updated=" + updated +
+                ", parentId=" + parentId +
+                ", type=" + type +
                 '}';
     }
 }

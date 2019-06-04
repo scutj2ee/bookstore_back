@@ -62,7 +62,7 @@ public class BookInfoController {
 
     /**
      * create by: Bin Liu
-     * description: 通过类目id获取书本
+     * description: 通过一级类目id获取书本
      * create time: 2019/6/4 10:24
      * @Param: null
      * @return
@@ -72,6 +72,25 @@ public class BookInfoController {
         HashMap<String, Object> resultMap = new HashMap<>();
         Integer bookCategoryId = HttpServletRequestUtil.getInt(request, "BookCategoryId");
         PageInfo<BookInfo> pageInfo = bookInfoService.findByBookCategoryId(bookCategoryId, pageNo, pageSize);
+        resultMap.put("success", true);
+        resultMap.put("msg", "获取成功");
+        resultMap.put("totalData", pageInfo == null ? null : pageInfo.getList());
+        resultMap.put("total", pageInfo == null ? null : pageInfo.getList());
+        return resultMap;
+    }
+
+    /**
+     * @Author Bin Liu
+     * @Description 通过二级类目id获取书本
+     * @Date 2019/6/4 16:19
+     * @param 
+     * @return 
+     */
+    @RequestMapping("/bookCategorySecond")
+    public HashMap<String, Object> getBookInfoByCategorySecond(HttpServletRequest request, Integer pageNo, Integer pageSize){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        Integer bookCategoryId = HttpServletRequestUtil.getInt(request, "BookCategoryId");
+        PageInfo<BookInfo> pageInfo = bookInfoService.findByBookCategoryIdSecond(bookCategoryId, pageNo, pageSize);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
         resultMap.put("totalData", pageInfo == null ? null : pageInfo.getList());

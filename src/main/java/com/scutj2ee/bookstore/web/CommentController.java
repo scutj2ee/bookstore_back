@@ -1,7 +1,6 @@
 package com.scutj2ee.bookstore.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.Comment;
 import com.scutj2ee.bookstore.exception.SystemException;
 import com.scutj2ee.bookstore.service.CommentService;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Author kobe
@@ -90,7 +88,7 @@ public class CommentController {
      * @param request
      * @return
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public HashMap<String,Object> updateComment(HttpServletRequest request, @RequestBody Comment comment){
         HashMap<String,Object> resultMap = new HashMap<>();
         try{

@@ -4,10 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.*;
-import com.scutj2ee.bookstore.entity.BookInfo;
-import com.scutj2ee.bookstore.entity.Order;
-import com.scutj2ee.bookstore.entity.OrderItem;
-import com.scutj2ee.bookstore.entity.User;
+import com.scutj2ee.bookstore.entity.*;
 import com.scutj2ee.bookstore.exception.LoginException;
 import com.scutj2ee.bookstore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,8 @@ public class OrderServiceImpl implements OrderService {
     private AddressDao addressDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private CartDao cartDao;
 
     @Override
     public Order findById(Integer orderId) {
@@ -88,40 +87,23 @@ public class OrderServiceImpl implements OrderService {
         return pageinfo;
     }
 
-
     @Override
-    public void pay(Integer orderId, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public int pay(Integer orderId,Integer userId) {
+        //具体逻辑就不实现了，直接更改状态为 待发货
         Order order = orderDao.findOrderById(orderId);
-        Object user = request.getSession().getAttribute("user");
-        User loginUser = (User) user;
+        User user = userDao.findUserById(userId);
+        userDao.insertUser(user);
         if (order == null) {
-            throw new RuntimeException("订单不存在！");
+            throw new RuntimeException("订单不存在");
         }
-        loginUser.setIntegration(order.getTotalIntegral() + loginUser.getIntegration());
-        userDao.updateUser(loginUser);
-        order.setStatus(STATE_WAITE_SEND);
-        order.setEndTime(new Date());
-        orderDao.updateOrder(order);
+        return orderDao.updateState(STATE_WAITE_SEND,order.getId());
     }
 
-
     @Override
-    public void submit(Integer addressId, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Object user = request.getSession().getAttribute("user");
-        if (user == null) {
-            throw new LoginException("请登录！");
-        }
-        User loginUser = (User) user;
-        Order order = new Order();
-        order.setAddressId(addressId);
-        order.setCreateTime(new Date());
-        order.setUserId(loginUser.getId());
-        order.setStatus(STATE_NO_PAY);
-        order.setTotalIntegral(0);
-        order.setPayment(0.0);
-        /**
-         * 此处订单由购物车处产生，但是购物车还未开发，所以暂时不写
-         */
+    public int submit(Integer userId, Integer addressId, List<Integer> cartId)  {
+        Cart cart=cartDao.findCartById(cartId);
+        Order order=new Order();
+
 
 
     }

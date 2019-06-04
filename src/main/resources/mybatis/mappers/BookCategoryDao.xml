@@ -5,6 +5,8 @@
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="status" property="status" />
+        <result column="type" property="type" />
+        <result column="parent_id" property="parentId" />
         <result column="created" property="created" />
         <result column="updated" property="updated" />
     </resultMap>
@@ -15,8 +17,8 @@
     </delete>
 
     <insert id="insertBookCategory" parameterType="com.scutj2ee.bookstore.entity.BookCategory">
-      insert into book_category ( `name`, `status`, created, updated)
-      values ( #{name}, #{status}, #{created}, #{updated})
+      insert into book_category ( `name`, `status`,`type`, parent_id, created, updated)
+      values ( #{name}, #{status}, #{type}, #{parentId},#{created}, #{updated})
     </insert>
 
     <update id="updateBookCategory" parameterType="com.scutj2ee.bookstore.entity.BookCategory">
@@ -24,6 +26,8 @@
         <set>
             <if test="name != null and name != ''">`name` = #{name},</if>
             <if test="status != null and status != ''">`status` = #{status},</if>
+            <if test="type != null and type != ''">`type` = #{type},</if>
+            <if test="parentId != null and parentId != ''"> parent_id = #{parentId},</if>
             <if test="created != null and created != ''">created = #{created},</if>
             <if test="updated != null and updated != ''">updated = #{updated}</if>
         </set>
@@ -39,5 +43,12 @@
     <select id="selectAll" resultMap="bookCategoryMap">
        select b.*
        from book_category b
+       where b.type = 1
+    </select>
+
+    <select id="findByParentId" parameterType="java.lang.Integer" resultMap="bookCategoryMap">
+      select b.*
+      from book_category b
+      where b.parent_id = #{parentId}
     </select>
 </mapper>

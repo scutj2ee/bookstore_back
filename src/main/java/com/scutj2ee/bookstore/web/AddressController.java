@@ -85,7 +85,7 @@ public class AddressController {
      * @return
      * @Param: null
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public HashMap<String, Object> changeAddress(HttpServletRequest request) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         //1.将前台获取的参数转换成Address对象

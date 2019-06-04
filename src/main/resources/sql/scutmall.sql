@@ -53,6 +53,8 @@ CREATE TABLE `book_category` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) DEFAULT NULL,
   `status` int(1) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)

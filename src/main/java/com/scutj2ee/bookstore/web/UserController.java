@@ -38,7 +38,7 @@ public class UserController {
     @Autowired
     private CommentService commentService;
 
-    @GetMapping("/usersexit")
+    @PostMapping("/usersexit")
     private HashMap<String, Object> userExitOrNot(HttpServletRequest request) {
         HashMap<String, Object> resultMap = new HashMap<>();
         try {
@@ -137,7 +137,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/comments")
+    @RequestMapping("/comments")
     private HashMap<String, Object> comments(HttpServletRequest request, Integer pageNo, Integer pageSize) throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
         //1.获取前端传递的userId参数
