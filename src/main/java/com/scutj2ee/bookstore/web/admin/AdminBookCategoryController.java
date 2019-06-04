@@ -27,7 +27,7 @@ public class AdminBookCategoryController {
 
     /**
      * create by: Kobe
-     * description:管理员查看所有书籍类别
+     * description:管理员按照类别查看所有书籍类别
      * create time: 14:12 2019/5/26
      * @param request
      * @param pageNo
@@ -35,9 +35,9 @@ public class AdminBookCategoryController {
      * @return
      */
     @RequestMapping("/list")
-    public HashMap<String, Object> getBookCategoryList(HttpServletRequest request, Integer pageNo, Integer pageSize){
+    public HashMap<String, Object> getBookCategoryList(HttpServletRequest request, Integer type,Integer pageNo, Integer pageSize){
         HashMap<String, Object> resultMap = new HashMap<>();
-        PageInfo<BookCategory> pageInfo = bookCategoryService.getBookCategoryList(pageNo,pageSize);
+        PageInfo<BookCategory> pageInfo = bookCategoryService.findByType(type,pageNo,pageSize);
         resultMap.put("success",true);
         resultMap.put("msg","获取成功");
         resultMap.put("tableData",pageInfo == null ? null : pageInfo.getList() );
@@ -111,7 +111,7 @@ public class AdminBookCategoryController {
      * @param bookCategory
      * @return
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public HashMap<String, Object> updateBookCategory(HttpServletRequest request, @RequestBody BookCategory bookCategory) throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
         try {

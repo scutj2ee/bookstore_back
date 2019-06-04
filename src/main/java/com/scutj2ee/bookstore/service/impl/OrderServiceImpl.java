@@ -101,11 +101,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public int submit(Integer userId, Integer addressId, List<Integer> cartId)  {
-        Cart cart=cartDao.findCartById(cartId);
-        Order order=new Order();
+        /*Cart cart=cartDao.findCartById(cartId);
+        Order order=new Order();*/
 
 
-
+        return 1;
     }
 
     @Override

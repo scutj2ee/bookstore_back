@@ -82,7 +82,7 @@ public class OrderController {
      *
      * @return 
      */
-    @RequestMapping("/submit")
+    /*@RequestMapping("/submit")
     public HashMap<String, Object> submit(HttpServletRequest request){
         HashMap<String, Object> resultMap = new HashMap<>();
         Integer userId= HttpServletRequestUtil.getInt(request, "userId");
@@ -103,7 +103,7 @@ public class OrderController {
             resultMap.put("msg", ex.getMessage());
             return resultMap;
         }
-    }
+    }*/
 
     /**
      * @Author Bin Liu

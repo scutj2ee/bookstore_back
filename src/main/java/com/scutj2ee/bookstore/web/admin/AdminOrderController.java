@@ -1,5 +1,6 @@
 package com.scutj2ee.bookstore.web.admin;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.entity.Order;
@@ -78,14 +79,18 @@ public class AdminOrderController {
      * @Param: null
      * @return
      */
-    @PutMapping("/update")
-    public HashMap<String, Object> updateOrder(HttpServletRequest request, @RequestBody Order order) throws Exception{
+    @PostMapping("/update")
+    public HashMap<String, Object> updateOrder(HttpServletRequest request) throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
+        //1.将前台获取的参数转换成order对象
+        String orderStr = HttpServletRequestUtil.getString(request, "order");
+        ObjectMapper mapper = new ObjectMapper();
+        Order order = mapper.readValue(orderStr, Order.class);
         try {
             int result=orderService.update(order);
             if (result>0) {
                 resultMap.put("success", true);
-                resultMap.put("msg", "修改地址成功");
+                resultMap.put("msg", "修改订单成功");
             } else {
                 resultMap.put("success", false);
             }

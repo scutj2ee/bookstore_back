@@ -1,11 +1,16 @@
 package com.scutj2ee.bookstore.web.admin;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
+import com.scutj2ee.bookstore.entity.Order;
 import com.scutj2ee.bookstore.entity.User;
+import com.scutj2ee.bookstore.exception.SystemException;
+import com.scutj2ee.bookstore.model.UserResult;
 import com.scutj2ee.bookstore.service.UserService;
 import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -53,7 +58,7 @@ public class AdminUserController {
      * @return
      */
     @DeleteMapping("/delete")
-    public HashMap<String, Object> delUSer(HttpServletRequest request){
+    public HashMap<String, Object> delUser(HttpServletRequest request){
         HashMap<String, Object> resultMap = new HashMap<>();
         Integer userId;
         try {
@@ -71,5 +76,33 @@ public class AdminUserController {
             resultMap.put("msg", e.getMessage());
         }
         return resultMap;
+    }
+
+    /**
+     * @Author Bin Liu
+     * @Description 管理员更新一个用户
+     * @Date 2019/6/4 20:00
+     * @param
+     * @return
+     */
+    @PostMapping("/update")
+    public HashMap<String, Object> updateOrder(HttpServletRequest request) throws Exception{
+        HashMap<String, Object> resultMap = new HashMap<>();
+        //1.将前台获取的参数转换成user对象
+        String userStr = HttpServletRequestUtil.getString(request, "user");
+        ObjectMapper mapper = new ObjectMapper();
+        User user= mapper.readValue(userStr, User.class);
+        try {
+            UserResult userResult = userService.updateUser(user);
+            resultMap.put("success", true);
+            resultMap.put("code", userResult.getCode());
+            resultMap.put("msg", userResult.getMsg());
+            return resultMap;
+        } catch (SystemException ex) {
+            resultMap.put("success", false);
+            resultMap.put("code", ex.getCode());
+            resultMap.put("msg", ex.getMessage());
+            return resultMap;
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.scutj2ee.bookstore.web.admin;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
+import com.scutj2ee.bookstore.entity.Address;
 import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.exception.SystemException;
 import com.scutj2ee.bookstore.service.BookInfoService;
@@ -49,12 +51,15 @@ public class AdminBookInfoController {
      * description:管理员增加一本书籍
      * create time: 14:21 2019/5/26
      * @param request
-     * @param bookInfo
      * @return
      */
     @PostMapping("/add")
-    public HashMap<String, Object> addBookInfo(HttpServletRequest request, @RequestBody BookInfo bookInfo) throws Exception{
+    public HashMap<String, Object> addBookInfo(HttpServletRequest request) throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
+        //1.将前台获取的参数转换成BookInfo对象
+        String bookInfoStr = HttpServletRequestUtil.getString(request, "bookInfo");
+        ObjectMapper mapper = new ObjectMapper();
+        BookInfo bookInfo = mapper.readValue(bookInfoStr, BookInfo.class);
         try {
             int result = bookInfoService.create(bookInfo);
             if(result > 0){
@@ -74,7 +79,7 @@ public class AdminBookInfoController {
 
     /**
      * create by: Kobe
-     * description:管理员删除一个书类
+     * description:管理员删除一个书籍
      * create time: 14:33 2019/5/26
      * @param request
      * @return
@@ -101,20 +106,23 @@ public class AdminBookInfoController {
 
     /**
      * create by: Kobe
-     * description: 管理员更新一个书类
+     * description: 管理员更新一个书籍
      * create time: 14:39 2019/5/26
      * @param request
-     * @param bookInfo
      * @return
      */
-    @PutMapping("/update")
-    public HashMap<String, Object> updateBookInfo(HttpServletRequest request, @RequestBody BookInfo bookInfo) throws Exception{
+    @PostMapping("/update")
+    public HashMap<String, Object> updateBookInfo(HttpServletRequest request) throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
+        //1.将前台获取的参数转换成BookInfo对象
+        String bookInfoStr = HttpServletRequestUtil.getString(request, "bookInfo");
+        ObjectMapper mapper = new ObjectMapper();
+        BookInfo bookInfo = mapper.readValue(bookInfoStr, BookInfo.class);
         try {
             int result=bookInfoService.update(bookInfo);
             if (result>0) {
                 resultMap.put("success", true);
-                resultMap.put("msg", "修改地址成功");
+                resultMap.put("msg", "修改书籍成功");
             } else {
                 resultMap.put("success", false);
             }
@@ -126,6 +134,4 @@ public class AdminBookInfoController {
             return resultMap;
         }
     }
-
-    //最重要的功能上传照片，请刘指导完成
 }

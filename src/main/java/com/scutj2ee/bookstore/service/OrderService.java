@@ -91,7 +91,7 @@ public interface OrderService {
      * @param cartId
      * @return
      */
-    int submit(Integer userId, Integer addressId, Integer cartId);
+    int submit(Integer userId, Integer addressId, List<Integer> cartId);
 
     /**
      * 确定收货

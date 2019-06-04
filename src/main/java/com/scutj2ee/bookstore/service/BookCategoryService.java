@@ -2,9 +2,7 @@ package com.scutj2ee.bookstore.service;
 
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.BookCategory;
-import org.springframework.data.domain.Example;
 
-import java.awt.print.Book;
 import java.util.List;
 
 /**
@@ -52,8 +50,6 @@ public interface BookCategoryService {
      * 删除
      */
     int deleteById(Integer id);
-
-    PageInfo<BookCategory> getBookCategoryList(Integer pageNo, Integer pageSize);
 
     /**
      * @Author Bin Liu
