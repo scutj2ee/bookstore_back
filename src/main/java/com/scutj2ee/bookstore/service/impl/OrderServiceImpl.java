@@ -4,18 +4,21 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.*;
 import com.scutj2ee.bookstore.entity.*;
+import com.scutj2ee.bookstore.model.dto.CommentBookDto;
 import com.scutj2ee.bookstore.service.OrderService;
 import com.scutj2ee.bookstore.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
- * @author: kevin
- * @data: 2019/5/18 0:20
- * @description:
+ * @ Author     ：Bin Liu
+ * @ Date       ：2019/6/6 12:00
+ * @ Description：订单业务逻辑实现类
+ * @ Modified By：
  */
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -31,6 +34,8 @@ public class OrderServiceImpl implements OrderService {
     private UserDao userDao;
     @Autowired
     private CartDao cartDao;
+    @Autowired
+    private CommentDao commentDao;
 
     @Override
     public Order findById(Integer orderId) {
@@ -158,5 +163,24 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order findByOrderNo(String out_trade_no) {
         return orderDao.findByOrderNo(out_trade_no);
+    }
+
+    @Override
+    public List<CommentBookDto> getBookList(Integer orderId) {
+        //获得订单
+        Order order=orderDao.findOrderById(orderId);
+        List<CommentBookDto> list=new ArrayList<>();
+        List<OrderItem> orderItemList=orderItemDao.findByOrderId(orderId);
+        for(OrderItem orderItem:orderItemList){
+            CommentBookDto commentBookDto=new CommentBookDto();
+            commentBookDto.setBookInfo(orderItem.getBookInfo());
+            if(commentDao.getUserComment(order.getUserId(),orderItem.getBookId())!=null){
+                commentBookDto.setIsComment(1);
+            }else {
+                commentBookDto.setIsComment(0);
+            }
+            list.add(commentBookDto);
+        }
+        return list;
     }
 }

@@ -31,7 +31,7 @@ public class Order implements Serializable {
      */
     private Double payment;
     /**
-     * 支付状态 1未支付 2等待发货 3等待收货 4订单完成
+     * 支付状态 1未支付 2等待发货 3等待收货 4订单完成 5已评价
      */
     private Integer status;
     /**

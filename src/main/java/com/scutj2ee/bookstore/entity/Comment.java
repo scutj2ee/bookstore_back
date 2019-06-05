@@ -30,6 +30,8 @@ public class Comment implements Serializable {
      */
     private Date date;
 
+    private User user;
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -72,6 +74,14 @@ public class Comment implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

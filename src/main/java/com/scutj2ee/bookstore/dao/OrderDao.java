@@ -1,6 +1,7 @@
 package com.scutj2ee.bookstore.dao;
 
 import com.scutj2ee.bookstore.entity.Order;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface OrderDao {
 
     Order findByOrderNo(String out_trade_no);
 
-    int updateOrderByOrderNoAndPayNo(String out_trade_no, String trade_no);
+    int updateOrderByOrderNoAndPayNo(@Param("out_trade_no")String out_trade_no, @Param("trade_no")String trade_no);
 
     int updateStatus(int status, Integer id);
 

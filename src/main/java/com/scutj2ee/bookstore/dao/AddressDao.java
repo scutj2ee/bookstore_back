@@ -1,6 +1,7 @@
 package com.scutj2ee.bookstore.dao;
 
 import com.scutj2ee.bookstore.entity.Address;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface AddressDao {
 
     int updateAddress(Address address);
 
-    Address findByIdAndUserId(Integer id, Integer userId);
+    Address findByIdAndUserId(@Param("id") Integer id, @Param("userId") Integer userId);
 
     List<Address> findByUserId(Integer userId);
 

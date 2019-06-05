@@ -1,6 +1,7 @@
 package com.scutj2ee.bookstore.dao;
 
 import com.scutj2ee.bookstore.entity.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface UserDao {
 
     User findByUsername(String username);
 
-    User findByUsernameAndPassword(String username, String password);
+    User findByUsernameAndPassword(@Param("username")String username,@Param("password") String password);
 
     List<User> getUserListByParams();
 }

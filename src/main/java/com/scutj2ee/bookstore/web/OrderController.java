@@ -6,6 +6,7 @@ import com.scutj2ee.bookstore.entity.Address;
 import com.scutj2ee.bookstore.entity.Order;
 import com.scutj2ee.bookstore.entity.OrderItem;
 import com.scutj2ee.bookstore.exception.SystemException;
+import com.scutj2ee.bookstore.model.dto.CommentBookDto;
 import com.scutj2ee.bookstore.service.OrderService;
 import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,6 +148,24 @@ public class OrderController {
         orderService.receive(orderId);
         resultMap.put("success", true);
         resultMap.put("msg", "确认收货成功");
+        return resultMap;
+    }
+
+    /**
+     * @Author Bin Liu
+     * @Description 获取该订单下的所有书本
+     * @Date 2019/6/5 12:34
+     * @param request
+     * @return
+     */
+    @RequestMapping("/orderBook")
+    private HashMap<String, Object> getAllBook(HttpServletRequest request) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        Integer orderId= HttpServletRequestUtil.getInt(request, "orderId");
+        List<CommentBookDto> bookList=orderService.getBookList(orderId);
+        resultMap.put("success", true);
+        resultMap.put("msg", "获取成功");
+        resultMap.put("bookList", bookList);
         return resultMap;
     }
 }

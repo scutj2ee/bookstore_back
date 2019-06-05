@@ -3,6 +3,7 @@ package com.scutj2ee.bookstore.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.CommentDao;
+import com.scutj2ee.bookstore.dao.UserDao;
 import com.scutj2ee.bookstore.entity.Comment;
 import com.scutj2ee.bookstore.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ import java.util.Map;
 public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentDao commentDao;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public int addComment(Comment comment) {
@@ -44,6 +47,9 @@ public class CommentServiceImpl implements CommentService {
         pageNo = pageNo == -1 ? 1 : pageNo;
         pageSize = pageSize == -1 ? 10 : pageSize;
         List<Comment> list = commentDao.getCommentListByBookId(bookId);
+        for(Comment comment:list){
+            comment.setUser(userDao.findUserById(comment.getFromUid()));
+        }
         PageHelper.startPage(pageNo,pageSize);
         PageInfo<Comment> pageInfo = new PageInfo<>(list);
         return pageInfo;

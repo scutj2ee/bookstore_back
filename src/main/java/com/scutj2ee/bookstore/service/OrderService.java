@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.entity.Order;
 import com.scutj2ee.bookstore.entity.OrderItem;
+import com.scutj2ee.bookstore.model.dto.CommentBookDto;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -124,4 +125,13 @@ public interface OrderService {
      * @return
      */
     Order findByOrderNo(String out_trade_no);
+
+    /**
+     * @Author Bin Liu
+     * @Description 获取该订单下的所有书本
+     * @Date 2019/6/5 12:40
+     * @param 
+     * @return 
+     */
+    List<CommentBookDto> getBookList(Integer orderId);
 }

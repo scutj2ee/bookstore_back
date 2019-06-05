@@ -1,6 +1,7 @@
 package com.scutj2ee.bookstore.dao;
 
 import com.scutj2ee.bookstore.entity.AdminUser;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -23,5 +24,5 @@ public interface AdminUserDao {
 
     int updateAdminUser(AdminUser adminUser);
 
-    AdminUser findAdminUserByUserNameAndPassord(String username, String password);
+    AdminUser findAdminUserByUserNameAndPassord(@Param("username")String username, @Param("password")String password);
 }

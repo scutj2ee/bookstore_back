@@ -1,6 +1,7 @@
 package com.scutj2ee.bookstore.dao;
 
 import com.scutj2ee.bookstore.entity.Cart;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public interface CartDao {
      * @Param: null
      * @return
      */
-    Cart findCartByBookIdAndUerId(Integer bookId, Integer userId);
+    Cart findCartByBookIdAndUerId(@Param("bookId")Integer bookId, @Param("userId")Integer userId);
 
     /**
      * create by: Bin Liu
@@ -42,7 +43,7 @@ public interface CartDao {
      * @Param: null
      * @return
      */
-    int deleteCartByUserIdAndBookId(Integer userId, Integer bookId);
+    int deleteCartByUserIdAndBookId(@Param("userId")Integer userId, @Param("bookId") Integer bookId);
 
     /**
      * @Author Bin Liu

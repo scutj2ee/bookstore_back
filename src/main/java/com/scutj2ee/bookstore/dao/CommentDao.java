@@ -1,10 +1,10 @@
 package com.scutj2ee.bookstore.dao;
 
 import com.scutj2ee.bookstore.entity.Comment;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 
 @Component
 public interface CommentDao {
@@ -21,4 +21,6 @@ public interface CommentDao {
     List<Comment> getCommentListByBookId(Integer bookId);
 
     List<Comment> getCommentListByUserId(Integer userId);
+
+    String getUserComment(@Param("fromUid")Integer fromUid,@Param("bookId") Integer bookId);
 }

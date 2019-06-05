@@ -51,6 +51,12 @@
     <select id="getCommentListByUserId" resultMap="commentMap">
         select c.*
         from  comment c
-        where c.from_uid = #{userId}
+        where c.from_uid = #{fromUid}
+    </select>
+
+    <select id="getUserComment" resultType="java.lang.String">
+        select c.content
+        from  comment c
+        where c.from_uid = #{fromUid} and c.book_id=#{bookId}
     </select>
 </mapper>
