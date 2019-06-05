@@ -88,10 +88,10 @@ public interface OrderService {
      * @Date 2019/6/4 15:08
      * @param userId
      * @param addressId
-     * @param cartId
+     * @param cartIds
      * @return
      */
-    int submit(Integer userId, Integer addressId, List<Integer> cartId);
+    int submit(Integer userId, Integer addressId, List<Integer> cartIds);
 
     /**
      * 确定收货

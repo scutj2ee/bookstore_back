@@ -8,90 +8,91 @@
         <result column="address_id" property="addressId" />
         <result column="create_time" property="createTime" />
         <result column="end_time" property="endTime" />
-        <result column="state" property="state" />
+        <result column="status" property="status" />
         <result column="payment" property="payment" />
-        <result column="total_integral" property="totalIntegral" />
         <result column="user_id" property="userId" />
-        <result column="is_delete" property="idDelete" />
+        <result column="delete" property="delete" />
     </resultMap>
 
     <delete id="deleteOrder" parameterType="java.lang.Integer">
-    delete from order
-    where id = #{id}
-  </delete>
+      delete from `order`
+      where id = #{id}
+    </delete>
 
     <insert id="insertOrder" parameterType="com.scutj2ee.bookstore.entity.Order">
-      insert into order (address_id, order_no, pay_no, create_time, end_time, `state`,
-        payment, total_integral, user_id, is_delete)
-      values (#{addressId}, #{createTime}, #{endTime}, #{state},
-        #{payment}, #{totalIntegral}, #{userId}, #{isDelete})
+      insert into `order` (id, address_id, create_time, end_time, status, payment, user_id, `delete`)
+      values (#{id}, #{addressId}, #{createTime}, #{endTime}, #{status}, #{payment},#{userId} ,#{delete})
     </insert>
 
     <update id="updateOrder" parameterType="com.scutj2ee.bookstore.entity.Order">
-        update order
+        update `order`
         <set>
             <if test="orderNo != null and orderNo != ''">order_no = #{orderNo},</if>
             <if test="payNo != null and payNo != ''">pay_no = #{payNo},</if>
             <if test="addressId != null and addressId != ''">address_id = #{addressId},</if>
             <if test="createTime != null and createTime != ''">create_time = #{createTime},</if>
-            <if test="endTime != null and endTime != ''">end_time = #{endTime},</if>
-            <if test="state != null and state != ''">`state` = #{state},</if>
+            <if test="endTime != null and endTime != ''">end_time =#{endTime},</if>
+            <if test="status != null and status != ''"> status = #{status},</if>
             <if test="payment != null and payment != ''">payment = #{payment},</if>
-            <if test="totalIntegral != null and totalIntegral != ''">total_integral = #{totalIntegral},</if>
             <if test="userId != null and userId != ''">user_id = #{userId},</if>
-            <if test="isDelete != null and isDelete != ''">is_delete = #{isDelete}</if>
+            <if test="delete != null and delete != ''">`delete`= #{delete}</if>
         </set>
         where id = #{id}
     </update>
 
     <select id="findOrderById" parameterType="java.lang.Integer" resultMap="orderMap">
       select o.*
-      from order o
+      from `order`o
       where o.id = #{id}
     </select>
 
     <select id="selectAll" resultMap="orderMap">
       select o.*
-      from order o
+      from `order` o
     </select>
 
     <select id="findByUserId" parameterType="java.lang.Integer" resultMap="orderMap">
+      select o.*
+      from `order` o
+      where o.user_id = #{userId}
+    </select>
+
+    <select id="getOrderListByParams" resultMap="orderMap">
+      select o.*
+      from `order` o
+    </select>
+
+    <select id="findByOrderNo" resultMap="orderMap">
       select o.*
       from order o
       where o.user_id = #{userId}
     </select>
 
-    <select id="getOrderListByParams" resultMap="orderMap">
-    select o.*
-    from order o
-  </select>
-
-    <select id="findByOrderNo" resultMap="orderMap">
-    select o.*
-    from order o
-    where o.user_id = #{userId}
-    </select>
-
     <update id="updateOrderByOrderNoAndPayNo" parameterType="com.scutj2ee.bookstore.entity.Order">
-        update order
+        update `order`
         <set>
             <if test="payNo != null and payNo != ''">pay_no = #{payNo},</if>
             <if test="addressId != null and addressId != ''">address_id = #{addressId},</if>
             <if test="createTime != null and createTime != ''">create_time = #{createTime},</if>
             <if test="endTime != null and endTime != ''">end_time = #{endTime},</if>
-            <if test="state != null and state != ''">`state` = #{state},</if>
+            <if test="status != null and status != ''"> status = #{status},</if>
             <if test="payment != null and payment != ''">payment = #{payment},</if>
-            <if test="totalIntegral != null and totalIntegral != ''">total_integral = #{totalIntegral},</if>
             <if test="userId != null and userId != ''">user_id = #{userId},</if>
-            <if test="isDelete != null and isDelete != ''">is_delete = #{isDelete}</if>
+            <if test="delete != null and delete != ''">`delete`= #{delete}</if>
         </set>
         where order_no= #{orderNo}
     </update>
 
 
-    <update id="updateState" parameterType="com.scutj2ee.bookstore.entity.Order">
-        update order
+    <update id="updateStatus" parameterType="com.scutj2ee.bookstore.entity.Order">
+        update `order`
         set status = #{status}
         where id= #{id}
     </update>
+
+    <select id="findIdsByUserId" resultType="Integer">
+      select o.id
+      from `order` o
+      where o.user_id=#{userId}
+    </select>
 </mapper>

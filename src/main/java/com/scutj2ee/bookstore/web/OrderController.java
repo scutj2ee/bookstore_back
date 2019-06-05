@@ -82,14 +82,13 @@ public class OrderController {
      *
      * @return 
      */
-    /*@RequestMapping("/submit")
-    public HashMap<String, Object> submit(HttpServletRequest request){
+    @RequestMapping("/submit")
+    public HashMap<String, Object> submit(HttpServletRequest request,@RequestParam List<Integer> cartIdList){
         HashMap<String, Object> resultMap = new HashMap<>();
         Integer userId= HttpServletRequestUtil.getInt(request, "userId");
         Integer addressId= HttpServletRequestUtil.getInt(request, "addressId");
-
         try {
-            int result = orderService.submit(userId,addressId,cardId);
+            int result = orderService.submit(userId,addressId,cartIdList);
             if (result > 0) {
                 resultMap.put("success", true);
                 resultMap.put("msg", "提交成功");
@@ -103,7 +102,7 @@ public class OrderController {
             resultMap.put("msg", ex.getMessage());
             return resultMap;
         }
-    }*/
+    }
 
     /**
      * @Author Bin Liu

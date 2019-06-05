@@ -46,15 +46,11 @@ public class Order implements Serializable {
      * 交易完成时间
      */
     private Date endTime;
-    /**
-     * 订单积分
-     */
-    private Integer totalIntegral;
 
     /**
      * 是否删除
      */
-    private Boolean isDelete;
+    private Boolean delete;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -116,20 +112,12 @@ public class Order implements Serializable {
         this.endTime = endTime;
     }
 
-    public Integer getTotalIntegral() {
-        return totalIntegral;
-    }
-
-    public void setTotalIntegral(Integer totalIntegral) {
-        this.totalIntegral = totalIntegral;
-    }
-
     public Boolean getDelete() {
-        return isDelete;
+        return delete;
     }
 
     public void setDelete(Boolean delete) {
-        isDelete = delete;
+        this.delete = delete;
     }
 
     public String getPayNo() {
@@ -160,8 +148,7 @@ public class Order implements Serializable {
                 ", addressId=" + addressId +
                 ", createTime=" + createTime +
                 ", endTime=" + endTime +
-                ", totalIntegral=" + totalIntegral +
-                ", isDelete=" + isDelete +
+                ", isDelete=" + delete +
                 '}';
     }
 }

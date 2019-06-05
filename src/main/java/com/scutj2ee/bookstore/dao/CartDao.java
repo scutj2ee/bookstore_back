@@ -43,4 +43,13 @@ public interface CartDao {
      * @return
      */
     int deleteCartByUserIdAndBookId(Integer userId, Integer bookId);
+
+    /**
+     * @Author Bin Liu
+     * @Description 通过购物车id序列找到所有被选中的Cart
+     * @Date 2019/6/5 9:21
+     * @param cartIds
+     * @return
+     */
+    List<Cart> getCartListParams(List<Integer> cartIds);
 }

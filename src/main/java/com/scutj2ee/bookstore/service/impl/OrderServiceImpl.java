@@ -1,17 +1,14 @@
 package com.scutj2ee.bookstore.service.impl;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.*;
 import com.scutj2ee.bookstore.entity.*;
-import com.scutj2ee.bookstore.exception.LoginException;
 import com.scutj2ee.bookstore.service.OrderService;
+import com.scutj2ee.bookstore.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 
@@ -96,16 +93,41 @@ public class OrderServiceImpl implements OrderService {
         if (order == null) {
             throw new RuntimeException("订单不存在");
         }
-        return orderDao.updateState(STATE_WAITE_SEND,order.getId());
+        return orderDao.updateStatus(STATE_WAITE_SEND,order.getId());
     }
 
     @Override
-    public int submit(Integer userId, Integer addressId, List<Integer> cartId)  {
-        /*Cart cart=cartDao.findCartById(cartId);
-        Order order=new Order();*/
-
-
-        return 1;
+    public int submit(Integer userId, Integer addressId, List<Integer> cartIds)  {
+        //生成订单
+        Order order=new Order();
+        //UUID生成随机的订单ID
+        order.setId(RandomUtil.getRandomOrderId());
+        order.setUserId(userId);
+        order.setStatus(STATE_NO_PAY);
+        order.setAddressId(addressId);
+        order.setCreateTime(new Date());
+        order.setDelete(false);
+        //通过id的列表找到所有被选中的购物车项
+        List<Cart> carts=cartDao.getCartListParams(cartIds);
+        //订单金额和数量
+        Double payment=0.0;
+        //把购物车项形成orderItem
+        for(Cart cart:carts){
+            OrderItem orderItem=new OrderItem();
+            orderItem.setBookId(cart.getBookId());
+            orderItem.setBookInfo(bookInfoDao.findBookInfoById(cart.getBookId()));
+            orderItem.setCount(cart.getBuyNum());
+            orderItem.setOrderId(order.getId());
+            orderItem.setSubPayment(cart.getSubTotal());
+            //插入orderItem数据库
+            orderItemDao.insertOrderItem(orderItem);
+            payment+=cart.getSubTotal();
+            //删除购物车项
+            cartDao.deleteCart(cart.getId());
+        }
+        order.setPayment(payment);
+        //插入order数据库
+        return orderDao.insertOrder(order);
     }
 
     @Override

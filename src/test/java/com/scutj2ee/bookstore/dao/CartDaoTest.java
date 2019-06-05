@@ -1,11 +1,15 @@
 package com.scutj2ee.bookstore.dao;
 
 import com.scutj2ee.bookstore.entity.Cart;
+import com.scutj2ee.bookstore.utils.RandomUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -31,7 +35,17 @@ public class CartDaoTest {
         Cart cart=new Cart();
         cart.setUserId(1);
         cart.setSubTotal(1.0);
-        cart.setId(2);
-        cartDao.insertCart(cart);
+        cart.setBookId(1);
+        cart.setBuyNum(1);
+        cart.setId(RandomUtil.getRandomOrderId());
+        System.out.println(cartDao.insertCart(cart));
+    }
+
+    @Test
+    public void getCartListParams(){
+        List<Integer> list=new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        cartDao.getCartListParams(list);
     }
 }

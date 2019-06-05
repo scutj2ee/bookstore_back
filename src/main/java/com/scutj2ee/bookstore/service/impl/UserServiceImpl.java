@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @ Author     ：Bin Liu
@@ -41,11 +40,6 @@ public class UserServiceImpl implements UserService {
     public User getUserById(Integer userId) {
         return userDao.findUserById(userId);
     }
-
-//    @Override
-//    public PageInfo<User> selectAll(Integer pageNo, Integer pageSize) {
-//        return userDao.selectAll();
-//    }
 
     @Override
     public int insert(User user) {

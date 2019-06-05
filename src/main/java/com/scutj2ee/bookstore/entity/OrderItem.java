@@ -28,10 +28,6 @@ public class OrderItem implements Serializable {
      */
     private Integer bookId;
     /**
-     * 积分
-     */
-    private Integer subIntegral;
-    /**
      * 价格
      */
     private Double subPayment;
@@ -71,14 +67,6 @@ public class OrderItem implements Serializable {
         this.bookId = bookId;
     }
 
-    public Integer getSubIntegral() {
-        return subIntegral;
-    }
-
-    public void setSubIntegral(Integer subIntegral) {
-        this.subIntegral = subIntegral;
-    }
-
     public Double getSubPayment() {
         return subPayment;
     }
@@ -106,7 +94,6 @@ public class OrderItem implements Serializable {
                 ", orderId=" + orderId +
                 ", count=" + count +
                 ", bookId=" + bookId +
-                ", subIntegral=" + subIntegral +
                 ", subPayment=" + subPayment +
                 '}';
     }

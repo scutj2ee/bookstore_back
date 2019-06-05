@@ -103,7 +103,7 @@
       SELECT * FROM book_info where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= publish_date
     </select>
 
-    <select id="getEmployeesListParams" parameterType="java.util.List" resultType="bookInfoMap">
+    <select id="getBookListParams" parameterType="java.util.List" resultMap="bookInfoMap">
         select *
         from book_info b
         where b.book_category_id in

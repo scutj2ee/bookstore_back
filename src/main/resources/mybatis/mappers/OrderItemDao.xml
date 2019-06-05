@@ -7,7 +7,6 @@
         <result column="order_id" property="orderId" />
         <result column="book_id" property="bookId" />
         <result column="sub_payment" property="subPayment" />
-        <result column="sub_payment" property="subPayment" />
     </resultMap>
 
     <delete id="deleteOrderItemById" parameterType="java.lang.Integer">
@@ -16,10 +15,8 @@
     </delete>
 
     <insert id="insertOrderItem" parameterType="com.scutj2ee.bookstore.entity.OrderItem">
-      insert into order_item (`count`, order_id, book_id,
-        sub_integral, sub_payment)
-      values (#{count}, #{orderId}, #{productId},
-        #{subIntegral}, #{subPayment})
+      insert into order_item (`count`, order_id, book_id, sub_payment)
+      values (#{count}, #{orderId}, #{productId}, #{subPayment})
     </insert>
 
     <update id="updateOrderItem" parameterType="com.scutj2ee.bookstore.entity.OrderItem">
@@ -28,7 +25,6 @@
             <if test="count != null and count != ''">`count` = #{count},</if>
             <if test="orderId != null and orderId != ''">order_id = #{orderId},</if>
             <if test="bookId != null and bookId != ''">book_id = #{bookId},</if>
-            <if test="subIntegral != null and subIntegral != ''">sub_integral = #{subIntegral},</if>
             <if test="subPayment != null and subPayment != ''">sub_payment = #{subPayment}</if>
         </set>
         where id = #{id}

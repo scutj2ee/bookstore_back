@@ -145,12 +145,11 @@ CREATE TABLE `order` (
   `pay_no` varchar(255) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `payment` double DEFAULT NULL,
-  `state` int(4) DEFAULT NULL,
+  `status` int(4) DEFAULT NULL,
   `address_id` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `end_time` datetime DEFAULT NULL,
-  `total_integral` int(11) DEFAULT NULL,
-  `is_delete` tinyint(1) DEFAULT NULL,
+  `delete` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -167,7 +166,6 @@ CREATE TABLE `order_item` (
   `order_id` int(11) DEFAULT NULL,
   `count` int(11) DEFAULT NULL,
   `book_id` int(11) DEFAULT NULL,
-  `sub_integral` int(11) DEFAULT NULL,
   `sub_payment` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

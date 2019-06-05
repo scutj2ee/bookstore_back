@@ -49,7 +49,7 @@ public class RandomUtil {
      * @Param: null
      * @return
      */
-    public static String getRandomOrderId() {
+    public static Integer getRandomOrderId() {
         //随机生成一位整数
         int random = (int)(Math.random() * 9 + 1);
         String valueOf = String.valueOf(random);
@@ -59,8 +59,7 @@ public class RandomUtil {
         if (hashCode < 0) {
             hashCode = - hashCode;
         }
-        String value = "TYBX" + valueOf + String.format("%010d",hashCode);
-        return value;
+        return hashCode;
     }
 
     public static String generaterNumberOfSix(){

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scutj2ee.bookstore.dao.CartDao">
     <resultMap id="cartMap" type="com.scutj2ee.bookstore.entity.Cart">
-        <id column="id" jdbcType="INTEGER" property="id" />
+        <id column="id" property="id" />
         <result column="user_id" property="userId" />
         <result column="book_id" property="bookId" />
         <result column="sub_total" property="subTotal" />
@@ -15,9 +15,9 @@
     </delete>
 
     <insert id="insertCart" parameterType="com.scutj2ee.bookstore.entity.Cart">
-    insert into cart (user_id, book_id, sub_total, buy_num)
-    values (#{userId}, #{bookId}, #{subTotal}, #{buyNum})
-  </insert>
+      insert into cart (user_id, book_id, sub_total, buy_num)
+      values (#{userId}, #{bookId}, #{subTotal}, #{buyNum})
+    </insert>
 
     <update id="updateCart" parameterType="com.scutj2ee.bookstore.entity.Cart">
         update cart
@@ -59,4 +59,14 @@
       where user_id = #{userId}
       and book_id = #{bookId}
     </delete>
+
+    <select id="getCartListParams" parameterType="java.util.List" resultMap="cartMap">
+        select *
+        from cart c
+        where c.id in
+        <foreach collection="list" item="cartId" index="index"
+                 open="(" close=")" separator=",">
+            #{cartId}
+        </foreach>
+    </select>
 </mapper>

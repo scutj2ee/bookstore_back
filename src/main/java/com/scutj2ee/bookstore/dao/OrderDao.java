@@ -25,5 +25,7 @@ public interface OrderDao {
 
     int updateOrderByOrderNoAndPayNo(String out_trade_no, String trade_no);
 
-    int updateState(int status, Integer id);
+    int updateStatus(int status, Integer id);
+
+    List<Integer> findIdsByUserId(Integer userId);
 }

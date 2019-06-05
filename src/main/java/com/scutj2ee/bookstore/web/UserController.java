@@ -2,6 +2,7 @@ package com.scutj2ee.bookstore.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
+import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.entity.Comment;
 import com.scutj2ee.bookstore.entity.User;
 import com.scutj2ee.bookstore.enums.SystemErrorEnum;
@@ -9,6 +10,7 @@ import com.scutj2ee.bookstore.enums.UserResultEnum;
 import com.scutj2ee.bookstore.exception.UserException;
 import com.scutj2ee.bookstore.model.UserResult;
 import com.scutj2ee.bookstore.model.common.Constant;
+import com.scutj2ee.bookstore.model.dto.CommentBookDto;
 import com.scutj2ee.bookstore.service.CommentService;
 import com.scutj2ee.bookstore.service.UserService;
 import com.scutj2ee.bookstore.utils.DateUtil;
@@ -149,5 +151,4 @@ public class UserController {
         resultMap.put("total", pageInfo == null ? 0 : pageInfo.getTotal());
         return resultMap;
     }
-
 }
