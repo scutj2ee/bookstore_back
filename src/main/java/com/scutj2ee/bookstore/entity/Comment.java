@@ -32,6 +32,8 @@ public class Comment implements Serializable {
 
     private User user;
 
+    private BookInfo bookInfo;
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -82,6 +84,14 @@ public class Comment implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public BookInfo getBookInfo() {
+        return bookInfo;
+    }
+
+    public void setBookInfo(BookInfo bookInfo) {
+        this.bookInfo = bookInfo;
     }
 
     @Override

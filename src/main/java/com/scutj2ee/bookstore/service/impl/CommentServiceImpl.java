@@ -2,8 +2,10 @@ package com.scutj2ee.bookstore.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.scutj2ee.bookstore.dao.BookInfoDao;
 import com.scutj2ee.bookstore.dao.CommentDao;
 import com.scutj2ee.bookstore.dao.UserDao;
+import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.entity.Comment;
 import com.scutj2ee.bookstore.entity.User;
 import com.scutj2ee.bookstore.service.CommentService;
@@ -26,6 +28,8 @@ public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private BookInfoDao bookInfoDao;
 
     @Override
     public int addComment(Comment comment) {
@@ -50,6 +54,7 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> list = commentDao.getCommentListByBookId(bookId);
         for(Comment comment:list){
             comment.setUser(userDao.findUserById(comment.getFromUid()));
+            comment.setBookInfo(bookInfoDao.findBookInfoById(comment.getBookId()));
         }
         PageHelper.startPage(pageNo,pageSize);
         PageInfo<Comment> pageInfo = new PageInfo<>(list);
@@ -69,6 +74,8 @@ public class CommentServiceImpl implements CommentService {
         for(Comment comment:list){
             User user=userDao.findUserById(comment.getFromUid());
             comment.setUser(user);
+            BookInfo bookInfo=bookInfoDao.findBookInfoById(comment.getBookId());
+            comment.setBookInfo(bookInfo);
         }
         PageHelper.startPage(pageNo,pageSize);
         PageInfo<Comment> pageInfo = new PageInfo<>(list);
