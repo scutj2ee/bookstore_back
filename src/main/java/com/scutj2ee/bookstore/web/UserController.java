@@ -139,6 +139,13 @@ public class UserController {
         }
     }
 
+    /**
+     * @Author Bin Liu
+     * @Description 获取用户的所有评论
+     * @Date 2019/6/6 22:56
+     * @param 
+     * @return 
+     */
     @RequestMapping("/comments")
     private HashMap<String, Object> comments(HttpServletRequest request, Integer pageNo, Integer pageSize) throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();

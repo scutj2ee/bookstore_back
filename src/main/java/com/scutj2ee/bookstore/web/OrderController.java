@@ -1,8 +1,6 @@
 package com.scutj2ee.bookstore.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
-import com.scutj2ee.bookstore.entity.Address;
 import com.scutj2ee.bookstore.entity.Order;
 import com.scutj2ee.bookstore.entity.OrderItem;
 import com.scutj2ee.bookstore.exception.SystemException;
@@ -71,7 +69,7 @@ public class OrderController {
         List<OrderItem> orderItems = orderService.findItems(orderId);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
-        resultMap.put("totalData", orderItems);
+        resultMap.put("orderItems", orderItems);
         return resultMap;
     }
 

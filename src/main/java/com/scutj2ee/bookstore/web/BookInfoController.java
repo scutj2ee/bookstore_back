@@ -70,7 +70,7 @@ public class BookInfoController {
     @RequestMapping("/bookCategory")
     public HashMap<String, Object> getBookInfoByCategory(HttpServletRequest request, Integer pageNo, Integer pageSize){
         HashMap<String, Object> resultMap = new HashMap<>();
-        Integer bookCategoryId = HttpServletRequestUtil.getInt(request, "BookCategoryId");
+        Integer bookCategoryId = HttpServletRequestUtil.getInt(request, "bookCategoryId");
         PageInfo<BookInfo> pageInfo = bookInfoService.findByBookCategoryId(bookCategoryId, pageNo, pageSize);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
