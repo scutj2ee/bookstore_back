@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.CommentDao;
 import com.scutj2ee.bookstore.dao.UserDao;
 import com.scutj2ee.bookstore.entity.Comment;
+import com.scutj2ee.bookstore.entity.User;
 import com.scutj2ee.bookstore.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,6 +66,10 @@ public class CommentServiceImpl implements CommentService {
         pageNo = pageNo == -1 ? 1 : pageNo;
         pageSize = pageSize == -1 ? 10 : pageSize;
         List<Comment> list = commentDao.getCommentListByUserId(userId);
+        for(Comment comment:list){
+            User user=userDao.findUserById(comment.getFromUid());
+            comment.setUser(user);
+        }
         PageHelper.startPage(pageNo,pageSize);
         PageInfo<Comment> pageInfo = new PageInfo<>(list);
         return pageInfo;
