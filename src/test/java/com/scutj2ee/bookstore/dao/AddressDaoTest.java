@@ -19,6 +19,10 @@ public class AddressDaoTest {
     private AddressDao addressDao;
 
     @Test
+    public  void findByUserId(){
+        addressDao.findByUserId( 2 );
+    }
+    @Test
     public void deleteAddress() {
         addressDao.deleteAddress(1);
     }

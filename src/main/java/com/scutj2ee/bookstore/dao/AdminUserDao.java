@@ -24,5 +24,5 @@ public interface AdminUserDao {
 
     int updateAdminUser(AdminUser adminUser);
 
-    AdminUser findAdminUserByUserNameAndPassord(@Param("username")String username, @Param("password")String password);
+    AdminUser findAdminUserByUserNameAndPassword(@Param("username")String username, @Param("password")String password);
 }

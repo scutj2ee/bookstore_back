@@ -64,7 +64,7 @@ public class LoginServiceImpl implements LoginService {
             return loginResult;
         }
         try{
-            AdminUser adminUser = adminUserDao.findAdminUserByUserNameAndPassord(username,password);
+            AdminUser adminUser = adminUserDao.findAdminUserByUserNameAndPassword(username,password);
             if (adminUser == null) {
                 loginResult.setCode(LoginResultEnum.NOT_MATCH.getCode());
                 loginResult.setMsg(LoginResultEnum.NOT_MATCH.getMsg());

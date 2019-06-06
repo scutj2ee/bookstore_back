@@ -37,7 +37,7 @@
     from admin_user a
   </select>
 
-    <select id="findAdminUserByUserNameAndPassord" parameterType="java.lang.Integer" resultMap="adminUserMap">
+    <select id="findAdminUserByUserNameAndPassword"  resultMap="adminUserMap">
     select a.*
     from admin_user a
     where a.password =#{password} and a.username=#{username}
