@@ -41,7 +41,7 @@ public class CommentController {
             int result = commentService.addComment(comment);
             if (result>0) {
                 resultMap.put("success", true);
-                resultMap.put("msg", "增加地址成功");
+                resultMap.put("msg", "增加评论成功");
             } else {
                 resultMap.put("success", false);
             }

@@ -71,7 +71,7 @@ public class OrderController {
         List<OrderItem> orderItems = orderService.findItems(orderId);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
-        resultMap.put("totalData", orderItems);
+        resultMap.put("orderItems", orderItems);
         return resultMap;
     }
 

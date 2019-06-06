@@ -41,10 +41,17 @@ public class BookCategoryController {
         return resultMap;
     }
 
+    /**
+     * @Author Bin Liu
+     * @Description 获取该一级类目下的二级类目
+     * @Date 2019/6/6 22:29
+     * @param
+     * @return
+     */
     @RequestMapping("/second")
     public HashMap<String, Object> getCategorySecond(HttpServletRequest request){
         HashMap<String, Object> resultMap = new HashMap<>();
-        //1.获取前端传递的userId参数
+        //1.获取前端传递的bookCategoryId参数
         Integer parentId = HttpServletRequestUtil.getInt(request, "bookCategoryId");
         List<BookCategory> bookCategoryList = bookCategoryService.findCategorySecond(parentId);
         resultMap.put("success", true);
