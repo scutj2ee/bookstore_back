@@ -34,7 +34,7 @@ public interface CartDao {
      * @Param: null
      * @return
      */
-    Cart findCartByBookIdAndUerId(@Param("bookId")Integer bookId, @Param("userId")Integer userId);
+    Cart findCartByBookIdAndUserId(@Param("bookId")Integer bookId,@Param("userId")Integer userId);
 
     /**
      * create by: Bin Liu

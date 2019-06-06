@@ -47,7 +47,7 @@
       where user_id = #{userId}
     </select>
 
-    <select id=" findCartByBookIdAndUerId" resultMap="cartMap">
+    <select id="findCartByBookIdAndUserId"  resultMap="cartMap">
       select c.*
       from cart c
       where c.user_id = #{userId}
