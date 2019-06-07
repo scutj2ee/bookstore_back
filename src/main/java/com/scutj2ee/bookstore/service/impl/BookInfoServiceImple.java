@@ -9,7 +9,9 @@ import com.scutj2ee.bookstore.dao.UserDao;
 import com.scutj2ee.bookstore.entity.BookCategory;
 import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.entity.Comment;
+import com.scutj2ee.bookstore.entity.User;
 import com.scutj2ee.bookstore.model.dto.BookInfoDto;
+import com.scutj2ee.bookstore.model.dto.CommentDto;
 import com.scutj2ee.bookstore.service.BookInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,11 +39,18 @@ public class BookInfoServiceImple implements BookInfoService {
     public BookInfoDto findById(Integer id) {
         BookInfoDto bookInfoDto=new BookInfoDto();
         bookInfoDto.setBookInfo(bookInfoDao.findBookInfoById(id));
+        List<CommentDto> commentDtoList=new ArrayList<>();
         List<Comment> commentList=commentDao.getCommentListByBookId(id);
         for(Comment comment:commentList){
-            comment.setUser(userDao.findUserById(comment.getFromUid()));
+            //创建CommentDto
+            CommentDto commentDto=new CommentDto();
+            commentDto.setContent(comment.getContent());
+            commentDto.setDate(comment.getDate());
+            User user=userDao.findUserById(comment.getFromUid());
+            commentDto.setUsername(user.getUsername());
+            commentDtoList.add(commentDto);
         }
-        bookInfoDto.setCommentList(commentList);
+        bookInfoDto.setCommentDtoList(commentDtoList);
         return bookInfoDto;
     }
 

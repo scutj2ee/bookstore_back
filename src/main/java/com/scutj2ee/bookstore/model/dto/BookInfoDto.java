@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class BookInfoDto implements Serializable {
     private BookInfo bookInfo;
-    private List<Comment> commentList;
+    private List<CommentDto> commentDtoList;
 
     public BookInfo getBookInfo() {
         return bookInfo;
@@ -24,11 +24,11 @@ public class BookInfoDto implements Serializable {
         this.bookInfo = bookInfo;
     }
 
-    public List<Comment> getCommentList() {
-        return commentList;
+    public List<CommentDto> getCommentDtoList() {
+        return commentDtoList;
     }
 
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
+    public void setCommentDtoList(List<CommentDto> commentDtoList) {
+        this.commentDtoList = commentDtoList;
     }
 }
