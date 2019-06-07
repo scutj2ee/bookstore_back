@@ -45,6 +45,21 @@ public class Reply implements Serializable {
      */
     private Date date;
 
+    public Reply(){
+
+    }
+
+    public Reply(Integer id, Integer commentId, Integer replyId, Integer replyType, String content, Integer fromUid, Integer toUid, Date date) {
+        this.id = id;
+        this.commentId = commentId;
+        this.replyId = replyId;
+        this.replyType = replyType;
+        this.content = content;
+        this.fromUid = fromUid;
+        this.toUid = toUid;
+        this.date = date;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }

@@ -1,5 +1,7 @@
 package com.scutj2ee.bookstore.entity;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+
 import java.io.Serializable;
 
 /**
@@ -19,6 +21,16 @@ public class UserRole implements Serializable {
      * 角色id
      */
     private Integer roleId;
+
+    public UserRole(){
+
+    }
+
+    public UserRole(Integer id, Integer userId, Integer roleId) {
+        this.id = id;
+        this.userId = userId;
+        this.roleId = roleId;
+    }
 
     private static final long serialVersionUID = 1L;
 

@@ -23,6 +23,16 @@ public class Permission implements Serializable {
      */
     private String perCode;
 
+    public Permission(){
+
+    }
+
+    public Permission(Integer id, String name, String perCode) {
+        this.id = id;
+        this.name = name;
+        this.perCode = perCode;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }

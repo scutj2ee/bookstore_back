@@ -52,6 +52,23 @@ public class Order implements Serializable {
      */
     private Boolean delete;
 
+    public Order(){
+
+    }
+
+    public Order(Integer id, String orderNo, String payNo, Integer userId, Double payment, Integer status, Integer addressId, Date createTime, Date endTime, Boolean delete) {
+        this.id = id;
+        this.orderNo = orderNo;
+        this.payNo = payNo;
+        this.userId = userId;
+        this.payment = payment;
+        this.status = status;
+        this.addressId = addressId;
+        this.createTime = createTime;
+        this.endTime = endTime;
+        this.delete = delete;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }

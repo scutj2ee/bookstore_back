@@ -41,6 +41,21 @@ public class Address implements Serializable {
      */
     private Integer userId;
 
+    public Address(){
+
+    }
+
+    public Address(Integer id, String province, String city, String district, String detail, String phone, String receiver, Integer userId) {
+        this.id = id;
+        this.province = province;
+        this.city = city;
+        this.district = district;
+        this.detail = detail;
+        this.phone = phone;
+        this.receiver = receiver;
+        this.userId = userId;
+    }
+
     public Integer getId() {
         return id;
     }

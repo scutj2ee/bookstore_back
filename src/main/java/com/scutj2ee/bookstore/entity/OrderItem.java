@@ -35,6 +35,19 @@ public class OrderItem implements Serializable {
     @Transient
     private BookInfo bookInfo;
 
+    public OrderItem(){
+
+    }
+
+    public OrderItem(Integer id, Integer orderId, Integer count, Integer bookId, Double subPayment, BookInfo bookInfo) {
+        this.id = id;
+        this.orderId = orderId;
+        this.count = count;
+        this.bookId = bookId;
+        this.subPayment = subPayment;
+        this.bookInfo = bookInfo;
+    }
+
     public Integer getId() {
         return id;
     }

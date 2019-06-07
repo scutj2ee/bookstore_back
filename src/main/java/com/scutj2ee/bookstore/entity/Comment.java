@@ -34,6 +34,20 @@ public class Comment implements Serializable {
 
     private BookInfo bookInfo;
 
+    public Comment(){
+
+    }
+
+    public Comment(Integer id, Integer bookId, Integer fromUid, String content, Date date, User user, BookInfo bookInfo) {
+        this.id = id;
+        this.bookId = bookId;
+        this.fromUid = fromUid;
+        this.content = content;
+        this.date = date;
+        this.user = user;
+        this.bookInfo = bookInfo;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }

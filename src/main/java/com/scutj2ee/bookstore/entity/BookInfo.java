@@ -93,6 +93,39 @@ public class BookInfo implements Serializable {
      */
     private Integer isShelf;
 
+    public BookInfo(){
+
+    }
+
+    public BookInfo(Integer bookId, Integer bookCategoryId, BookCategory bookCategory, String name, String outline, String detail, String press, Date publishDate, String size, String version, String author, String translator, String isbn, Double price, Integer pages, String catalog, Double marketPrice, Double memberPrice, Integer dealMount, Integer lookMount, BigDecimal discount, String imageUrl, Integer storeMount, Date storeTime, String packStyle, Integer isShelf) {
+        this.bookId = bookId;
+        this.bookCategoryId = bookCategoryId;
+        this.bookCategory = bookCategory;
+        this.name = name;
+        this.outline = outline;
+        this.detail = detail;
+        this.press = press;
+        this.publishDate = publishDate;
+        this.size = size;
+        this.version = version;
+        this.author = author;
+        this.translator = translator;
+        this.isbn = isbn;
+        this.price = price;
+        this.pages = pages;
+        this.catalog = catalog;
+        this.marketPrice = marketPrice;
+        this.memberPrice = memberPrice;
+        this.dealMount = dealMount;
+        this.lookMount = lookMount;
+        this.discount = discount;
+        this.imageUrl = imageUrl;
+        this.storeMount = storeMount;
+        this.storeTime = storeTime;
+        this.packStyle = packStyle;
+        this.isShelf = isShelf;
+    }
+
     public Integer getBookId() {
         return bookId;
     }

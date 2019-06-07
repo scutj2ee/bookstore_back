@@ -20,6 +20,16 @@ public class RolePermission implements Serializable {
      */
     private Integer permissionId;
 
+    public RolePermission(){
+
+    }
+
+    public RolePermission(Integer id, Integer roleId, Integer permissionId) {
+        this.id = id;
+        this.roleId = roleId;
+        this.permissionId = permissionId;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
