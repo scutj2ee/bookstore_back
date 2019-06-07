@@ -15,7 +15,7 @@ public interface BookInfoService {
     /**
      * 根据id查询
      */
-    BookInfo findById(Integer id);
+    BookInfoDto findById(Integer id);
 
 
     /**
@@ -53,7 +53,7 @@ public interface BookInfoService {
      * @param
      * @return
      */
-    PageInfo<BookInfoDto> getBookInfoList(Integer pageNo, Integer pageSize);
+    PageInfo<BookInfo> getBookInfoList(Integer pageNo, Integer pageSize);
 
     /**
      * @Author Bin Liu

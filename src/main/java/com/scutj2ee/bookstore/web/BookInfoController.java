@@ -39,10 +39,10 @@ public class BookInfoController {
         HashMap<String, Object> resultMap = new HashMap<>();
         //1.获取前端传递的bookInfoId参数
         Integer bookInfoId = HttpServletRequestUtil.getInt(request, "bookInfoId");
-        BookInfo bookInfo = bookInfoService.findById(bookInfoId);
+        BookInfoDto bookInfoDto = bookInfoService.findById(bookInfoId);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
-        resultMap.put("BookInfo", bookInfo);
+        resultMap.put("BookInfoDto", bookInfoDto);
         return resultMap;
     }
 
@@ -109,7 +109,7 @@ public class BookInfoController {
     @RequestMapping("/all")
     public HashMap<String, Object> getAll(HttpServletRequest request, Integer pageNo, Integer pageSize){
         HashMap<String, Object> resultMap = new HashMap<>();
-        PageInfo<BookInfoDto> pageInfo= bookInfoService.getBookInfoList(pageNo,pageSize);
+        PageInfo<BookInfo> pageInfo= bookInfoService.getBookInfoList(pageNo,pageSize);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
         resultMap.put("tableData", pageInfo == null ? null : pageInfo.getList());

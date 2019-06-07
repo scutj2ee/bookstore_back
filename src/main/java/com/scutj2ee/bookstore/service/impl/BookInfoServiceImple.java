@@ -31,8 +31,11 @@ public class BookInfoServiceImple implements BookInfoService {
     private CommentDao commentDao;
 
     @Override
-    public BookInfo findById(Integer id) {
-        return bookInfoDao.findBookInfoById(id);
+    public BookInfoDto findById(Integer id) {
+        BookInfoDto bookInfoDto=new BookInfoDto();
+        bookInfoDto.setBookInfo(bookInfoDao.findBookInfoById(id));
+        bookInfoDto.setCommentList(commentDao.getCommentListByBookId(id));
+        return bookInfoDto;
     }
 
     @Override
@@ -87,10 +90,9 @@ public class BookInfoServiceImple implements BookInfoService {
     }
 
     @Override
-    public PageInfo<BookInfoDto> getBookInfoList(Integer pageNo, Integer pageSize) {
+    public PageInfo<BookInfo> getBookInfoList(Integer pageNo, Integer pageSize) {
         pageNo = pageNo == -1 ? 1 : pageNo;
         pageSize = pageSize == -1 ? 10 : pageSize;
-        List<BookInfoDto> list=new ArrayList<>();
         List<BookInfo> bookInfoList = bookInfoDao.selectAll();
         for(BookInfo bookInfo:bookInfoList){
             //创建书本传输类
@@ -99,13 +101,9 @@ public class BookInfoServiceImple implements BookInfoService {
             BookCategory bookCategory=bookCategoryDao.findBookCategoryById(bookInfo.getBookCategoryId());
             bookInfo.setBookCategory(bookCategory);
             bookInfoDto.setBookInfo(bookInfo);
-            //获取评论信息
-            List<Comment> commentList=commentDao.getCommentListByBookId(bookInfo.getBookId());
-            bookInfoDto.setCommentList(commentList);
-            list.add(bookInfoDto);
         }
         PageHelper.startPage(pageNo,pageSize);
-        PageInfo<BookInfoDto> pageInfo = new PageInfo<>(list);
+        PageInfo<BookInfo> pageInfo = new PageInfo<>(bookInfoList);
         return pageInfo;
     }
 }
