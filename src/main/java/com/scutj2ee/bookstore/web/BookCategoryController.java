@@ -2,6 +2,7 @@
 package com.scutj2ee.bookstore.web;
 
 import com.scutj2ee.bookstore.entity.BookCategory;
+import com.scutj2ee.bookstore.model.dto.BookCategoryDto;
 import com.scutj2ee.bookstore.service.BookCategoryService;
 import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class BookCategoryController {
 
     /**
      * @Author: Bin Liu
-     * @Description: 获取所有的书本的一级类目
+     * @Description: 获取所有的书本的类目信息
      * @Date: 2019/6/4 10:55
      * @Param: 
      * @return: 
@@ -34,29 +35,10 @@ public class BookCategoryController {
     @RequestMapping("/list")
     public HashMap<String, Object> findAllFirst(HttpServletRequest request){
         HashMap<String, Object> resultMap = new HashMap<>();
-        List<BookCategory> bookCategoryList = bookCategoryService.findAllFirst();
+        List<BookCategoryDto> bookCategoryDtoList = bookCategoryService.findAll();
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
-        resultMap.put("bookCategoryList", bookCategoryList);
-        return resultMap;
-    }
-
-    /**
-     * @Author Bin Liu
-     * @Description 获取该一级类目下的二级类目
-     * @Date 2019/6/6 22:29
-     * @param
-     * @return
-     */
-    @RequestMapping("/second")
-    public HashMap<String, Object> getCategorySecond(HttpServletRequest request){
-        HashMap<String, Object> resultMap = new HashMap<>();
-        //1.获取前端传递的bookCategoryId参数
-        Integer parentId = HttpServletRequestUtil.getInt(request, "bookCategoryId");
-        List<BookCategory> bookCategoryList = bookCategoryService.findCategorySecond(parentId);
-        resultMap.put("success", true);
-        resultMap.put("msg", "获取成功");
-        resultMap.put("bookCategoryList", bookCategoryList);
+        resultMap.put("bookCategoryList", bookCategoryDtoList);
         return resultMap;
     }
 }

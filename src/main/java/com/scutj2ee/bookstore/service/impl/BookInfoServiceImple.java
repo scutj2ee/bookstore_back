@@ -4,8 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.BookCategoryDao;
 import com.scutj2ee.bookstore.dao.BookInfoDao;
+import com.scutj2ee.bookstore.dao.CommentDao;
 import com.scutj2ee.bookstore.entity.BookCategory;
 import com.scutj2ee.bookstore.entity.BookInfo;
+import com.scutj2ee.bookstore.entity.Comment;
+import com.scutj2ee.bookstore.model.dto.BookInfoDto;
 import com.scutj2ee.bookstore.service.BookInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,8 @@ public class BookInfoServiceImple implements BookInfoService {
     private BookInfoDao bookInfoDao;
     @Autowired
     private BookCategoryDao bookCategoryDao;
+    @Autowired
+    private CommentDao commentDao;
 
     @Override
     public BookInfo findById(Integer id) {
@@ -82,16 +87,25 @@ public class BookInfoServiceImple implements BookInfoService {
     }
 
     @Override
-    public PageInfo<BookInfo> getBookInfoList(Integer pageNo, Integer pageSize) {
+    public PageInfo<BookInfoDto> getBookInfoList(Integer pageNo, Integer pageSize) {
         pageNo = pageNo == -1 ? 1 : pageNo;
         pageSize = pageSize == -1 ? 10 : pageSize;
-        List<BookInfo> list = bookInfoDao.selectAll();
-        for(BookInfo bookInfo:list){
+        List<BookInfoDto> list=new ArrayList<>();
+        List<BookInfo> bookInfoList = bookInfoDao.selectAll();
+        for(BookInfo bookInfo:bookInfoList){
+            //创建书本传输类
+            BookInfoDto bookInfoDto=new BookInfoDto();
+            //获取书本信息
             BookCategory bookCategory=bookCategoryDao.findBookCategoryById(bookInfo.getBookCategoryId());
             bookInfo.setBookCategory(bookCategory);
+            bookInfoDto.setBookInfo(bookInfo);
+            //获取评论信息
+            List<Comment> commentList=commentDao.getCommentListByBookId(bookInfo.getBookId());
+            bookInfoDto.setCommentList(commentList);
+            list.add(bookInfoDto);
         }
         PageHelper.startPage(pageNo,pageSize);
-        PageInfo<BookInfo> pageInfo = new PageInfo<>(list);
+        PageInfo<BookInfoDto> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
 }

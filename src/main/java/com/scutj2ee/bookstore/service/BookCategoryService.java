@@ -2,6 +2,7 @@ package com.scutj2ee.bookstore.service;
 
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.BookCategory;
+import com.scutj2ee.bookstore.model.dto.BookCategoryDto;
 
 import java.util.List;
 
@@ -59,4 +60,13 @@ public interface BookCategoryService {
      * @return
      */
     List<BookCategory> findCategorySecond(Integer parentId);
+
+    /**
+     * @Author Bin Liu
+     * @Description 获取所有的类目嵌套信息
+     * @Date 2019/6/7 16:57
+     * @param
+     * @return
+     */
+    List<BookCategoryDto> findAll();
 }

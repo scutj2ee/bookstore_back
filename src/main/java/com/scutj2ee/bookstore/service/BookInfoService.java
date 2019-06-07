@@ -2,6 +2,7 @@ package com.scutj2ee.bookstore.service;
 
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.BookInfo;
+import com.scutj2ee.bookstore.model.dto.BookInfoDto;
 
 import java.util.List;
 
@@ -52,7 +53,7 @@ public interface BookInfoService {
      * @param
      * @return
      */
-    PageInfo<BookInfo> getBookInfoList(Integer pageNo, Integer pageSize);
+    PageInfo<BookInfoDto> getBookInfoList(Integer pageNo, Integer pageSize);
 
     /**
      * @Author Bin Liu

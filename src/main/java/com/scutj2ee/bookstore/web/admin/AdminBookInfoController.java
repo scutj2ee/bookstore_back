@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.Address;
 import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.exception.SystemException;
+import com.scutj2ee.bookstore.model.dto.BookInfoDto;
 import com.scutj2ee.bookstore.service.BookInfoService;
 import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class AdminBookInfoController {
     @RequestMapping("/list")
     public HashMap<String, Object> getBookInfoList(HttpServletRequest request, Integer pageNo, Integer pageSize){
         HashMap<String, Object> resultMap = new HashMap<>();
-        PageInfo<BookInfo> pageInfo = bookInfoService.getBookInfoList(pageNo,pageSize);
+        PageInfo<BookInfoDto> pageInfo = bookInfoService.getBookInfoList(pageNo,pageSize);
         resultMap.put("success",true);
         resultMap.put("msg","获取成功");
         resultMap.put("tableData",pageInfo == null ? null : pageInfo.getList() );

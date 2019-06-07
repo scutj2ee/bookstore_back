@@ -16,8 +16,10 @@ public class BookInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer bookId;
+    /**
+     * 书本类目id
+     */
     private Integer bookCategoryId;
-    @Transient
     private BookCategory bookCategory;
     private String name;
     /**

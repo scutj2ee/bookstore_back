@@ -3,6 +3,7 @@ package com.scutj2ee.bookstore.web;
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.entity.Comment;
+import com.scutj2ee.bookstore.model.dto.BookInfoDto;
 import com.scutj2ee.bookstore.service.BookInfoService;
 import com.scutj2ee.bookstore.service.CommentService;
 import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
@@ -108,7 +109,7 @@ public class BookInfoController {
     @RequestMapping("/all")
     public HashMap<String, Object> getAll(HttpServletRequest request, Integer pageNo, Integer pageSize){
         HashMap<String, Object> resultMap = new HashMap<>();
-        PageInfo<BookInfo> pageInfo= bookInfoService.getBookInfoList(pageNo,pageSize);
+        PageInfo<BookInfoDto> pageInfo= bookInfoService.getBookInfoList(pageNo,pageSize);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
         resultMap.put("tableData", pageInfo == null ? null : pageInfo.getList());

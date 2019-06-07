@@ -25,17 +25,18 @@ public class CartServiceImpl implements CartService {
     public int addCart(Integer userId,Integer bookId,Double subTotal,Integer buyNum) {
         //根据userId获取cart
         Cart cart=cartDao.findCartByBookIdAndUserId(bookId,userId);
-        Cart cart1=new Cart(  );//TODO: 为什么要重新实例化一个？用原来的的cart不能实现？是不是与Integer有关
+        Cart cart1=new Cart(  );
         //如果cart存在则更新，不存在则添加
         if(cart==null){
-            cart1.setUserId(userId);//TODO setUserId 出现问题？
+            cart1.setUserId(userId);
             cart1.setBookId(bookId);
             cart1.setBuyNum(buyNum);
             cart1.setSubTotal(subTotal);
             return cartDao.insertCart(cart1);
         }else {
-            cart.setSubTotal(subTotal);
-            cart.setBuyNum(buyNum);
+            //如果cart已经存在，则叠加
+            cart.setSubTotal(cart.getSubTotal()+subTotal);
+            cart.setBuyNum(cart.getBuyNum()+buyNum);
             return cartDao.updateCart(cart);
         }
     }
