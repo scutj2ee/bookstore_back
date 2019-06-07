@@ -39,7 +39,7 @@ public class AdminBookInfoController {
     @RequestMapping("/list")
     public HashMap<String, Object> getBookInfoList(HttpServletRequest request, Integer pageNo, Integer pageSize){
         HashMap<String, Object> resultMap = new HashMap<>();
-        PageInfo<BookInfoDto> pageInfo = bookInfoService.getBookInfoList(pageNo,pageSize);
+        PageInfo<BookInfo> pageInfo = bookInfoService.getBookInfoList(pageNo,pageSize);
         resultMap.put("success",true);
         resultMap.put("msg","获取成功");
         resultMap.put("tableData",pageInfo == null ? null : pageInfo.getList() );
