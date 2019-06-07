@@ -39,6 +39,10 @@ public class BookCategory implements Serializable {
      */
     private Integer type;
 
+    public BookCategory(){
+
+    }
+
     public BookCategory(Integer id, String name, Integer status, Date created, Date updated, Integer parentId, Integer type) {
         this.id = id;
         this.name = name;
