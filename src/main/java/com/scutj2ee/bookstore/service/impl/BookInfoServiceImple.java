@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.BookCategoryDao;
 import com.scutj2ee.bookstore.dao.BookInfoDao;
 import com.scutj2ee.bookstore.dao.CommentDao;
+import com.scutj2ee.bookstore.dao.UserDao;
 import com.scutj2ee.bookstore.entity.BookCategory;
 import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.entity.Comment;
@@ -29,12 +30,18 @@ public class BookInfoServiceImple implements BookInfoService {
     private BookCategoryDao bookCategoryDao;
     @Autowired
     private CommentDao commentDao;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public BookInfoDto findById(Integer id) {
         BookInfoDto bookInfoDto=new BookInfoDto();
         bookInfoDto.setBookInfo(bookInfoDao.findBookInfoById(id));
-        bookInfoDto.setCommentList(commentDao.getCommentListByBookId(id));
+        List<Comment> commentList=commentDao.getCommentListByBookId(id);
+        for(Comment comment:commentList){
+            comment.setUser(userDao.findUserById(comment.getFromUid()));
+        }
+        bookInfoDto.setCommentList(commentList);
         return bookInfoDto;
     }
 
