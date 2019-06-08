@@ -2,7 +2,9 @@ package com.scutj2ee.bookstore.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.scutj2ee.bookstore.dao.BookInfoDao;
 import com.scutj2ee.bookstore.dao.CartDao;
+import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.entity.Cart;
 import com.scutj2ee.bookstore.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import java.util.List;
 public class CartServiceImpl implements CartService {
     @Autowired
     private CartDao cartDao;
+    @Autowired
+    private BookInfoDao bookInfoDao;
 
     @Override
     public int addCart(Integer userId,Integer bookId,Double subTotal,Integer buyNum) {
@@ -52,6 +56,10 @@ public class CartServiceImpl implements CartService {
         pageSize = pageSize == -1 ? 10 : pageSize;
         //根据userId获取List<Cart>
         List<Cart> cartList=cartDao.selectAll(userId);
+        for(Cart cart:cartList){
+            BookInfo bookInfo=bookInfoDao.findBookInfoById(cart.getBookId());
+            cart.setBookInfo(bookInfo);
+        }
         PageHelper.startPage(pageNo,pageSize);
         PageInfo<Cart> pageInfo = new PageInfo<>(cartList);
         return pageInfo;

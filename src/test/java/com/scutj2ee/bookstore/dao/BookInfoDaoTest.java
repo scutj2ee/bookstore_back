@@ -56,6 +56,11 @@ public class BookInfoDaoTest {
     }
 
     @Test
+    public void findByBookCategoryIdSecond(){
+        bookInfoDao.findByBookCategoryId(1);
+    }
+
+    @Test
     public void getBookListParams() {
         List<Integer> list=new ArrayList<>();
         list.add(1);

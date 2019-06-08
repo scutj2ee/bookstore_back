@@ -93,7 +93,7 @@
       from book_info b
     </select>
 
-    <select id="findByBookCategoryId" parameterType="java.lang.Integer" resultMap="bookInfoMap">
+    <select id="findByBookCategoryId" resultMap="bookInfoMap">
       select b.*
       from book_info b
       where b.book_category_id = #{bookCategoryId}

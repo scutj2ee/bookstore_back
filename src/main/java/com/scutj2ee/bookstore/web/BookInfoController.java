@@ -76,7 +76,7 @@ public class BookInfoController {
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
         resultMap.put("totalData", pageInfo == null ? null : pageInfo.getList());
-        resultMap.put("total", pageInfo == null ? null : pageInfo.getList());
+        resultMap.put("total", pageInfo == null ? null : pageInfo.getTotal());
         return resultMap;
     }
 
@@ -95,7 +95,7 @@ public class BookInfoController {
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
         resultMap.put("totalData", pageInfo == null ? null : pageInfo.getList());
-        resultMap.put("total", pageInfo == null ? null : pageInfo.getList());
+        resultMap.put("total", pageInfo == null ? null : pageInfo.getTotal());
         return resultMap;
     }
 
