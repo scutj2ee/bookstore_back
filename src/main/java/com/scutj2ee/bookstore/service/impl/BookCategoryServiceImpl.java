@@ -73,10 +73,19 @@ public class BookCategoryServiceImpl implements BookCategoryService {
             //创建类目传输类
             BookCategoryDto bookCategoryDto=new BookCategoryDto();
             //设置一级类目
-            bookCategoryDto.setFirst(category);
+            bookCategoryDto.setId(category.getId());
+            bookCategoryDto.setName(category.getName());
             //设置一级类目对应的所有二级类目
             List<BookCategory> second=bookCategoryDao.findByParentId(category.getId());
-            bookCategoryDto.setSecondList(second);
+            List<BookCategoryDto> list1=new ArrayList<>();
+            for (BookCategory bookCategory:second){
+                //创建类目传输类
+                BookCategoryDto bookCategoryDto1=new BookCategoryDto();
+                bookCategoryDto1.setId(bookCategory.getId());
+                bookCategoryDto1.setName(bookCategory.getName());
+                list1.add(bookCategoryDto1);
+            }
+            bookCategoryDto.setChild(list1);
             list.add(bookCategoryDto);
         }
         return list;

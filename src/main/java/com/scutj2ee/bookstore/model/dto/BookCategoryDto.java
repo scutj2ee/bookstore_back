@@ -12,27 +12,39 @@ import java.util.List;
  */
 public class BookCategoryDto {
     /**
-     * 1级类目
+     * 类目id
      */
-    private BookCategory first;
+    private Integer id;
+    /**
+     * 类目名称
+     */
+    private String name;
     /**
      * 1级类目对应的2级类目
      */
-    private List<BookCategory> secondList;
+    private List<BookCategoryDto> child;
 
-    public BookCategory getFirst() {
-        return first;
+    public Integer getId() {
+        return id;
     }
 
-    public void setFirst(BookCategory first) {
-        this.first = first;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public List<BookCategory> getSecondList() {
-        return secondList;
+    public String getName() {
+        return name;
     }
 
-    public void setSecondList(List<BookCategory> secondList) {
-        this.secondList = secondList;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<BookCategoryDto> getChild() {
+        return child;
+    }
+
+    public void setChild(List<BookCategoryDto> child) {
+        this.child = child;
     }
 }
