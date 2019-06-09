@@ -20,7 +20,7 @@
     </delete>
 
     <insert id="insertOrder" parameterType="com.scutj2ee.bookstore.entity.Order">
-      insert into `order` (id, address_id, create_time, end_time, status, payment, user_id, `delete`)
+      insert into `order` (id, address_id, create_time, end_time, `status`, payment, user_id, `delete`)
       values (#{id}, #{addressId}, #{createTime}, #{endTime}, #{status}, #{payment},#{userId} ,#{delete})
     </insert>
 
@@ -32,7 +32,7 @@
             <if test="addressId != null and addressId != ''">address_id = #{addressId},</if>
             <if test="createTime != null and createTime != ''">create_time = #{createTime},</if>
             <if test="endTime != null and endTime != ''">end_time =#{endTime},</if>
-            <if test="status != null and status != ''"> status = #{status},</if>
+            <if test="status != null and status != ''"> `status` = #{status},</if>
             <if test="payment != null and payment != ''">payment = #{payment},</if>
             <if test="userId != null and userId != ''">user_id = #{userId},</if>
             <if test="delete != null and delete != ''">`delete`= #{delete}</if>
@@ -75,7 +75,7 @@
             <if test="addressId != null and addressId != ''">address_id = #{addressId},</if>
             <if test="createTime != null and createTime != ''">create_time = #{createTime},</if>
             <if test="endTime != null and endTime != ''">end_time = #{endTime},</if>
-            <if test="status != null and status != ''"> status = #{status},</if>
+            <if test="status != null and status != ''"> `status` = #{status},</if>
             <if test="payment != null and payment != ''">payment = #{payment},</if>
             <if test="userId != null and userId != ''">user_id = #{userId},</if>
             <if test="delete != null and delete != ''">`delete`= #{delete}</if>
@@ -84,9 +84,9 @@
     </update>
 
 
-    <update id="updateStatus" parameterType="com.scutj2ee.bookstore.entity.Order">
+    <update id="updateStatus" >
         update `order`
-        set status = #{status}
+        set `status` = #{status}
         where id= #{id}
     </update>
 

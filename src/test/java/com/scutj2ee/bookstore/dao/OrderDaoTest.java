@@ -48,6 +48,11 @@ public class OrderDaoTest {
     }
 
     @Test
+    public void findByUserId(){
+        orderDao.findByUserId(1);
+    }
+
+    @Test
     public void findIdsByUserId() {
         List<Integer> list=orderDao.findIdsByUserId(1);
         for(Integer i:list){

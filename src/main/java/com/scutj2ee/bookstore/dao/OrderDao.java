@@ -26,7 +26,7 @@ public interface OrderDao {
 
     int updateOrderByOrderNoAndPayNo(@Param("out_trade_no")String out_trade_no, @Param("trade_no")String trade_no);
 
-    int updateStatus(int status, Integer id);
+    int updateStatus(@Param("status")int status,@Param("id") Integer id);
 
     List<Integer> findIdsByUserId(Integer userId);
 }

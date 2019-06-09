@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ import java.util.List;
  * @data: 2019/6/1 13:20
  * @description: 订单控制层
  */
-@Controller
+@RestController
 @RequestMapping("/order")
 public class OrderController {
     @Autowired
@@ -39,14 +40,7 @@ public class OrderController {
     @RequestMapping("/list")
     public HashMap<String, Object> listOrder(HttpServletRequest request, Integer pageNo, Integer pageSize){
         HashMap<String, Object> resultMap = new HashMap<>();
-        Integer userId;
-        try{
-            userId = HttpServletRequestUtil.getInt(request, "userId");
-        }catch (NumberFormatException e){
-            resultMap.put("success", false);
-            resultMap.put("msg", "获取用户对象ID异常");
-            return resultMap;
-        }
+        Integer userId = HttpServletRequestUtil.getInt(request, "userId");
         PageInfo<Order> pageInfo = orderService.findUserOrder(userId, pageNo, pageSize);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");

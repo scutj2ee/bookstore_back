@@ -33,7 +33,7 @@ public class AddressController {
      * @Param: null
      */
     @RequestMapping("/list")
-    private HashMap<String, Object> listLeads(HttpServletRequest request, Integer pageNo, Integer pageSize) {
+    private HashMap<String, Object> listAddress(HttpServletRequest request, Integer pageNo, Integer pageSize) {
         HashMap<String, Object> resultMap = new HashMap<>();
         //1.获取前端传递的userId参数
         Integer userId = HttpServletRequestUtil.getInt(request, "userId");
