@@ -75,7 +75,7 @@ CREATE TABLE `book_info` (
   `outline` varchar(255) DEFAULT NULL COMMENT '简介',
   `detail` varchar(500) DEFAULT NULL COMMENT '商品详情',
   `press` varchar(20) DEFAULT NULL COMMENT '出版社',
-  `publish_date` datetime DEFAULT NULL,
+  `publish_date` varchar(50) DEFAULT NULL,
   `size` varchar(10) DEFAULT NULL,
   `version` varchar(10) DEFAULT NULL,
   `author` varchar(100) DEFAULT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE `book_info` (
   `discount` decimal(5,2) DEFAULT NULL,
   `image_url` varchar(100) DEFAULT NULL COMMENT '版面图片',
   `store_mount` int(10) DEFAULT NULL COMMENT '库存数量',
-  `store_time` datetime DEFAULT NULL COMMENT '入库时间',
+  `store_time` varchar(50) DEFAULT NULL COMMENT '入库时间',
   `pack_style` varchar(50) DEFAULT NULL COMMENT '封装方式',
   `is_shelf` int(2) DEFAULT NULL COMMENT '是否上架',
   PRIMARY KEY (`book_id`)
