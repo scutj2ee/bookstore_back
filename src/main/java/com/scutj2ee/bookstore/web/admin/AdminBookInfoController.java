@@ -4,12 +4,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.entity.Address;
 import com.scutj2ee.bookstore.entity.BookInfo;
+import com.scutj2ee.bookstore.enums.SystemErrorEnum;
 import com.scutj2ee.bookstore.exception.SystemException;
 import com.scutj2ee.bookstore.model.dto.BookInfoDto;
 import com.scutj2ee.bookstore.service.BookInfoService;
+import com.scutj2ee.bookstore.utils.FastDFSUtil;
 import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -26,6 +30,8 @@ import java.util.HashMap;
 public class AdminBookInfoController {
     @Autowired
     private BookInfoService bookInfoService;
+    @Autowired
+    private FastDFSUtil fastDFSUtil;
 
     /**
      * create by: Kobe
@@ -60,7 +66,28 @@ public class AdminBookInfoController {
         //1.将前台获取的参数转换成BookInfo对象
         String bookInfoStr = HttpServletRequestUtil.getString(request, "bookInfo");
         ObjectMapper mapper = new ObjectMapper();
-        BookInfo bookInfo = mapper.readValue(bookInfoStr, BookInfo.class);
+        BookInfo bookInfo = null;
+        try {
+            bookInfo = mapper.readValue(bookInfoStr, BookInfo.class);
+            //进行文件的存储
+            MultipartHttpServletRequest params = ((MultipartHttpServletRequest) request);
+            String photoLocation = "";
+            MultipartFile file = params.getFile("photo");
+            if (file != null) {
+                photoLocation = fastDFSUtil.uploadFile(file);
+                if (photoLocation == null) {
+                    resultMap.put("success", false);
+                    resultMap.put("msg", SystemErrorEnum.FILE_EXTENSION_ERROR.getMsg());
+                    return resultMap;
+                }
+                bookInfo.setImageUrl(photoLocation);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("success", false);
+            resultMap.put("msg", SystemErrorEnum.SYSTEM_INNER_ERROR.getMsg());
+            return resultMap;
+        }
         try {
             int result = bookInfoService.create(bookInfo);
             if(result > 0){
