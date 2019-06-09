@@ -5,6 +5,7 @@ import com.scutj2ee.bookstore.entity.Order;
 import com.scutj2ee.bookstore.entity.OrderItem;
 import com.scutj2ee.bookstore.exception.SystemException;
 import com.scutj2ee.bookstore.model.dto.CommentBookDto;
+import com.scutj2ee.bookstore.model.dto.OrderDto;
 import com.scutj2ee.bookstore.service.OrderService;
 import com.scutj2ee.bookstore.utils.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class OrderController {
     public HashMap<String, Object> listOrder(HttpServletRequest request, Integer pageNo, Integer pageSize){
         HashMap<String, Object> resultMap = new HashMap<>();
         Integer userId = HttpServletRequestUtil.getInt(request, "userId");
-        PageInfo<Order> pageInfo = orderService.findUserOrder(userId, pageNo, pageSize);
+        PageInfo<OrderDto> pageInfo = orderService.findUserOrder(userId, pageNo, pageSize);
         resultMap.put("success", true);
         resultMap.put("msg", "获取成功");
         resultMap.put("totalData", pageInfo == null? null : pageInfo.getList());
@@ -76,7 +77,7 @@ public class OrderController {
      * @return 
      */
     @RequestMapping("/submit")
-    public HashMap<String, Object> submit(HttpServletRequest request,@RequestParam List<Integer> cartIdList){
+    public HashMap<String, Object> submit(HttpServletRequest request,@RequestParam(value = "cartIdList[]") List<Integer> cartIdList){
         HashMap<String, Object> resultMap = new HashMap<>();
         Integer userId= HttpServletRequestUtil.getInt(request, "userId");
         Integer addressId= HttpServletRequestUtil.getInt(request, "addressId");

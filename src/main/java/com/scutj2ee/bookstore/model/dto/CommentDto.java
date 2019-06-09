@@ -1,5 +1,6 @@
 package com.scutj2ee.bookstore.model.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Date;
  * @ Description：评论传输类
  * @ Modified By：
  */
-public class CommentDto {
+public class CommentDto implements Serializable {
     private String username;
     private Date date;
     private String content;

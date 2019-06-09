@@ -80,13 +80,13 @@ public class BookParse {
             book.setMarketPrice(Double.valueOf(bookMarketPrice));
             book.setPress(press);
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(publishDate);
-            book.setPublishDate(date);
+            book.setPublishDate("1");
             book.setSize(bookSize);
             book.setPackStyle(bookPackage);
             book.setIsbn(ISBN);
             book.setCatalog(catalog);
             book.setDetail(detail);
-            book.setStoreTime(new Date());
+            book.setStoreTime("1");
             book.setDealMount(0);
             book.setLookMount(0);
             book.setStoreMount(200);

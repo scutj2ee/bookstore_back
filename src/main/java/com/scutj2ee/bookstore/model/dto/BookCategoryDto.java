@@ -2,6 +2,7 @@ package com.scutj2ee.bookstore.model.dto;
 
 import com.scutj2ee.bookstore.entity.BookCategory;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * @ Description：书本类目嵌套类
  * @ Modified By：
  */
-public class BookCategoryDto {
+public class BookCategoryDto implements Serializable {
     /**
      * 类目id
      */

@@ -34,7 +34,7 @@ public class BookInfo implements Serializable {
      * 出版社
      */
     private String press;
-    private Date publishDate;
+    private String publishDate;
     private String size;
     private String version;
     private String author;
@@ -83,7 +83,7 @@ public class BookInfo implements Serializable {
     /**
      * 入库时间
      */
-    private Date storeTime;
+    private String storeTime;
     /**
      * 封装方式
      */
@@ -97,7 +97,7 @@ public class BookInfo implements Serializable {
 
     }
 
-    public BookInfo(Integer bookId, Integer bookCategoryId, BookCategory bookCategory, String name, String outline, String detail, String press, Date publishDate, String size, String version, String author, String translator, String isbn, Double price, Integer pages, String catalog, Double marketPrice, Double memberPrice, Integer dealMount, Integer lookMount, BigDecimal discount, String imageUrl, Integer storeMount, Date storeTime, String packStyle, Integer isShelf) {
+    public BookInfo(Integer bookId, Integer bookCategoryId, BookCategory bookCategory, String name, String outline, String detail, String press, String publishDate, String size, String version, String author, String translator, String isbn, Double price, Integer pages, String catalog, Double marketPrice, Double memberPrice, Integer dealMount, Integer lookMount, BigDecimal discount, String imageUrl, Integer storeMount, String storeTime, String packStyle, Integer isShelf) {
         this.bookId = bookId;
         this.bookCategoryId = bookCategoryId;
         this.bookCategory = bookCategory;
@@ -172,14 +172,6 @@ public class BookInfo implements Serializable {
 
     public void setPress(String press) {
         this.press = press;
-    }
-
-    public Date getPublishDate() {
-        return publishDate;
-    }
-
-    public void setPublishDate(Date publishDate) {
-        this.publishDate = publishDate;
     }
 
     public String getSize() {
@@ -302,11 +294,19 @@ public class BookInfo implements Serializable {
         this.storeMount = storeMount;
     }
 
-    public Date getStoreTime() {
+    public String getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(String publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    public String getStoreTime() {
         return storeTime;
     }
 
-    public void setStoreTime(Date storeTime) {
+    public void setStoreTime(String storeTime) {
         this.storeTime = storeTime;
     }
 

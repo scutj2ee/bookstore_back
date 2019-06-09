@@ -1,13 +1,11 @@
 package com.scutj2ee.bookstore.service;
 
 import com.github.pagehelper.PageInfo;
-import com.scutj2ee.bookstore.entity.BookInfo;
 import com.scutj2ee.bookstore.entity.Order;
 import com.scutj2ee.bookstore.entity.OrderItem;
 import com.scutj2ee.bookstore.model.dto.CommentBookDto;
+import com.scutj2ee.bookstore.model.dto.OrderDto;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -71,7 +69,7 @@ public interface OrderService {
      * @param pageSize
      * @return
      */
-    PageInfo<Order> findUserOrder(Integer userId, Integer pageNo, Integer pageSize);
+    PageInfo<OrderDto> findUserOrder(Integer userId, Integer pageNo, Integer pageSize);
 
     /**
      * @Author Bin Liu

@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.scutj2ee.bookstore.dao.*;
 import com.scutj2ee.bookstore.entity.*;
 import com.scutj2ee.bookstore.model.dto.CommentBookDto;
+import com.scutj2ee.bookstore.model.dto.OrderDto;
 import com.scutj2ee.bookstore.service.OrderService;
 import com.scutj2ee.bookstore.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,12 +81,30 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public PageInfo<Order> findUserOrder(Integer userId, Integer pageNo, Integer pageSize) {
+    public PageInfo<OrderDto> findUserOrder(Integer userId, Integer pageNo, Integer pageSize) {
         pageNo = pageNo == -1 ? 1 : pageNo;
         pageSize = pageSize == -1 ? 10 : pageSize;
-        List<Order> list = orderDao.findByUserId(userId);
+        //创建订单传输类
+        List<OrderDto> list=new ArrayList<>();
+        //获取所有的订单
+        List<Order> orderList = orderDao.findByUserId(userId);
+        for(Order order:orderList){
+            OrderDto orderDto=new OrderDto();
+            orderDto.setId(order.getId());
+            orderDto.setPayment(order.getPayment());
+            orderDto.setStatus(order.getStatus());
+            orderDto.setCreateTime(order.getCreateTime());
+            orderDto.setEndTime(order.getEndTime());
+            orderDto.setAddress(addressDao.findAddressById(order.getAddressId()));
+            //创建书本列表
+            List<BookInfo> bookInfoList=new ArrayList<>();
+            for(OrderItem orderItem:orderItemDao.findByOrderId(order.getId())){
+                bookInfoList.add(bookInfoDao.findBookInfoById(orderItem.getBookId()));
+            }
+            list.add(orderDto);
+        }
         PageHelper.startPage(pageNo, pageSize);
-        PageInfo<Order> pageinfo = new PageInfo<>(list);
+        PageInfo<OrderDto> pageinfo = new PageInfo<>(list);
         return pageinfo;
     }
 

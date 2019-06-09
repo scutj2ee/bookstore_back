@@ -33,10 +33,10 @@ public class BookInfoDaoTest {
         bookInfo.setPages(1);
         bookInfo.setMemberPrice(1.0);
         bookInfo.setIsShelf(1);
-        bookInfo.setStoreTime(new Date());
+        bookInfo.setStoreTime("1");
         bookInfo.setStoreMount(1);
         bookInfo.setSize("1");
-        bookInfo.setPublishDate(new Date());
+        bookInfo.setPublishDate("1");
         bookInfo.setPrice(1.0);
         bookInfo.setPress("1");
         bookInfo.setPackStyle("1");
