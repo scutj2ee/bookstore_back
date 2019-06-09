@@ -101,6 +101,7 @@ public class OrderServiceImpl implements OrderService {
             for(OrderItem orderItem:orderItemDao.findByOrderId(order.getId())){
                 bookInfoList.add(bookInfoDao.findBookInfoById(orderItem.getBookId()));
             }
+            orderDto.setBookInfoList(bookInfoList);
             list.add(orderDto);
         }
         PageHelper.startPage(pageNo, pageSize);
