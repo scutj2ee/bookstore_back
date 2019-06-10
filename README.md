@@ -1,2 +1,3 @@
 # bookstore_back
-BookStore后端代码
+本项目是由springBoot+mybatis+mysql+fastdfs的书店项目
+前端采用vue编写，前后端分离。
